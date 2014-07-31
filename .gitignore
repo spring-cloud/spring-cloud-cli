@@ -7,6 +7,6 @@
 .settings
 .springBeans
 .gradle
-build
-bin
-/target/
+build/
+bin/
+target/
