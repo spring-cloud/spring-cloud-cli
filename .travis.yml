@@ -1,0 +1,7 @@
+language: java
+install: mvn install -q -U -DskipTests=true -Dmaven.test.redirectTestOutputToFile=true
+script: mvn --settings .settings.xml deploy -nsu -Dmaven.test.redirectTestOutputToFile=true
+env:
+  global:
+  - secure: VsSFz5DO1BcI6Q9Hr/216DYLfo4FzZqD7LFZDa1VJqZUAtgy6/c0Z5E0vaIJOefpap/MoAHlNDloIwwtDIqCy4NLIUzzqZwmMeT+1hPdbLylQ61qr6UY34kMBmL00wH83iKZ65Z5FR5yhSjT0sNwfIDwEmt9etEsx64/vPNkcCI=
+  - secure: MThA8XhwSMcL8zv62olufrvYRTecnujimz0qZccjyMrpyZ5A6mWtHnpAIY4nYEoYNu+kAWPceaqO6bKn6wVv1xzP7ddJRxV5MmPkqt2S/WbqS1hp6gkOfclPdqRzz1NjEuAG8qu6m9EEn0NLsHhSfXl3mVz4huD0UUW+2AjUeN8=
