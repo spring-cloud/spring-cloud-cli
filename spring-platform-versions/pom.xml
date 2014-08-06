@@ -35,6 +35,11 @@
 			<artifactId>spring-platform-starter-hystrix</artifactId>
             <version>${project.version}</version>
 		</dependency>
+          <dependency>
+              <groupId>org.springframework.platform</groupId>
+              <artifactId>spring-platform-starter-zuul</artifactId>
+              <version>${project.version}</version>
+          </dependency>
       </dependencies>
 	</dependencyManagement>
 	<build>
