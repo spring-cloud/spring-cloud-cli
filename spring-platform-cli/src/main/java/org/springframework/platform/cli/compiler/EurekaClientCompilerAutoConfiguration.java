@@ -35,14 +35,19 @@ public class EurekaClientCompilerAutoConfiguration extends CompilerAutoConfigura
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
-		dependencies
-				.ifAnyMissingClasses("org.springframework.platform.netflix.eureka.EnableEurekaClient")
-				.add("spring-platform-starter-eureka");
+		dependencies.ifAnyMissingClasses(
+				"org.springframework.platform.netflix.eureka.EnableEurekaClient").add(
+				"spring-platform-starter-eureka");
 	}
-	
+
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports("org.springframework.platform.netflix.eureka.EnableEurekaClient", "com.netflix.discovery.DiscoveryClient");
+		imports.addImports(
+				"org.springframework.platform.netflix.eureka.EnableEurekaClient",
+				"org.springframework.platform.netflix.eureka.EurekaInstanceConfigBean",
+				"org.springframework.platform.netflix.eureka.EurekaClientConfigBean",
+				"com.netflix.discovery.DiscoveryClient",
+				"com.netflix.appinfo.InstanceInfo");
 	}
 
 }
