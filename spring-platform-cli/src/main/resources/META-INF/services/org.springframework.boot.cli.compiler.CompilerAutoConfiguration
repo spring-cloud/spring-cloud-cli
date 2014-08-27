@@ -1,5 +1,6 @@
 org.springframework.platform.cli.compiler.SpringPlatformCompilerAutoConfiguration
 org.springframework.platform.cli.compiler.ConfigServerCompilerAutoConfiguration
+org.springframework.platform.cli.compiler.CloudfoundrySsoCompilerAutoConfiguration
 org.springframework.platform.cli.compiler.EurekaClientCompilerAutoConfiguration
 org.springframework.platform.cli.compiler.HystrixCompilerAutoConfiguration
 org.springframework.platform.cli.compiler.ZuulCompilerAutoConfiguration
