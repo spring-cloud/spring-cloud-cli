@@ -6,10 +6,10 @@
 		<artifactId>spring-cloud-cli-parent</artifactId>
 		<version>1.0.0.BUILD-SNAPSHOT</version>
 	</parent>
-	<artifactId>spring-cloud-components-versions</artifactId>
+	<artifactId>spring-cloud-versions</artifactId>
 	<packaging>pom</packaging>
-	<name>Spring Cloud Components Versions</name>
-	<description>Spring Cloud Components Versions Property File</description>
+	<name>Spring Cloud Versions</name>
+	<description>Spring Cloud Versions Property File</description>
 	<url>http://projects.spring.io/spring-boot/</url>
 	<organization>
 		<name>Pivotal Software, Inc.</name>
@@ -69,7 +69,7 @@
 							<goal>effective-pom</goal>
 						</goals>
 						<configuration>
-							<output>${project.build.directory}/effective-pom/spring-cloud-components-versions.xml</output>
+							<output>${project.build.directory}/effective-pom/spring-cloud-versions.xml</output>
 						</configuration>
 					</execution>
 				</executions>
@@ -113,11 +113,11 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>${project.build.directory}/generated-resources/spring-cloud-components-versions.properties</file>
+									<file>${project.build.directory}/generated-resources/spring-cloud-versions.properties</file>
 									<type>properties</type>
 								</artifact>
 								<artifact>
-									<file>${project.build.directory}/effective-pom/spring-cloud-components-versions.xml</file>
+									<file>${project.build.directory}/effective-pom/spring-cloud-versions.xml</file>
 									<type>effective-pom</type>
 								</artifact>
 							</artifacts>

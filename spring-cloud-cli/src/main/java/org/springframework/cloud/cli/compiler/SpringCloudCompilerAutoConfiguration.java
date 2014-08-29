@@ -35,7 +35,7 @@ import org.springframework.boot.dependency.tools.PropertiesFileDependencies;
  * @author Dave Syer
  *
  */
-public class SpringPlatformCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
@@ -45,7 +45,7 @@ public class SpringPlatformCompilerAutoConfiguration extends CompilerAutoConfigu
 				"spring-boot-starter-actuator");
 		dependencies
 				.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
-				.add("spring-platform-config-client");
+				.add("spring-cloud-config-client");
 	}
 
 	private void addManagedDependencies(DependencyCustomizer dependencies) {
@@ -59,7 +59,7 @@ public class SpringPlatformCompilerAutoConfiguration extends CompilerAutoConfigu
 	}
 
 	private List<Dependencies> getAdditionalDependencies() {
-		String[] components = "org.springframework.cloud:spring-platform-components-versions:1.0.0.BUILD-SNAPSHOT"
+		String[] components = "org.springframework.cloud:spring-cloud-versions:1.0.0.BUILD-SNAPSHOT"
 				.split(":");
 		Map<String, String> dependency;
 		dependency = new HashMap<String, String>();

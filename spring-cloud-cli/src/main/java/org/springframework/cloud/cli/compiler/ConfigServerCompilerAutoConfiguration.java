@@ -37,7 +37,7 @@ public class ConfigServerCompilerAutoConfiguration extends CompilerAutoConfigura
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses("org.springframework.cloud.config.server.EnableConfigServer")
-				.add("spring-platform-config-server");
+				.add("spring-cloud-config-server");
 	}
 	
 	@Override
