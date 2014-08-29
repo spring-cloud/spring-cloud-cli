@@ -39,7 +39,7 @@ public class CloudfoundrySsoCompilerAutoConfiguration extends CompilerAutoConfig
 				.ifAnyMissingClasses(
 						"org.springframework.platform.cloudfoundry.sso.EnableCloudfoundrySso")
 				.add("spring-platform-starter-cloudfoundry")
-				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.BUILD-SNAPSHOT");
+				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE");
 	}
 
 	@Override
