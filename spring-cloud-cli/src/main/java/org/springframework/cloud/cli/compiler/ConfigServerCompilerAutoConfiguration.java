@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.platform.cli.compiler;
+package org.springframework.cloud.cli.compiler;
 
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.control.CompilationFailedException;
@@ -26,26 +26,23 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class HystrixCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class ConfigServerCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableHystrix");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableConfigServer");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
-		dependencies.ifAnyMissingClasses(
-				"org.springframework.platform.netflix.hystrix.annotations.EnableHystrix")
-				.add("spring-platform-starter-hystrix");
+		dependencies
+				.ifAnyMissingClasses("org.springframework.cloud.config.server.EnableConfigServer")
+				.add("spring-platform-config-server");
 	}
-
+	
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports(
-				"org.springframework.platform.netflix.hystrix.annotations.EnableHystrix",
-				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser",
-				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand");
+		imports.addImports("org.springframework.cloud.config.server.EnableConfigServer");
 	}
 
 }

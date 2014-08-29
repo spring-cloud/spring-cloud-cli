@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.platform.cli.compiler;
+package org.springframework.cloud.cli.compiler;
 
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.control.CompilationFailedException;
@@ -26,18 +26,18 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class CloudfoundryResourceCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class CloudfoundrySsoCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableCloudfoundryResource");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableCloudfoundrySso");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses(
-						"org.springframework.platform.cloudfoundry.resource.EnableCloudfoundryResource")
+						"org.springframework.cloud.cloudfoundry.sso.EnableCloudfoundrySso")
 				.add("spring-platform-starter-cloudfoundry")
 				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE");
 	}
@@ -45,8 +45,8 @@ public class CloudfoundryResourceCompilerAutoConfiguration extends CompilerAutoC
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.platform.cloudfoundry.resource.EnableCloudfoundryResource",
-				"org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter");
+				"org.springframework.cloud.cloudfoundry.sso.EnableCloudfoundrySso",
+				"org.springframework.cloud.cloudfoundry.sso.CloudfoundrySsoConfigurerAdapter");
 	}
 
 }

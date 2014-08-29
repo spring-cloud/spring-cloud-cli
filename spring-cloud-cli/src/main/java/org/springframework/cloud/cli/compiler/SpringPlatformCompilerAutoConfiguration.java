@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.platform.cli.compiler;
+package org.springframework.cloud.cli.compiler;
 
 import groovy.grape.Grape;
 
@@ -44,7 +44,7 @@ public class SpringPlatformCompilerAutoConfiguration extends CompilerAutoConfigu
 				"org.springframework.boot.actuate.endpoint.EnvironmentEndpoint").add(
 				"spring-boot-starter-actuator");
 		dependencies
-				.ifAnyMissingClasses("org.springframework.platform.config.Environment")
+				.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
 				.add("spring-platform-config-client");
 	}
 
@@ -59,7 +59,7 @@ public class SpringPlatformCompilerAutoConfiguration extends CompilerAutoConfigu
 	}
 
 	private List<Dependencies> getAdditionalDependencies() {
-		String[] components = "org.springframework.platform:spring-platform-components-versions:1.0.0.BUILD-SNAPSHOT"
+		String[] components = "org.springframework.cloud:spring-platform-components-versions:1.0.0.BUILD-SNAPSHOT"
 				.split(":");
 		Map<String, String> dependency;
 		dependency = new HashMap<String, String>();

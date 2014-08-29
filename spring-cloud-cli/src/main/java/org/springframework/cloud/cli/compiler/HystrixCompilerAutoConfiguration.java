@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.platform.cli.compiler;
+package org.springframework.cloud.cli.compiler;
 
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.control.CompilationFailedException;
@@ -26,28 +26,26 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class EurekaClientCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class HystrixCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableEurekaClient");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableHystrix");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.platform.netflix.eureka.EnableEurekaClient").add(
-				"spring-platform-starter-eureka");
+				"org.springframework.cloud.netflix.hystrix.annotations.EnableHystrix")
+				.add("spring-platform-starter-hystrix");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.platform.netflix.eureka.EnableEurekaClient",
-				"org.springframework.platform.netflix.eureka.EurekaInstanceConfigBean",
-				"org.springframework.platform.netflix.eureka.EurekaClientConfigBean",
-				"com.netflix.discovery.DiscoveryClient",
-				"com.netflix.appinfo.InstanceInfo");
+				"org.springframework.cloud.netflix.hystrix.annotations.EnableHystrix",
+				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser",
+				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand");
 	}
 
 }

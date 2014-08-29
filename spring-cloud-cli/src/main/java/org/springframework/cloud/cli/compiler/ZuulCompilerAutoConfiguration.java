@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.platform.cli.compiler;
+package org.springframework.cloud.cli.compiler;
 
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.control.CompilationFailedException;
@@ -26,27 +26,23 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class CloudfoundrySsoCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class ZuulCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableCloudfoundrySso");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableZuulProxy");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
-				.ifAnyMissingClasses(
-						"org.springframework.platform.cloudfoundry.sso.EnableCloudfoundrySso")
-				.add("spring-platform-starter-cloudfoundry")
-				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE");
+				.ifAnyMissingClasses("org.springframework.cloud.netflix.zuul.EnableZuulProxy")
+				.add("spring-platform-starter-zuul");
 	}
-
+	
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports(
-				"org.springframework.platform.cloudfoundry.sso.EnableCloudfoundrySso",
-				"org.springframework.platform.cloudfoundry.sso.CloudfoundrySsoConfigurerAdapter");
+		imports.addImports("org.springframework.cloud.netflix.zuul.EnableZuulProxy");
 	}
 
 }
