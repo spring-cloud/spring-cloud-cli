@@ -7,12 +7,12 @@
 		<version>1.1.5.RELEASE</version>
 		<relativePath/>
 	</parent>
-	<groupId>org.springframework.platform</groupId>
-	<artifactId>spring-platform-cli-parent</artifactId>
+	<groupId>org.springframework.cloud</groupId>
+	<artifactId>spring-cloud-cli-parent</artifactId>
 	<version>1.0.0.BUILD-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>Spring Platform Cli Parent</name>
-	<description>Spring Platform Cli</description>
+	<name>Spring Cloud Cli Parent</name>
+	<description>Spring Cloud Cli</description>
 	<url>http://projects.spring.io/spring-boot/</url>
 	<organization>
 		<name>Pivotal Software, Inc.</name>
@@ -22,21 +22,21 @@
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 	<modules>
-		<module>spring-platform-versions</module>
-		<module>spring-platform-cli</module>
+		<module>spring-cloud-versions</module>
+		<module>spring-cloud-cli</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>org.springframework.platform</groupId>
-				<artifactId>spring-platform-config</artifactId>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-config</artifactId>
 				<version>1.0.0.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
-				<groupId>org.springframework.platform</groupId>
-				<artifactId>spring-platform-netflix</artifactId>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-netflix</artifactId>
 				<version>1.0.0.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>

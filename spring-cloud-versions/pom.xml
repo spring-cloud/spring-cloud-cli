@@ -2,14 +2,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.platform</groupId>
-		<artifactId>spring-platform-cli-parent</artifactId>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-cli-parent</artifactId>
 		<version>1.0.0.BUILD-SNAPSHOT</version>
 	</parent>
-	<artifactId>spring-platform-components-versions</artifactId>
+	<artifactId>spring-cloud-components-versions</artifactId>
 	<packaging>pom</packaging>
-	<name>Spring Platform Components Versions</name>
-	<description>Spring Platform Components Versions Property File</description>
+	<name>Spring Cloud Components Versions</name>
+	<description>Spring Cloud Components Versions Property File</description>
 	<url>http://projects.spring.io/spring-boot/</url>
 	<organization>
 		<name>Pivotal Software, Inc.</name>
@@ -21,28 +21,28 @@
 	<dependencyManagement>
       <dependencies>
 		<dependency>
-			<groupId>org.springframework.platform</groupId>
-			<artifactId>spring-platform-starter</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter</artifactId>
             <version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.platform</groupId>
-			<artifactId>spring-platform-starter-cloudfoundry</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-cloudfoundry</artifactId>
             <version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.platform</groupId>
-			<artifactId>spring-platform-starter-eureka</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
             <version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.platform</groupId>
-			<artifactId>spring-platform-starter-hystrix</artifactId>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-hystrix</artifactId>
             <version>${project.version}</version>
 		</dependency>
           <dependency>
-              <groupId>org.springframework.platform</groupId>
-              <artifactId>spring-platform-starter-zuul</artifactId>
+              <groupId>org.springframework.cloud</groupId>
+              <artifactId>spring-cloud-starter-zuul</artifactId>
               <version>${project.version}</version>
           </dependency>
           <dependency>
@@ -69,7 +69,7 @@
 							<goal>effective-pom</goal>
 						</goals>
 						<configuration>
-							<output>${project.build.directory}/effective-pom/spring-platform-components-versions.xml</output>
+							<output>${project.build.directory}/effective-pom/spring-cloud-components-versions.xml</output>
 						</configuration>
 					</execution>
 				</executions>
@@ -113,11 +113,11 @@
 						<configuration>
 							<artifacts>
 								<artifact>
-									<file>${project.build.directory}/generated-resources/spring-platform-components-versions.properties</file>
+									<file>${project.build.directory}/generated-resources/spring-cloud-components-versions.properties</file>
 									<type>properties</type>
 								</artifact>
 								<artifact>
-									<file>${project.build.directory}/effective-pom/spring-platform-components-versions.xml</file>
+									<file>${project.build.directory}/effective-pom/spring-cloud-components-versions.xml</file>
 									<type>effective-pom</type>
 								</artifact>
 							</artifacts>
