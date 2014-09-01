@@ -45,7 +45,7 @@ public class OAuth2ResourceCompilerAutoConfiguration extends CompilerAutoConfigu
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.cloud.cloudfoundry.resource.EnableCloudfoundryResource",
+				"org.springframework.cloud.cloudfoundry.resource.EnableOAuth2Resource",
 				"org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter");
 	}
 
