@@ -26,18 +26,18 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class CloudfoundryResourceCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class OAuth2ResourceCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableCloudfoundryResource");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableOAuth2Resource");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses(
-						"org.springframework.cloud.cloudfoundry.resource.EnableCloudfoundryResource")
+						"org.springframework.cloud.cloudfoundry.resource.EnableOAuth2Resource")
 				.add("spring-cloud-starter-cloudfoundry")
 				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE");
 	}
