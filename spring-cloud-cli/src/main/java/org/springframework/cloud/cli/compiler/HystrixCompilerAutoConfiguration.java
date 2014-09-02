@@ -36,14 +36,14 @@ public class HystrixCompilerAutoConfiguration extends CompilerAutoConfiguration 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.cloud.netflix.hystrix.annotations.EnableHystrix")
+				"org.springframework.cloud.netflix.hystrix.EnableHystrix")
 				.add("spring-cloud-starter-hystrix");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.cloud.netflix.hystrix.annotations.EnableHystrix",
+				"org.springframework.cloud.netflix.hystrix.EnableHystrix",
 				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser",
 				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand");
 	}
