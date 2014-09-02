@@ -30,7 +30,7 @@ public class OAuth2SsoCompilerAutoConfiguration extends CompilerAutoConfiguratio
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableOAuth2Sso","EnableCloudfoundrySso");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableOAuth2Sso");
 	}
 
 	@Override
@@ -39,13 +39,12 @@ public class OAuth2SsoCompilerAutoConfiguration extends CompilerAutoConfiguratio
 				.ifAnyMissingClasses(
 						"org.springframework.cloud.cloudfoundry.sso.EnableOAuth2Sso")
 				.add("spring-cloud-starter-cloudfoundry")
-				.add("org.springframework.security.oauth:spring-security-oauth2:2.0.3.RELEASE");
+				.add("spring-security-oauth2");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.cloud.cloudfoundry.sso.EnableCloudfoundrySso",
 				"org.springframework.cloud.cloudfoundry.sso.EnableOAuth2Sso",
 				"org.springframework.cloud.cloudfoundry.sso.OAuth2SsoConfigurerAdapter");
 	}
