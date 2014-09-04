@@ -3,6 +3,7 @@ org.springframework.cloud.cli.compiler.ConfigServerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.OAuth2ResourceCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.OAuth2SsoCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.EurekaClientCompilerAutoConfiguration
+org.springframework.cloud.cli.compiler.EurekaServerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.HystrixCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.HystrixDashboardCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.ZuulCompilerAutoConfiguration
