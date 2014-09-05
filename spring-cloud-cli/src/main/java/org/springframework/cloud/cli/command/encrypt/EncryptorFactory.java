@@ -18,7 +18,6 @@ package org.springframework.cloud.cli.command.encrypt;
 import org.springframework.boot.cli.util.Log;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
-import org.springframework.security.rsa.crypto.ExtendedKeyHelper;
 import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
 
 /**
@@ -56,7 +55,7 @@ public class EncryptorFactory {
 				Log.info("Trying public key");
 			}
 			try {
-				encryptor = new RsaSecretEncryptor(ExtendedKeyHelper.parsePublicKey(data));
+				encryptor = new RsaSecretEncryptor(data);
 			}
 			catch (IllegalArgumentException e) {
 				if (verbose) {

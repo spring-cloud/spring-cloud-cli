@@ -13,16 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.security.rsa.crypto;
+package org.springframework.cloud.cli.command.encrypt;
 
-import java.security.interfaces.RSAPublicKey;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+import org.springframework.boot.cli.command.status.ExitStatus;
+
 
 /**
  * @author Dave Syer
  *
  */
-public class ExtendedKeyHelper extends RsaKeyHelper {
-	public static RSAPublicKey parsePublicKey(String key) {
-		return RsaKeyHelper.parsePublicKey(key);
+public class EncryptCommandTests {
+	
+	private EncryptCommand command = new EncryptCommand();
+	
+	@Test
+	public void encryptsFromSymmetricKey() throws Exception {
+		assertEquals(ExitStatus.OK, command.run("-k", "deadbeef", "foo"));
 	}
+
+	@Test(expected=IllegalStateException.class)
+	public void failsWithBadFile() throws Exception {
+		assertEquals(ExitStatus.OK, command.run("-k", "@nosuchfile", "foo"));
+	}
+
 }
