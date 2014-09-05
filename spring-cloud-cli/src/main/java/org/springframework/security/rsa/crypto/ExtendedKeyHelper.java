@@ -13,23 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.springframework.cloud.cli.command;
+package org.springframework.security.rsa.crypto;
 
-import java.util.Collection;
-import java.util.Collections;
-
-import org.springframework.boot.cli.command.Command;
-import org.springframework.boot.cli.command.CommandFactory;
+import java.security.interfaces.RSAPublicKey;
 
 /**
  * @author Dave Syer
  *
  */
-public class EncryptCommand implements CommandFactory {
-
-	@Override
-	public Collection<Command> getCommands() {
-		return Collections.emptySet();
+public class ExtendedKeyHelper extends RsaKeyHelper {
+	public static RSAPublicKey parsePublicKey(String key) {
+		return RsaKeyHelper.parsePublicKey(key);
 	}
-
 }
