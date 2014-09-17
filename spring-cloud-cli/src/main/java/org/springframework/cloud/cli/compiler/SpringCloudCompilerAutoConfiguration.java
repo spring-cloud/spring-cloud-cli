@@ -24,6 +24,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.eclipse.aether.graph.Dependency;
 import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
@@ -46,6 +48,11 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		dependencies
 				.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
 				.add("spring-cloud-config-client");
+	}
+
+	@Override
+	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
+		imports.addImports("org.springframework.cloud.context.config.annotation.RefreshScope");
 	}
 
 	private void addManagedDependencies(DependencyCustomizer dependencies) {
