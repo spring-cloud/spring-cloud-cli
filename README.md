@@ -7,8 +7,28 @@ sure you have
     $ spring version
     Spring CLI v1.1.5.RELEASE
 
-Then build the jar file in this project and copy it to the lib
-directory in your CLI. E.g. for GVM users
+E.g. for GVM users
 
-    $ mvn install
-    $ cp spring-cloud-cli/target/*.jar ~/.gvm/springboot/1.1.5.RELEASE/lib
+```
+$ gvm install springboot 1.1.5.RELEASE
+$ gvm use springboot 1.1.5.RELEASE
+```
+
+then get the install command plugin (backported from Boot 1.2.0):
+
+```
+$ wget http://dl.bintray.com/dsyer/generic/install-0.0.1.jar
+```
+
+install it in the Spring Boot CLI, e.g. with GVM (MacOS users that rely on brew might have to find the `/lib` directory by scanning `brew info springboot`):
+
+```
+$ cp install-0.0.1.jar ~/.gvm/springboot/1.1.5.RELEASE/lib
+```
+
+and finally install the Spring Cloud plugin:
+
+```
+$ mvn install
+$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT
+```
