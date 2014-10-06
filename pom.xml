@@ -25,6 +25,7 @@
 	<modules>
 		<module>spring-cloud-versions</module>
 		<module>spring-cloud-cli</module>
+		<module>docs</module>
 	</modules>
 	<dependencyManagement>
 		<dependencies>
@@ -44,28 +45,4 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-    <profiles>
-		<profile>
-			<id>docs</id>
-            <build>
-               <plugins>
-		        <plugin>
-		          <groupId>org.asciidoctor</groupId>
-		          <artifactId>asciidoctor-maven-plugin</artifactId>
-                  <inherited>false</inherited>
-                </plugin>
-			    <plugin>
-				  <groupId>org.apache.maven.plugins</groupId>
-				  <artifactId>maven-antrun-plugin</artifactId>
-                  <inherited>false</inherited>
-                </plugin>
- 				<plugin>
-				  <groupId>org.codehaus.mojo</groupId>
-				  <artifactId>build-helper-maven-plugin</artifactId>
-                  <inherited>false</inherited>
-                </plugin>
-              </plugins>
-            </build>
-		</profile>
-    </profiles>
 </project>
