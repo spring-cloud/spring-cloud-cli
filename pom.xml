@@ -14,10 +14,12 @@
 	<name>Spring Cloud Cli Parent</name>
 	<description>Spring Cloud Cli</description>
 	<url>http://projects.spring.io/spring-boot/</url>
-	<organization>
-		<name>Pivotal Software, Inc.</name>
-		<url>http://www.spring.io</url>
-	</organization>
+	<scm>
+		<url>https://github.com/spring-cloud/spring-cloud-cli</url>
+		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-cli.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-cli.git</developerConnection>
+		<tag>HEAD</tag>
+	</scm>
 	<properties>
         <docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
