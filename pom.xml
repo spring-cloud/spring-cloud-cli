@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-cli-parent</artifactId>
-	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<version>1.0.0.M1</version>
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-build</artifactId>
-		<version>1.0.0.BUILD-SNAPSHOT</version>
-		<relativePath/>
+		<version>1.0.0.M1</version>
+		<relativePath />
 	</parent>
 	<packaging>pom</packaging>
 	<name>Spring Cloud Cli Parent</name>
@@ -18,7 +18,7 @@
 		<url>https://github.com/spring-cloud/spring-cloud-cli</url>
 		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-cli.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-cli.git</developerConnection>
-		<tag>HEAD</tag>
+		<tag>1.0.0.M1</tag>
 	</scm>
 	<properties>
         <docs.main>spring-cloud-cli</docs.main>
@@ -34,14 +34,14 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-config</artifactId>
-				<version>1.0.0.BUILD-SNAPSHOT</version>
+				<version>1.0.0.M1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-netflix</artifactId>
-				<version>1.0.0.BUILD-SNAPSHOT</version>
+				<version>1.0.0.M1</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
