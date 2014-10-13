@@ -1,4 +1,4 @@
-= Spring Boot CLoud CLI
+= Spring Boot Cloud CLI
 
 include::intro.adoc[]
 
