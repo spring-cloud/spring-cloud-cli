@@ -9,7 +9,7 @@ eureka:
     waitTimeInMsWhenSyncEmpty: 1000
   client:
     serviceUrl:
-      defaultZone: http://localhost:8080/eureka/api/
-      default.defaultZone: http://localhost:8080/eureka/api/
+      defaultZone: http://localhost:8080/eureka/
+      default.defaultZone: http://localhost:8080/eureka/
     registerWithEureka: false
     fetchRegistry: false
