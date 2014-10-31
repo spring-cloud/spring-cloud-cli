@@ -15,7 +15,6 @@
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-cli-parent</artifactId>
 		<version>1.0.0.BUILD-SNAPSHOT</version>
-		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 
 	<dependencies>
