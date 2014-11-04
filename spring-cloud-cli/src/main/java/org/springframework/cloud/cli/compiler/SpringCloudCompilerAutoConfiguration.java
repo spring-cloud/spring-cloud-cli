@@ -66,7 +66,7 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 	}
 
 	private List<Dependencies> getAdditionalDependencies() {
-		String[] components = "org.springframework.cloud:spring-cloud-versions:1.0.0.BUILD-SNAPSHOT"
+		String[] components = "org.springframework.cloud:spring-cloud-versions:1.0.0.M2"
 				.split(":");
 		Map<String, String> dependency;
 		dependency = new HashMap<String, String>();
