@@ -1,0 +1,92 @@
+---
+# The name of your project
+title: Spring Cloud CLI
+
+badges:
+
+  # Specify your project's twitter handle, if any. Delete if none.
+  # twitter: SpringData
+
+  # Customize your project's badges. Delete any entries that do not apply.
+  custom:
+    - name: Source (GitHub)
+      url:  https://github.com/spring-cloud/spring-cloud-cli
+      icon: github
+
+    - name: StackOverflow
+      url:  http://stackoverflow.com/questions/tagged/spring-cloud
+      icon: stackoverflow
+
+---
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<!-- Specify the parent of this project (or delete if none) to influence the rendering of the breadcrumb -->
+{% capture parent_link %}
+[Spring Parent]({{ site.projects_site_url }}/spring-cloud)
+{% endcapture %}
+
+
+{% capture billboard_description %}
+
+Spring Cloud CLI is a set of extensions for the
+[Spring Boot CLI](http://docs.spring.io/spring-boot) making it possible
+to write Spring Cloud apps in Groovy scripts and run them from a
+shell. Auto-imports and dependency management is provided for all
+Spring Cloud projects.
+
+{% endcapture %}
+
+{% capture main_content %}
+
+<span id="quick-start"></span>
+## Quick Start
+
+Any Spring Boot CLI app with the Cloud CLI extensions installed will
+be a Spring Cloud Config Client, so set the `spring.cloud.config.uri`
+to point to a Config Server and you are in business (defaults to
+"http://localhost:8888").
+
+Here's a complete Eureka Server:
+
+```groovy
+@EnableEurekaServer
+@RestController
+class Eureka {}
+```
+
+To install the CLI, make
+sure you have
+[Spring Boot CLI](https://github.com/spring-projects/spring-boot)
+(1.2.0.RC1 or better):
+
+    $ spring version
+    Spring CLI v1.2.0.RC1
+
+E.g. for GVM users
+
+```
+$ gvm install springboot 1.2.0.RC1
+$ gvm use springboot 1.2.0.RC1
+```
+
+and install the Spring Cloud plugin:
+
+```
+$ mvn install
+$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT
+```
+
+{% endcapture %}
+
+{% capture related_resources %}
+
+### Sample Projects
+
+* [Minimal (Groovy) Client](https://github.com/spring-cloud-samples/scripts/blob/master/demo/client.groovy)
+
+{% endcapture %}
+
+
+{% include project_page.html %}
+</html>
