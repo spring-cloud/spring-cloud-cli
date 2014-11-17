@@ -9,6 +9,7 @@
 .gradle
 build/
 bin/
+_site/
 target/
 .idea
 *.iml
