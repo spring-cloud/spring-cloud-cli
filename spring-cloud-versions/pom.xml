@@ -11,7 +11,7 @@
 	<packaging>pom</packaging>
 	<name>Spring Cloud Versions</name>
 	<description>Spring Cloud Versions Property File</description>
-	<url>http://projects.spring.io/spring-boot/</url>
+	<url>http://projects.spring.io/spring-cloud/</url>
 	<organization>
 		<name>Pivotal Software, Inc.</name>
 		<url>http://www.spring.io</url>
