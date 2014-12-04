@@ -30,20 +30,20 @@ public class EurekaClientCompilerAutoConfiguration extends CompilerAutoConfigura
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableEurekaClient");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableDiscoveryClient");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.cloud.netflix.eureka.EnableEurekaClient").add(
+				"org.springframework.cloud.netflix.eureka.EnableDiscoveryClient").add(
 				"spring-cloud-starter-eureka");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.cloud.netflix.eureka.EnableEurekaClient",
+				"org.springframework.cloud.client.discovery.EnableDiscoveryClient",
 				"org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean",
 				"org.springframework.cloud.netflix.eureka.EurekaClientConfigBean",
 				"com.netflix.discovery.DiscoveryClient",

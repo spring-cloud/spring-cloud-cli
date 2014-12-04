@@ -30,20 +30,20 @@ public class HystrixCompilerAutoConfiguration extends CompilerAutoConfiguration 
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableHystrix");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableCircuitBreaker");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.cloud.netflix.hystrix.EnableHystrix")
+				"org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker")
 				.add("spring-cloud-starter-hystrix");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports(
-				"org.springframework.cloud.netflix.hystrix.EnableHystrix",
+				"org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker",
 				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCollapser",
 				"com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand");
 	}
