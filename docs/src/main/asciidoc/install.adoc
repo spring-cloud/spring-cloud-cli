@@ -4,13 +4,13 @@ https://github.com/spring-projects/spring-boot[Spring Boot CLI]
 (1.2.0.RC1 or better):
 
     $ spring version
-    Spring CLI v1.2.0.RC1
+    Spring CLI v1.2.0.RELEASE
 
 E.g. for GVM users
 
 ```
-$ gvm install springboot 1.2.0.RC1
-$ gvm use springboot 1.2.0.RC1
+$ gvm install springboot 1.2.0.RELEASE
+$ gvm use springboot 1.2.0.RELEASE
 ```
 
 and install the Spring Cloud plugin:
