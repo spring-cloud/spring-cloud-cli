@@ -17,5 +17,5 @@ and install the Spring Cloud plugin:
 
 ```
 $ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT
+$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.RC1
 ```
