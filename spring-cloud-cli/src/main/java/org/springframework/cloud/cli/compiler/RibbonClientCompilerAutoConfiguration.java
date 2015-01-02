@@ -26,28 +26,32 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class EurekaClientCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class RibbonClientCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableDiscoveryClient");
+		return AstUtils.hasAtLeastOneAnnotation(classNode, "RibbonClient");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.cloud.client.discovery.EnableDiscoveryClient").add(
-				"spring-cloud-starter-eureka");
+				"org.springframework.cloud.netflix.ribbon.RibbonClient").add(
+				"spring-cloud-starter-ribbon", "spring-web");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports(
-				"org.springframework.cloud.client.discovery.EnableDiscoveryClient",
-				"org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean",
-				"org.springframework.cloud.netflix.eureka.EurekaClientConfigBean",
-				"org.springframework.cloud.client.discovery.DiscoveryClient",
-				"org.springframework.cloud.client.ServiceInstance");
+		imports.addImports("org.springframework.cloud.netflix.ribbon.RibbonClient",
+				"org.springframework.cloud.client.loadbalancer.LoadBalancerClient",
+				"org.springframework.web.client.RestTemplate",
+				"com.netflix.client.config.DefaultClientConfigImpl",
+				"com.netflix.client.config.IClientConfig",
+				"com.netflix.loadbalancer.DynamicServerListLoadBalancer",
+				"com.netflix.loadbalancer.ILoadBalancer",
+				"com.netflix.loadbalancer.Server", "com.netflix.loadbalancer.ServerList",
+				"com.netflix.loadbalancer.ServerListFilter",
+				"com.netflix.niws.client.http.RestClient");
 	}
 
 }
