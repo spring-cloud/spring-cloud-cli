@@ -36,7 +36,7 @@ public class EurekaClientCompilerAutoConfiguration extends CompilerAutoConfigura
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.cloud.netflix.eureka.EnableDiscoveryClient").add(
+				"org.springframework.cloud.client.discovery.EnableDiscoveryClient").add(
 				"spring-cloud-starter-eureka");
 	}
 
