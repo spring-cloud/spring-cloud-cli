@@ -429,12 +429,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <p>To install, make
 sure you have
 <a href="https://github.com/spring-projects/spring-boot">Spring Boot CLI</a>
-(1.2.0.RC1 or better):</p>
+(1.2.0 or better):</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>$ spring version
-Spring CLI v1.2.0.RELEASE</pre>
+Spring CLI v1.2.1.RELEASE</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -442,8 +442,8 @@ Spring CLI v1.2.0.RELEASE</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ gvm install springboot 1.2.0.RELEASE
-$ gvm use springboot 1.2.0.RELEASE</code></pre>
+<pre class="highlight"><code>$ gvm install springboot 1.2.1.RELEASE
+$ gvm use springboot 1.2.1.RELEASE</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -452,7 +452,26 @@ $ gvm use springboot 1.2.0.RELEASE</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.RC2</code></pre>
+$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_encryption_and_decryption">Encryption and Decryption</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Important</div>
+</td>
+<td class="content">
+<strong>Prerequisites:</strong> to use the encryption and decryption features
+you need the full-strength JCE installed in your JVM (it&#8217;s not there by default).
+You can download the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
+from Oracle, and follow instructions for installation (essentially replace the 2 policy files
+in the JRE lib/security directory with the ones that you downloaded).
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -460,7 +479,7 @@ $ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.RC2</code></pr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-01-29 15:27:29 UTC
+Last updated 2015-02-02 11:05:05 UTC
 </div>
 </div>
 </body>
