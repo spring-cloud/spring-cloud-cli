@@ -11,16 +11,16 @@ https://github.com/spring-cloud[Spring Cloud].
 To install, make
 sure you have
 https://github.com/spring-projects/spring-boot[Spring Boot CLI]
-(1.2.0.RC1 or better):
+(1.2.0 or better):
 
     $ spring version
-    Spring CLI v1.2.0.RELEASE
+    Spring CLI v1.2.1.RELEASE
 
 E.g. for GVM users
 
 ```
-$ gvm install springboot 1.2.0.RELEASE
-$ gvm use springboot 1.2.0.RELEASE
+$ gvm install springboot 1.2.1.RELEASE
+$ gvm use springboot 1.2.1.RELEASE
 ```
 
 and install the Spring Cloud plugin:
@@ -29,6 +29,14 @@ and install the Spring Cloud plugin:
 $ mvn install
 $ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT
 ```
+
+=== Encryption and Decryption
+
+IMPORTANT: **Prerequisites:** to use the encryption and decryption features
+you need the full-strength JCE installed in your JVM (it's not there by default).
+You can download the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
+from Oracle, and follow instructions for installation (essentially replace the 2 policy files
+in the JRE lib/security directory with the ones that you downloaded).
 
 == Building
 
