@@ -31,7 +31,8 @@ import org.springframework.util.StringUtils;
 public class EncryptCommand extends OptionParsingCommand {
 
 	public EncryptCommand() {
-		super("encrypt", "Encrypt a string so, for isntance, it can be added to source control",
+		super("encrypt",
+				"Encrypt a string so, for isntance, it can be added to source control",
 				new EncryptOptionHandler());
 	}
 

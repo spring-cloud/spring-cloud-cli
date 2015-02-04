@@ -66,6 +66,9 @@ class BaseEncryptOptionHandler extends OptionHandler {
 
 	protected TextEncryptor createEncryptor(OptionSet options) {
 		String value = keyOption.value(options);
+		if (value==null) {
+			throw new MissingKeyException();
+		}
 		if (options.has(passwordOption)) { // it's a keystore
 			String password = options.valueOf(passwordOption);
 			String alias = options.valueOf(aliasOption);

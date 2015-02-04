@@ -34,6 +34,11 @@ public class EncryptCommandTests {
 		assertEquals(ExitStatus.OK, command.run("-k", "deadbeef", "foo"));
 	}
 
+	@Test(expected=MissingKeyException.class)
+	public void errorOnNoKey() throws Exception {
+		assertEquals(ExitStatus.ERROR, command.run("foo"));
+	}
+
 	@Test(expected=IllegalStateException.class)
 	public void failsWithBadFile() throws Exception {
 		assertEquals(ExitStatus.OK, command.run("-k", "@nosuchfile", "foo"));
