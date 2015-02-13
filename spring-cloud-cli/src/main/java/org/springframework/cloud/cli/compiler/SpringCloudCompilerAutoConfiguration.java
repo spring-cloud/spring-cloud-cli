@@ -45,8 +45,7 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		dependencies.ifAnyMissingClasses(
 				"org.springframework.boot.actuate.endpoint.EnvironmentEndpoint").add(
 				"spring-boot-starter-actuator");
-		dependencies
-				.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
+		dependencies.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
 				.add("spring-cloud-config-client");
 	}
 
@@ -66,7 +65,8 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 	}
 
 	private List<Dependencies> getAdditionalDependencies() {
-		String[] components = "org.springframework.cloud:spring-cloud-versions:1.0.0.BUILD-SNAPSHOT"
+		String version = getVersion();
+		String[] components = ("org.springframework.cloud:spring-cloud-versions:" + version)
 				.split(":");
 		Map<String, String> dependency;
 		dependency = new HashMap<String, String>();
@@ -89,6 +89,19 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		return managedDependencies;
 	}
 
+	private String getVersion() {
+		try {
+			Package pkg = getClass().getPackage();
+			if (pkg != null) {
+				return pkg.getImplementationVersion();
+			}
+		}
+		catch (Exception e) {
+			// ignore
+		}
+		return "1.0.0.BUILD-SNAPSHOT";
+	}
+
 	static class AetherManagedDependencies implements Dependencies {
 
 		private Map<String, org.springframework.boot.dependency.tools.Dependency> groupAndArtifactToDependency = new HashMap<String, org.springframework.boot.dependency.tools.Dependency>();
@@ -102,10 +115,11 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 				String groupId = dependency.getArtifact().getGroupId();
 				String artifactId = dependency.getArtifact().getArtifactId();
 				String version = dependency.getArtifact().getVersion();
-				
+
 				List<org.springframework.boot.dependency.tools.Dependency.Exclusion> exclusions = new ArrayList<org.springframework.boot.dependency.tools.Dependency.Exclusion>();
-				org.springframework.boot.dependency.tools.Dependency value = new org.springframework.boot.dependency.tools.Dependency(groupId, artifactId, version, exclusions);
-				
+				org.springframework.boot.dependency.tools.Dependency value = new org.springframework.boot.dependency.tools.Dependency(
+						groupId, artifactId, version, exclusions);
+
 				groupAndArtifactToDependency.put(groupId + ":" + artifactId, value);
 				artifactToGroupAndArtifact.put(artifactId, groupId + ":" + artifactId);
 
@@ -122,7 +136,7 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		@Override
 		public org.springframework.boot.dependency.tools.Dependency find(String artifactId) {
 			String groupAndArtifact = artifactToGroupAndArtifact.get(artifactId);
-			if (groupAndArtifact==null) {
+			if (groupAndArtifact == null) {
 				return null;
 			}
 			return groupAndArtifactToDependency.get(groupAndArtifact);
