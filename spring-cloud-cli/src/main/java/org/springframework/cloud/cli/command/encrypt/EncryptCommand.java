@@ -32,7 +32,7 @@ public class EncryptCommand extends OptionParsingCommand {
 
 	public EncryptCommand() {
 		super("encrypt",
-				"Encrypt a string so, for isntance, it can be added to source control",
+				"Encrypt a string so, for instance, it can be added to source control",
 				new EncryptOptionHandler());
 	}
 
