@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-cli-parent</artifactId>
-	<version>1.0.0.BUILD-SNAPSHOT</version>
+	<version>1.0.1.BUILD-SNAPSHOT</version>
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-build</artifactId>
-		<version>1.0.0.BUILD-SNAPSHOT</version>
+		<version>1.0.1.BUILD-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 	<packaging>pom</packaging>
@@ -34,14 +34,14 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-config</artifactId>
-				<version>1.0.0.BUILD-SNAPSHOT</version>
+				<version>1.0.1.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-netflix</artifactId>
-				<version>1.0.0.BUILD-SNAPSHOT</version>
+				<version>1.0.1.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
