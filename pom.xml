@@ -21,6 +21,7 @@
 		<tag>HEAD</tag>
 	</scm>
 	<properties>
+        <bintray.package>cli</bintray.package>
         <docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
