@@ -11,5 +11,5 @@ build/
 bin/
 _site/
 target/
-.idea
 *.iml
+.idea
