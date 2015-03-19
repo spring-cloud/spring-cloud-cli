@@ -13,3 +13,4 @@ _site/
 target/
 *.iml
 .idea
+.factorypath
