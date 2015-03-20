@@ -1,3 +1,5 @@
-Spring Boot command line features for
-https://github.com/spring-cloud[Spring Cloud].
+Spring Boot CLI provides http://projects.spring.io/spring-boot[Spring Boot] command line features for
+https://github.com/spring-cloud[Spring Cloud]. You can write Groovy scripts to run Spring Cloud component applications
+(e.g. `@EnableEurekaServer`). You can also easily do things like encryption and decryption to support Spring Cloud
+Config clients with secret configuration values.
 

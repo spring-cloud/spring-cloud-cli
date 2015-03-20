@@ -20,8 +20,6 @@ $ mvn install
 $ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT
 ```
 
-=== Encryption and Decryption
-
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
 you need the full-strength JCE installed in your JVM (it's not there by default).
 You can download the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
