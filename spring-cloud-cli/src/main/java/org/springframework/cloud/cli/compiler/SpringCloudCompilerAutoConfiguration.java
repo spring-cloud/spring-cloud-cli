@@ -99,7 +99,7 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		catch (Exception e) {
 			// ignore
 		}
-		return "1.0.0.BUILD-SNAPSHOT";
+		return "SNAPSHOT";
 	}
 
 	static class AetherManagedDependencies implements Dependencies {
