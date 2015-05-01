@@ -35,7 +35,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-config</artifactId>
-				<version>1.0.3.BUILD-SNAPSHOT</version>
+				<version>1.0.2.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
