@@ -5,11 +5,10 @@
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-cli-parent</artifactId>
-		<version>1.0.1.RELEASE</version>
+		<version>Angel.SR2</version>
 	</parent>
 	<artifactId>spring-cloud-versions</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0.2.RELEASE</version>
 	<name>Spring Cloud Versions</name>
 	<description>Spring Cloud Versions Property File</description>
 	<url>http://projects.spring.io/spring-cloud/</url>
