@@ -417,8 +417,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Spring Boot command line features for
-<a href="https://github.com/spring-cloud">Spring Cloud</a>.</p>
+<p>Spring Boot CLI provides <a href="http://projects.spring.io/spring-boot">Spring Boot</a> command line features for
+<a href="https://github.com/spring-cloud">Spring Cloud</a>. You can write Groovy scripts to run Spring Cloud component applications
+(e.g. <code>@EnableEurekaServer</code>). You can also easily do things like encryption and decryption to support Spring Cloud
+Config clients with secret configuration values.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://raw.githubusercontent.com/spring-cloud/spring-cloud-build/master/docs/src/main/asciidoc/contributing-docs.adoc" class="bare">https://raw.githubusercontent.com/spring-cloud/spring-cloud-build/master/docs/src/main/asciidoc/contributing-docs.adoc</a></p>
 </div>
 </div>
 </div>
@@ -434,7 +439,7 @@ sure you have
 <div class="literalblock">
 <div class="content">
 <pre>$ spring version
-Spring CLI v1.2.1.RELEASE</pre>
+Spring CLI v1.2.3.RELEASE</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -442,8 +447,8 @@ Spring CLI v1.2.1.RELEASE</pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code>$ gvm install springboot 1.2.1.RELEASE
-$ gvm use springboot 1.2.1.RELEASE</code></pre>
+<pre class="highlight"><code>$ gvm install springboot 1.2.3.RELEASE
+$ gvm use springboot 1.2.3.RELEASE</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -452,11 +457,9 @@ $ gvm use springboot 1.2.1.RELEASE</code></pre>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight"><code>$ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.0.0.BUILD-SNAPSHOT</code></pre>
+$ spring install org.springframework.cloud:spring-cloud-cli:1.0.2.RELEASE</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_encryption_and_decryption">Encryption and Decryption</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -475,11 +478,83 @@ in the JRE lib/security directory with the ones that you downloaded).
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="_writing_groovy_scripts_and_running_applications">Writing Groovy Scripts and Running Applications</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud CLI has support for most of the Spring Cloud declarative
+features, such as the <code>@Enable*</code> class of annotations. For example,
+here is a fully functional Eureka server</p>
+</div>
+<div class="listingblock">
+<div class="title">app.groovy</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@EnableEurekaServer
+class Eureka {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which you can run from the command line like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring run app.groovy</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To include additional dependencies, often it suffices just to add the
+appropriate feature-enabling annotation, e.g. <code>@EnableConfigServer</code>,
+<code>@EnableOAuth2Sso</code> or <code>@EnableEurekaClient</code>. To manually include a
+dependency you can use a <code>@Grab</code> with the special "Spring Boot" short
+style artifact co-ordinates, i.e. with just the artifact ID (no need
+for group or version information), e.g. to set up a client app to
+listen on AMQP for management events from the Spring CLoud Bus:</p>
+</div>
+<div class="listingblock">
+<div class="title">app.groovy</div>
+<div class="content">
+<pre class="highlight"><code class="language-groovy" data-lang="groovy">@Grab('spring-cloud-starter-bus-amqp')
+@RestController
+class Service {
+  @RequestMapping('/')
+  def home() { [message: 'Hello'] }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_encryption_and_decryption">Encryption and Decryption</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spring Cloud CLI comes with an "encrypt" and a "decrypt"
+command. Both accept arguments in the same form with a key specified
+as a mandatory "--key", e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring encrypt mysecret --key foo
+682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+$ spring decrypt --key foo 682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+mysecret</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use a key in a file (e.g. an RSA public key for encyption) prepend
+the key value with "@" and provide the file path, e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring encrypt mysecret --key @${HOME}/.ssh/id_rsa.pub
+AQAjPgt3eFZQXwt8tsHAVv/QHiY5sI2dRcR+...</pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2015-06-23 10:15:00 UTC
+Last updated 2015-06-24 16:39:44 UTC
 </div>
 </div>
 </body>
