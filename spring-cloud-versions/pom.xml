@@ -18,13 +18,14 @@
 	</organization>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
+        <spring-cloud.version>Angel.BUILD-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-starter-parent</artifactId>
-				<version>${project.version}</version>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
