@@ -15,96 +15,81 @@
  */
 package org.springframework.cloud.cli.compiler;
 
-import groovy.grape.Grape;
-
-import java.net.URI;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.maven.model.Model;
+import org.apache.maven.model.building.DefaultModelProcessor;
+import org.apache.maven.model.io.DefaultModelReader;
+import org.apache.maven.model.locator.DefaultModelLocator;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.eclipse.aether.graph.Dependency;
 import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
-import org.springframework.boot.dependency.tools.Dependencies;
-import org.springframework.boot.dependency.tools.ManagedDependencies;
-import org.springframework.boot.dependency.tools.PropertiesFileDependencies;
+import org.springframework.boot.cli.compiler.dependencies.Dependency;
+import org.springframework.boot.cli.compiler.dependencies.MavenModelDependencyManagement;
 
 /**
  * @author Dave Syer
  *
  */
-public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class SpringCloudCompilerAutoConfiguration extends
+		CompilerAutoConfiguration {
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		addManagedDependencies(dependencies);
+		dependencies
+				.ifAnyMissingClasses(
+						"org.springframework.boot.actuate.endpoint.EnvironmentEndpoint")
+				.add("spring-boot-starter-actuator");
 		dependencies.ifAnyMissingClasses(
-				"org.springframework.boot.actuate.endpoint.EnvironmentEndpoint").add(
-				"spring-boot-starter-actuator");
-		dependencies.ifAnyMissingClasses("org.springframework.cloud.config.Environment")
-				.add("spring-cloud-config-client");
+				"org.springframework.cloud.config.Environment").add(
+				"spring-cloud-starter-config");
 	}
 
 	@Override
-	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
+	public void applyImports(ImportCustomizer imports)
+			throws CompilationFailedException {
 		imports.addImports("org.springframework.cloud.context.config.annotation.RefreshScope");
 	}
 
 	private void addManagedDependencies(DependencyCustomizer dependencies) {
-		List<Dependencies> managedDependencies = new ArrayList<Dependencies>();
-		managedDependencies.add(new AetherManagedDependencies(dependencies
-				.getDependencyResolutionContext().getManagedDependencies()));
-		managedDependencies.addAll(getAdditionalDependencies());
-		dependencies.getDependencyResolutionContext().setManagedDependencies(
-				ManagedDependencies.get(managedDependencies));
+		dependencies.getDependencyResolutionContext().addDependencyManagement(new SpringCloudDependenciesDependencyManagement());
 
 	}
 
-	private List<Dependencies> getAdditionalDependencies() {
-		String version = getVersion();
-		String[] components = ("org.springframework.cloud:spring-cloud-versions:" + version)
-				.split(":");
-		Map<String, String> dependency;
-		dependency = new HashMap<String, String>();
-		dependency.put("group", components[0]);
-		dependency.put("module", components[1]);
-		dependency.put("version", components[2]);
-		dependency.put("type", "properties");
-		URI[] uris = Grape.getInstance().resolve(null, dependency);
-		List<Dependencies> managedDependencies = new ArrayList<Dependencies>(uris.length);
-		for (URI uri : uris) {
+	public static class SpringCloudDependenciesDependencyManagement extends
+			MavenModelDependencyManagement {
+
+		public SpringCloudDependenciesDependencyManagement() {
+			super(readModel());
+		}
+
+		private static Model readModel() {
+			DefaultModelProcessor modelProcessor = new DefaultModelProcessor();
+			modelProcessor.setModelLocator(new DefaultModelLocator());
+			modelProcessor.setModelReader(new DefaultModelReader());
+
 			try {
-				managedDependencies.add(new PropertiesFileDependencies(uri.toURL()
-						.openStream()));
-			}
-			catch (Exception ex) {
-				throw new IllegalStateException("Failed to parse '" + uris[0]
-						+ "'. Is it a valid properties file?", ex);
+				return modelProcessor
+						.read(SpringCloudDependenciesDependencyManagement.class
+								.getResourceAsStream("effective-pom.xml"), null);
+			} catch (IOException ex) {
+				throw new IllegalStateException(
+						"Failed to build model from effective pom", ex);
 			}
 		}
-		return managedDependencies;
+
 	}
 
-	private String getVersion() {
-		try {
-			Package pkg = getClass().getPackage();
-			if (pkg != null) {
-				return pkg.getImplementationVersion();
-			}
-		}
-		catch (Exception e) {
-			// ignore
-		}
-		return "1.0.0.BUILD-SNAPSHOT";
-	}
+	static class AetherManagedDependencies implements Iterable<Dependency> {
 
-	static class AetherManagedDependencies implements Dependencies {
-
-		private Map<String, org.springframework.boot.dependency.tools.Dependency> groupAndArtifactToDependency = new HashMap<String, org.springframework.boot.dependency.tools.Dependency>();
+		private Map<String, Dependency> groupAndArtifactToDependency = new HashMap<String, Dependency>();
 
 		private Map<String, String> artifactToGroupAndArtifact = new HashMap<String, String>();
 
@@ -112,30 +97,32 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 
 			for (Dependency dependency : dependencies) {
 
-				String groupId = dependency.getArtifact().getGroupId();
-				String artifactId = dependency.getArtifact().getArtifactId();
-				String version = dependency.getArtifact().getVersion();
+				String groupId = dependency.getGroupId();
+				String artifactId = dependency.getArtifactId();
+				String version = dependency.getVersion();
 
-				List<org.springframework.boot.dependency.tools.Dependency.Exclusion> exclusions = new ArrayList<org.springframework.boot.dependency.tools.Dependency.Exclusion>();
-				org.springframework.boot.dependency.tools.Dependency value = new org.springframework.boot.dependency.tools.Dependency(
-						groupId, artifactId, version, exclusions);
+				List<Dependency.Exclusion> exclusions = new ArrayList<Dependency.Exclusion>();
+				Dependency value = new Dependency(groupId, artifactId, version,
+						exclusions);
 
-				groupAndArtifactToDependency.put(groupId + ":" + artifactId, value);
-				artifactToGroupAndArtifact.put(artifactId, groupId + ":" + artifactId);
+				groupAndArtifactToDependency.put(groupId + ":" + artifactId,
+						value);
+				artifactToGroupAndArtifact.put(artifactId, groupId + ":"
+						+ artifactId);
 
 			}
 
 		}
 
-		@Override
-		public org.springframework.boot.dependency.tools.Dependency find(String groupId,
-				String artifactId) {
+		// @Override
+		public Dependency find(String groupId, String artifactId) {
 			return groupAndArtifactToDependency.get(groupId + ":" + artifactId);
 		}
 
-		@Override
-		public org.springframework.boot.dependency.tools.Dependency find(String artifactId) {
-			String groupAndArtifact = artifactToGroupAndArtifact.get(artifactId);
+		// @Override
+		public Dependency find(String artifactId) {
+			String groupAndArtifact = artifactToGroupAndArtifact
+					.get(artifactId);
 			if (groupAndArtifact == null) {
 				return null;
 			}
@@ -143,7 +130,7 @@ public class SpringCloudCompilerAutoConfiguration extends CompilerAutoConfigurat
 		}
 
 		@Override
-		public Iterator<org.springframework.boot.dependency.tools.Dependency> iterator() {
+		public Iterator<Dependency> iterator() {
 			return groupAndArtifactToDependency.values().iterator();
 		}
 
