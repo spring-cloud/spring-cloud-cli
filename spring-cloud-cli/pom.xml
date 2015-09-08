@@ -29,6 +29,12 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream</artifactId>
+			<version>${spring-cloud-stream.version}</version>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -39,6 +45,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<spring-cloud.version>${project.version}</spring-cloud.version>
+		<spring-cloud-stream.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-stream.version>
 		<generated.pom.dir>${project.build.directory}/generated-resources/org/springframework/cloud/cli/compiler</generated.pom.dir>
 	</properties>
 

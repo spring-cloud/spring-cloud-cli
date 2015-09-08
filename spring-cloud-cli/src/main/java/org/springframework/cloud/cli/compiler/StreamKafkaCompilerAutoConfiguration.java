@@ -16,6 +16,8 @@
 package org.springframework.cloud.cli.compiler;
 
 import org.codehaus.groovy.ast.ClassNode;
+import org.codehaus.groovy.control.CompilationFailedException;
+import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.springframework.boot.cli.compiler.AstUtils;
 import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
@@ -24,19 +26,27 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class OAuth2SsoCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class StreamKafkaCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableOAuth2Sso");
+		boolean annotated = AstUtils.hasAtLeastOneAnnotation(classNode, "EnableBinding");
+		return annotated && StreamRedisCompilerAutoConfiguration.isTransport(classNode, "kafka");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses(
-						"org.springframework.cloud.security.oauth2.client.OAuth2LoadBalancerClientAutoConfiguration")
-				.add("spring-cloud-starter-oauth2");
+						"org.springframework.cloud.stream.binder.kafka.config.KafkaServiceAutoConfiguration")
+				.add("spring-cloud-starter-stream-kafka");
+	}
+
+	@Override
+	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
+		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
+		imports.addStarImports("org.springframework.cloud.stream.annotation",
+				"org.springframework.cloud.stream.messaging");
 	}
 
 }

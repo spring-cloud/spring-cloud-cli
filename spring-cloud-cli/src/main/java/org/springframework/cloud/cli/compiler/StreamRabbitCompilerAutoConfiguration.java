@@ -26,27 +26,27 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class OAuth2ResourceCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class StreamRabbitCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {
-		return AstUtils.hasAtLeastOneAnnotation(classNode, "EnableOAuth2Resource");
+		boolean annotated = AstUtils.hasAtLeastOneAnnotation(classNode, "EnableBinding");
+		return annotated && StreamRedisCompilerAutoConfiguration.isTransport(classNode, "rabbit");
 	}
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses(
-						"org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource")
-				.add("spring-cloud-starter-security")
-				.add("spring-security-oauth2");
+						"org.springframework.cloud.stream.binder.rabbit.config.RabbitServiceAutoConfiguration")
+				.add("spring-cloud-starter-stream-rabbit");
 	}
 
 	@Override
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports(
-				"org.springframework.cloud.security.oauth2.resource.EnableOAuth2Resource",
-				"org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter");
+		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
+		imports.addStarImports("org.springframework.cloud.stream.annotation",
+				"org.springframework.cloud.stream.messaging");
 	}
 
 }
