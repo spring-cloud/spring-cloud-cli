@@ -23,6 +23,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import org.springframework.cloud.cli.compiler.StreamRabbitCompilerAutoConfiguration;
+import org.springframework.core.annotation.AliasFor;
 
 /**
  * Pseudo annotation used to trigger {@link StreamRabbitCompilerAutoConfiguration} and
@@ -34,6 +35,7 @@ import org.springframework.cloud.cli.compiler.StreamRabbitCompilerAutoConfigurat
 @org.springframework.cloud.stream.annotation.EnableBinding
 public @interface EnableBinding {
 
+	@AliasFor(annotation=org.springframework.cloud.stream.annotation.EnableBinding.class, attribute="value")
 	Class<?>[]value() default {};
 
 	String transport() default "redis";

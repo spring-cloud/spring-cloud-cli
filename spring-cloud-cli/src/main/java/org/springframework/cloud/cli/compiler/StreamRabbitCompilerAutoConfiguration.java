@@ -15,23 +15,18 @@
  */
 package org.springframework.cloud.cli.compiler;
 
-import org.codehaus.groovy.ast.ClassNode;
-import org.codehaus.groovy.control.CompilationFailedException;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.springframework.boot.cli.compiler.AstUtils;
-import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
 
 /**
  * @author Dave Syer
  *
  */
-public class StreamRabbitCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class StreamRabbitCompilerAutoConfiguration
+		extends BaseStreamCompilerAutoConfiguration {
 
 	@Override
-	public boolean matches(ClassNode classNode) {
-		boolean annotated = AstUtils.hasAtLeastOneAnnotation(classNode, "EnableBinding");
-		return annotated && StreamRedisCompilerAutoConfiguration.isTransport(classNode, "rabbit");
+	protected String getTransport() {
+		return "rabbit";
 	}
 
 	@Override
@@ -40,13 +35,6 @@ public class StreamRabbitCompilerAutoConfiguration extends CompilerAutoConfigura
 				.ifAnyMissingClasses(
 						"org.springframework.cloud.stream.binder.rabbit.config.RabbitServiceAutoConfiguration")
 				.add("spring-cloud-starter-stream-rabbit");
-	}
-
-	@Override
-	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
-		imports.addStarImports("org.springframework.cloud.stream.annotation",
-				"org.springframework.cloud.stream.messaging");
 	}
 
 }

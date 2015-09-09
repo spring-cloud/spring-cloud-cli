@@ -15,43 +15,18 @@
  */
 package org.springframework.cloud.cli.compiler;
 
-import org.codehaus.groovy.ast.AnnotationNode;
-import org.codehaus.groovy.ast.ClassNode;
-import org.codehaus.groovy.ast.expr.Expression;
-import org.codehaus.groovy.control.CompilationFailedException;
-import org.codehaus.groovy.control.customizers.ImportCustomizer;
-import org.springframework.boot.cli.compiler.AstUtils;
-import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
-import org.springframework.util.PatternMatchUtils;
-import org.springframework.util.SystemPropertyUtils;
 
 /**
  * @author Dave Syer
  *
  */
-public class StreamRedisCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class StreamRedisCompilerAutoConfiguration
+		extends BaseStreamCompilerAutoConfiguration {
 
 	@Override
-	public boolean matches(ClassNode classNode) {
-		boolean annotated = AstUtils.hasAtLeastOneAnnotation(classNode, "EnableBinding");
-		return annotated && isTransport(classNode, "redis");
-	}
-
-	static boolean isTransport(ClassNode node, String type) {
-		for (AnnotationNode annotationNode : node.getAnnotations()) {
-			String annotation = "EnableBinding";
-			if (PatternMatchUtils.simpleMatch(annotation,
-					annotationNode.getClassNode().getName())) {
-				Expression expression = annotationNode.getMembers().get("transport");
-				String transport = expression == null ? "redis" : expression.getText();
-				if (transport != null) {
-					transport = SystemPropertyUtils.resolvePlaceholders(transport);
-				}
-				return transport.equals(type);
-			}
-		}
-		return false;
+	protected String getTransport() {
+		return "redis";
 	}
 
 	@Override
@@ -61,12 +36,4 @@ public class StreamRedisCompilerAutoConfiguration extends CompilerAutoConfigurat
 						"org.springframework.cloud.stream.binder.redis.config.RedisServiceAutoConfiguration")
 				.add("spring-cloud-starter-stream-redis");
 	}
-
-	@Override
-	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
-		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
-		imports.addStarImports("org.springframework.cloud.stream.annotation",
-				"org.springframework.cloud.stream.messaging");
-	}
-
 }
