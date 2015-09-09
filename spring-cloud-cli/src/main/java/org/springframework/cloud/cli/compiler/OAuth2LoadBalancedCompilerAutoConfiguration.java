@@ -24,7 +24,7 @@ import org.springframework.boot.cli.compiler.DependencyCustomizer;
  * @author Dave Syer
  *
  */
-public class OAuth2SsoCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public class OAuth2LoadBalancedCompilerAutoConfiguration extends CompilerAutoConfiguration {
 
 	@Override
 	public boolean matches(ClassNode classNode) {

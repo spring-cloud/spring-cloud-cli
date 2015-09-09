@@ -62,6 +62,7 @@ public abstract class BaseStreamCompilerAutoConfiguration extends CompilerAutoCo
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		this.integration.applyImports(imports);
 		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
+		imports.addImport("IntegrationMessageSource", "org.springframework.integration.core.MessageSource");
 		imports.addStarImports("org.springframework.cloud.stream.annotation",
 				"org.springframework.cloud.stream.messaging");
 	}
