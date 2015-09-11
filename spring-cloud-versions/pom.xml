@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-cli-parent</artifactId>
-		<version>1.1.0.M1</version>
+		<version>1.1.0.BUILD-SNAPSHOT</version>
 	</parent>
 	<artifactId>spring-cloud-versions</artifactId>
 	<packaging>pom</packaging>
@@ -18,7 +18,7 @@
 	</organization>
 	<properties>
 		<main.basedir>${basedir}/../..</main.basedir>
-        <spring-cloud.version>Brixton.M1</spring-cloud.version>
+        <spring-cloud.version>Brixton.BUILD-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
