@@ -31,7 +31,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-stream</artifactId>
-			<version>${spring-cloud-stream.version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -45,48 +44,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.7</java.version>
 		<spring-cloud.version>${project.version}</spring-cloud.version>
-		<spring-cloud-stream.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-stream.version>
-		<generated.pom.dir>${project.build.directory}/generated-resources/org/springframework/cloud/cli/compiler</generated.pom.dir>
 	</properties>
-
-	<build>
-		<resources>
-			<resource>
-				<directory>${basedir}/src/main/resources</directory>
-			</resource>
-			<resource>
-				<directory>${project.build.directory}/generated-resources</directory>
-			</resource>
-		</resources>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-effective-pom</id>
-						<phase>generate-resources</phase>
-						<goals>
-							<goal>copy</goal>
-						</goals>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>org.springframework.cloud</groupId>
-									<artifactId>spring-cloud-versions</artifactId>
-									<version>${spring-cloud.version}</version>
-									<type>effective-pom</type>
-									<overWrite>true</overWrite>
-									<outputDirectory>${generated.pom.dir}</outputDirectory>
-									<destFileName>effective-pom.xml</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
-	</build>
 
 	<profiles>
 		<profile>

@@ -1,3 +1,1 @@
-# TODO: maybe it need package change to org.springframework.boot.groovy.cloud as well?
-# TODO: test this is working once Boot 1.1.6 is out
-# org.springframework.cloud.cli.compiler.EurekaServerAstTransformation
+org.springframework.cloud.cli.compiler.SpringCloudBomAstTransformation

@@ -26,7 +26,6 @@
 		<main.basedir>${basedir}/..</main.basedir>
 	</properties>
 	<modules>
-		<module>spring-cloud-versions</module>
 		<module>spring-cloud-cli</module>
 		<module>docs</module>
 	</modules>

@@ -15,23 +15,10 @@
  */
 package org.springframework.cloud.cli.compiler;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import org.apache.maven.model.Model;
-import org.apache.maven.model.building.DefaultModelProcessor;
-import org.apache.maven.model.io.DefaultModelReader;
-import org.apache.maven.model.locator.DefaultModelLocator;
 import org.codehaus.groovy.control.CompilationFailedException;
 import org.codehaus.groovy.control.customizers.ImportCustomizer;
 import org.springframework.boot.cli.compiler.CompilerAutoConfiguration;
 import org.springframework.boot.cli.compiler.DependencyCustomizer;
-import org.springframework.boot.cli.compiler.dependencies.Dependency;
-import org.springframework.boot.cli.compiler.dependencies.MavenModelDependencyManagement;
 
 /**
  * @author Dave Syer
@@ -42,7 +29,6 @@ public class SpringCloudCompilerAutoConfiguration extends
 
 	@Override
 	public void applyDependencies(DependencyCustomizer dependencies) {
-		addManagedDependencies(dependencies);
 		dependencies
 				.ifAnyMissingClasses(
 						"org.springframework.boot.actuate.endpoint.EnvironmentEndpoint")
@@ -56,84 +42,6 @@ public class SpringCloudCompilerAutoConfiguration extends
 	public void applyImports(ImportCustomizer imports)
 			throws CompilationFailedException {
 		imports.addImports("org.springframework.cloud.context.config.annotation.RefreshScope");
-	}
-
-	private void addManagedDependencies(DependencyCustomizer dependencies) {
-		dependencies.getDependencyResolutionContext().addDependencyManagement(new SpringCloudDependenciesDependencyManagement());
-
-	}
-
-	public static class SpringCloudDependenciesDependencyManagement extends
-			MavenModelDependencyManagement {
-
-		public SpringCloudDependenciesDependencyManagement() {
-			super(readModel());
-		}
-
-		private static Model readModel() {
-			DefaultModelProcessor modelProcessor = new DefaultModelProcessor();
-			modelProcessor.setModelLocator(new DefaultModelLocator());
-			modelProcessor.setModelReader(new DefaultModelReader());
-
-			try {
-				return modelProcessor
-						.read(SpringCloudDependenciesDependencyManagement.class
-								.getResourceAsStream("effective-pom.xml"), null);
-			} catch (IOException ex) {
-				throw new IllegalStateException(
-						"Failed to build model from effective pom", ex);
-			}
-		}
-
-	}
-
-	static class AetherManagedDependencies implements Iterable<Dependency> {
-
-		private Map<String, Dependency> groupAndArtifactToDependency = new HashMap<String, Dependency>();
-
-		private Map<String, String> artifactToGroupAndArtifact = new HashMap<String, String>();
-
-		public AetherManagedDependencies(List<Dependency> dependencies) {
-
-			for (Dependency dependency : dependencies) {
-
-				String groupId = dependency.getGroupId();
-				String artifactId = dependency.getArtifactId();
-				String version = dependency.getVersion();
-
-				List<Dependency.Exclusion> exclusions = new ArrayList<Dependency.Exclusion>();
-				Dependency value = new Dependency(groupId, artifactId, version,
-						exclusions);
-
-				groupAndArtifactToDependency.put(groupId + ":" + artifactId,
-						value);
-				artifactToGroupAndArtifact.put(artifactId, groupId + ":"
-						+ artifactId);
-
-			}
-
-		}
-
-		// @Override
-		public Dependency find(String groupId, String artifactId) {
-			return groupAndArtifactToDependency.get(groupId + ":" + artifactId);
-		}
-
-		// @Override
-		public Dependency find(String artifactId) {
-			String groupAndArtifact = artifactToGroupAndArtifact
-					.get(artifactId);
-			if (groupAndArtifact == null) {
-				return null;
-			}
-			return groupAndArtifactToDependency.get(groupAndArtifact);
-		}
-
-		@Override
-		public Iterator<Dependency> iterator() {
-			return groupAndArtifactToDependency.values().iterator();
-		}
-
 	}
 
 }
