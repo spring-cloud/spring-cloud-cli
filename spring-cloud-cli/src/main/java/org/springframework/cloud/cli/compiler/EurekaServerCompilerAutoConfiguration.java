@@ -44,7 +44,7 @@ public class EurekaServerCompilerAutoConfiguration extends CompilerAutoConfigura
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		imports.addImports("org.springframework.cloud.netflix.eureka.server.EnableEurekaServer",
 				"org.springframework.cloud.client.discovery.EnableDiscoveryClient",
-				"org.springframework.cloud.netflix.eureka.EurekaServerConfigBean",
+				"org.springframework.cloud.netflix.eureka.server.EurekaServerConfigBean",
 				"org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean",
 				"org.springframework.cloud.netflix.eureka.EurekaClientConfigBean",
 				"com.netflix.discovery.DiscoveryClient",
