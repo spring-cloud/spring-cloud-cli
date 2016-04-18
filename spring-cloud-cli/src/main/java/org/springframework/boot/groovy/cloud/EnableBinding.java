@@ -35,8 +35,8 @@ import org.springframework.core.annotation.AliasFor;
 @org.springframework.cloud.stream.annotation.EnableBinding
 public @interface EnableBinding {
 
-	@AliasFor(annotation=org.springframework.cloud.stream.annotation.EnableBinding.class, attribute="value")
-	Class<?>[]value() default {};
+	@AliasFor(annotation = org.springframework.cloud.stream.annotation.EnableBinding.class, attribute = "value")
+	Class<?>[] value() default {};
 
-	String transport() default "redis";
+	String transport() default "rabbit";
 }

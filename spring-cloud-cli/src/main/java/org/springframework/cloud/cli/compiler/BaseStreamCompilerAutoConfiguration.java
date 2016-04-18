@@ -30,7 +30,8 @@ import org.springframework.util.SystemPropertyUtils;
  * @author Dave Syer
  *
  */
-public abstract class BaseStreamCompilerAutoConfiguration extends CompilerAutoConfiguration {
+public abstract class BaseStreamCompilerAutoConfiguration
+		extends CompilerAutoConfiguration {
 
 	private SpringIntegrationCompilerAutoConfiguration integration = new SpringIntegrationCompilerAutoConfiguration();
 
@@ -48,7 +49,7 @@ public abstract class BaseStreamCompilerAutoConfiguration extends CompilerAutoCo
 			if (PatternMatchUtils.simpleMatch(annotation,
 					annotationNode.getClassNode().getName())) {
 				Expression expression = annotationNode.getMembers().get("transport");
-				String transport = expression == null ? "redis" : expression.getText();
+				String transport = expression == null ? "rabbit" : expression.getText();
 				if (transport != null) {
 					transport = SystemPropertyUtils.resolvePlaceholders(transport);
 				}
@@ -62,7 +63,8 @@ public abstract class BaseStreamCompilerAutoConfiguration extends CompilerAutoCo
 	public void applyImports(ImportCustomizer imports) throws CompilationFailedException {
 		this.integration.applyImports(imports);
 		imports.addImports("org.springframework.boot.groovy.cloud.EnableBinding");
-		imports.addImport("IntegrationMessageSource", "org.springframework.integration.core.MessageSource");
+		imports.addImport("IntegrationMessageSource",
+				"org.springframework.integration.core.MessageSource");
 		imports.addStarImports("org.springframework.cloud.stream.annotation",
 				"org.springframework.cloud.stream.messaging");
 	}
