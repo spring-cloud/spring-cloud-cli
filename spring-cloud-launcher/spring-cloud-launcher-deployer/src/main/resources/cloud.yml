@@ -30,4 +30,4 @@ spring:
           port: 9091
           waitUntilStarted: true
           order: -200
-      deploy: ${launch:configserver,eureka,h2, hystrixdashboard,kafka}
+      deploy: ${launch:configserver,eureka, hystrixdashboard}
