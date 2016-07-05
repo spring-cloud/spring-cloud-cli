@@ -1,0 +1,13 @@
+server:
+  port: 9091
+
+kafka:
+  port: 9092
+
+zk:
+  port: 2181
+
+info:
+  artifactId: @project.artifactId@
+  description: @project.description@
+  version: @project.version@
