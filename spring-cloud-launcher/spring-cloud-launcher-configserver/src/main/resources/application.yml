@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        native:
+          search-locations: classpath:/launcher/, file:./launcher/
+
+server:
+  port: 8888
+
+management:
+  context-path: /admin
+
+eureka:
+  instance:
+    status-page-url-path: ${management.context-path}/info
+
+info:
+  artifactId: @project.artifactId@
+  description: @project.description@
+  version: @project.version@

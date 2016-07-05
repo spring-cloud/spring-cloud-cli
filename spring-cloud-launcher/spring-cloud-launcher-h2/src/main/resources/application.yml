@@ -1,0 +1,13 @@
+server:
+  port: 9095
+
+info:
+  artifactId: @project.artifactId@
+  description: @project.description@
+  version: @project.version@
+
+eureka:
+  instance:
+    # port of the h2 console
+    non-secure-port: 8082
+    status-page-url-path: / #allows you to click on the link in eureka dashboard

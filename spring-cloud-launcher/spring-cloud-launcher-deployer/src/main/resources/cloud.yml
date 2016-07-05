@@ -1,0 +1,33 @@
+dt:
+  pre: maven://org.springframework.cloud.launcher:spring-cloud-launcher-
+  ver: 1.2.0.BUILD-SNAPSHOT
+spring:
+  cloud:
+    launcher:
+      deployables:
+        - name: configserver
+          coordinates: ${dt.pre}configserver:${dt.ver}
+          port: 8888
+          waitUntilStarted: true
+          order: -100
+        - name: dataflow
+          coordinates: ${dt.pre}dataflow:${dt.ver}
+          port: 9393
+        - name: eureka
+          coordinates: ${dt.pre}eureka:${dt.ver}
+          port: 8761
+          message: To see the dashboard open http://localhost:8761
+        - name: h2
+          coordinates: ${dt.pre}h2:${dt.ver}
+          port: 9095
+          waitUntilStarted: true
+          order: -50
+        - name: hystrixdashboard
+          coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
+          port: 7979
+        - name: kafka
+          coordinates: ${dt.pre}kafka:${dt.ver}
+          port: 9091
+          waitUntilStarted: true
+          order: -200
+      deploy: ${launch:configserver,eureka,h2, hystrixdashboard,kafka}

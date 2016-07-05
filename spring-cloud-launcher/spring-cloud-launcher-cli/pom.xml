@@ -3,26 +3,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>org.springframework.cloud</groupId>
-	<artifactId>spring-cloud-cli</artifactId>
+	<groupId>org.springframework.cloud.launcher</groupId>
+	<artifactId>spring-cloud-launcher-cli</artifactId>
 	<version>1.2.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>spring-cloud-cli</name>
-	<description>Spring Patform Cli integration project</description>
+	<name>spring-cloud-launcher-cli</name>
+	<description>Spring Cloud Launcher CLI</description>
 
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
-		<artifactId>spring-cloud-cli-parent</artifactId>
+		<artifactId>spring-cloud-launcher</artifactId>
 		<version>1.2.0.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.cloud.launcher</groupId>
-			<artifactId>spring-cloud-launcher-cli</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-cli</artifactId>
@@ -30,13 +25,10 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-rsa</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-stream</artifactId>
-			<optional>true</optional>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

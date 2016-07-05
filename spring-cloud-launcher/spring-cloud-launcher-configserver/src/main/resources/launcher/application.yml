@@ -1,0 +1,28 @@
+info:
+  description: Spring Cloud Launcher
+
+eureka:
+  client:
+    instance-info-replication-interval-seconds: 5
+    initial-instance-info-replication-interval-seconds: 5
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+endpoints:
+  restart: enabled
+
+ribbon:
+  ConnectTimeout: 3000
+  ReadTimeout: 60000
+
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost:9096/~/launcher
+
+logging:
+  level:
+    kafka: WARN
+    org.apache.zookeeper: WARN
+    org.apache.zookeeper.ClientCnxn: ERROR
+    org.apache.kafka: WARN
+    org.I0Itec: WARN
