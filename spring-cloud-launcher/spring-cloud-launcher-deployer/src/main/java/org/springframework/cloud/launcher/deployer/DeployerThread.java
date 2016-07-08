@@ -16,16 +16,24 @@
 
 package org.springframework.cloud.launcher.deployer;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
+import org.springframework.boot.bind.PropertiesConfigurationFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.env.YamlPropertySourceLoader;
+import org.springframework.boot.logging.LogLevel;
+import org.springframework.boot.logging.logback.LogbackLoggingSystem;
 import org.springframework.cloud.deployer.resource.support.DelegatingResourceLoader;
 import org.springframework.cloud.deployer.spi.app.AppDeployer;
 import org.springframework.cloud.deployer.spi.app.AppStatus;
@@ -35,14 +43,17 @@ import org.springframework.cloud.deployer.spi.core.AppDeploymentRequest;
 import org.springframework.cloud.launcher.deployer.DeployerProperties.Deployable;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.OrderComparator;
+import org.springframework.core.env.PropertySource;
+import org.springframework.core.env.StandardEnvironment;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
 /**
  * @author Spencer Gibb
  */
-@SuppressWarnings("unused")
 public class DeployerThread extends Thread {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
@@ -60,10 +71,58 @@ public class DeployerThread extends Thread {
 
 	@Override
 	public void run() {
-		final ConfigurableApplicationContext context = new SpringApplicationBuilder(PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
-				.web(false)
-				.properties("spring.config.name=cloud", "banner.location=launcher-banner.txt")
-				.run(args);
+		List<String> list = Arrays.asList(this.args);
+		if (list.contains("--launcher.list=true")) {
+			quiet();
+			list();
+		}
+		else {
+			launch();
+		}
+	}
+
+	private void quiet() {
+		LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT", LogLevel.OFF);
+	}
+
+	private void list() {
+		StandardEnvironment environment = new StandardEnvironment();
+		String path = "/cloud.yml";
+		ClassPathResource resource = new ClassPathResource(path, DeployerThread.class);
+		if (resource.exists()) {
+			try {
+				PropertySource<?> source = new YamlPropertySourceLoader().load(path, resource, null);
+				if (source != null) {
+					environment.getPropertySources().addLast(source);
+				}
+			}
+			catch (IOException e) {
+			}
+		}
+		DeployerProperties properties = new DeployerProperties();
+		PropertiesConfigurationFactory<DeployerProperties> factory = new PropertiesConfigurationFactory<>(properties);
+		factory.setTargetName("spring.cloud.launcher");
+		factory.setPropertySources(environment.getPropertySources());
+		try {
+			factory.afterPropertiesSet();
+			properties = factory.getObject();
+		}
+		catch (Exception e) {
+		}
+		if (!properties.getDeployables().isEmpty()) {
+			Collection<String> names = new ArrayList<>();
+			for (Deployable deployable : properties.getDeployables()) {
+				names.add(deployable.getName());
+			}
+			System.out.println(StringUtils.collectionToDelimitedString(names, " "));
+		}
+	}
+
+	private void launch() {
+
+		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
+				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class).web(false)
+						.properties("spring.config.name=cloud", "banner.location=launcher-banner.txt").run(this.args);
 
 		final AppDeployer deployer = context.getBean(AppDeployer.class);
 
@@ -74,7 +133,7 @@ public class DeployerThread extends Thread {
 		ArrayList<Deployable> deployables = new ArrayList<>(properties.getDeployables());
 		OrderComparator.sort(deployables);
 
-		logger.debug("toDeploy {}", properties.getDeployables());
+		logger.debug("Deployables {}", properties.getDeployables());
 
 		for (Deployable deployable : deployables) {
 			deploy(deployer, resourceLoader, deployable, properties);
@@ -94,11 +153,11 @@ public class DeployerThread extends Thread {
 
 		for (Deployable deployable : deployables) {
 			if (shouldDeploy(deployable, properties) && StringUtils.hasText(deployable.getMessage())) {
-				logger.info("\n\n{}: {}\n", deployable.getName(),  deployable.getMessage());
+				System.out.println("\n\n" + deployable.getName() + ": " + deployable.getMessage() + "\n");
 			}
 		}
 
-		logger.info("\n\nType Ctrl-C to quit.\n");
+		System.out.println("\n\nType Ctrl-C to quit.\n");
 
 		while (true) {
 			for (Map.Entry<String, DeploymentState> entry : this.deployed.entrySet()) {
@@ -113,16 +172,16 @@ public class DeployerThread extends Thread {
 			}
 			try {
 				Thread.sleep(properties.getStatusSleepMillis());
-			} catch (InterruptedException e) {
+			}
+			catch (InterruptedException e) {
 				logger.error("error sleeping", e);
 			}
 		}
 	}
 
-	private String deploy(AppDeployer deployer, ResourceLoader resourceLoader, Deployable deployable, DeployerProperties properties) {
+	private String deploy(AppDeployer deployer, ResourceLoader resourceLoader, Deployable deployable,
+			DeployerProperties properties) {
 		if (!shouldDeploy(deployable, properties)) {
-			// this deployable isn't in the list of things to deploy
-			logger.info("Skipping deploy of {}", deployable.getName());
 			return null;
 		}
 
@@ -132,21 +191,25 @@ public class DeployerThread extends Thread {
 		Map<String, String> appDefProps = new HashMap<>();
 		appDefProps.put("server.port", String.valueOf(deployable.getPort()));
 
-		//TODO: move to notDeployedProps or something
+		// TODO: move to notDeployedProps or something
 		if (!shouldDeploy("kafka", properties)) {
 			appDefProps.put("spring.cloud.bus.enabled", Boolean.FALSE.toString());
+		}
+		if (!shouldDeploy("eureka", properties)) {
+			appDefProps.put("eureka.client.enabled", Boolean.FALSE.toString());
 		}
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
 
-		Map<String, String> environmentProperties = Collections.singletonMap(AppDeployer.GROUP_PROPERTY_KEY, "launcher");
+		Map<String, String> environmentProperties = Collections.singletonMap(AppDeployer.GROUP_PROPERTY_KEY,
+				"launcher");
 		AppDeploymentRequest request = new AppDeploymentRequest(definition, resource, environmentProperties);
 
 		logger.debug("deploying resource {} = {}", deployable.getName(), deployable.getCoordinates());
 		String id = deployer.deploy(request);
 		AppStatus appStatus = getAppStatus(deployer, id);
 		logger.info("Status of {}: {}", id, appStatus);
-		//TODO: stream stdout/stderr like docker-compose (with colors and prefix)
+		// TODO: stream stdout/stderr like docker-compose (with colors and prefix)
 
 		if (deployable.isWaitUntilStarted()) {
 			try {
@@ -158,7 +221,8 @@ public class DeployerThread extends Thread {
 					appStatus = getAppStatus(deployer, id);
 					logger.debug("State of {} = {}", id, appStatus.getState());
 				}
-			} catch (Exception e) {
+			}
+			catch (Exception e) {
 				logger.error("error updating status of " + id, e);
 			}
 		}
@@ -181,6 +245,5 @@ public class DeployerThread extends Thread {
 		this.deployed.put(id, appStatus.getState());
 		return appStatus;
 	}
-
 
 }

@@ -10,6 +10,6 @@ eureka:
     waitTimeInMsWhenSyncEmpty: 0
 
 info:
-  artifactId: @project.artifactId@
-  description: @project.description@
-  version: @project.version@
+  artifactId: "@project.artifactId@"
+  description: "@project.description@"
+  version: "@project.version@"

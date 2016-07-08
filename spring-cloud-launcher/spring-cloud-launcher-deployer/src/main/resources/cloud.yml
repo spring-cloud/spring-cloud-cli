@@ -20,6 +20,7 @@ spring:
         - name: h2
           coordinates: ${dt.pre}h2:${dt.ver}
           port: 9095
+          message: Connect on jdbc:h2:tcp://localhost:9096/./target/test, web console at http://localhost:9095
           waitUntilStarted: true
           order: -50
         - name: hystrixdashboard
@@ -30,4 +31,8 @@ spring:
           port: 9091
           waitUntilStarted: true
           order: -200
-      deploy: ${launch:configserver,eureka, hystrixdashboard}
+        - name: zipkin
+          coordinates: ${dt.pre}zipkin:${dt.ver}
+          port: 9411
+          order: 0
+      deploy: ${launcher.deploy:configserver,eureka}

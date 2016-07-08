@@ -6,9 +6,9 @@ eureka:
     status-page-url-path: /admin-ui #allows you to click on the link in eureka dashboard
 
 info:
-  artifactId: @project.artifactId@
-  description: @project.description@
-  version: @project.version@
+  artifactId: "@project.artifactId@"
+  description: "@project.description@"
+  version: "@project.version@"
 
 security:
   basic:

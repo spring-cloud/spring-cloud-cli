@@ -4,11 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.springframework.cloud.launcher</groupId>
-	<artifactId>spring-cloud-launcher-hystrixdashboard</artifactId>
+	<artifactId>spring-cloud-launcher-zipkin</artifactId>
 	<packaging>jar</packaging>
 
-	<name>spring-cloud-launcher-hystrixdashboard</name>
-	<description>Spring Cloud Launcher Hystrix Dashboard</description>
+	<name>spring-cloud-launcher-zipkin</name>
+	<description>Spring Cloud Launcher ConfigServer</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
 
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
@@ -23,19 +27,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-kafka</artifactId>
+			<groupId>io.zipkin.java</groupId>
+			<artifactId>zipkin-autoconfigure-ui</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+			<groupId>io.zipkin.java</groupId>
+			<artifactId>zipkin-server</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

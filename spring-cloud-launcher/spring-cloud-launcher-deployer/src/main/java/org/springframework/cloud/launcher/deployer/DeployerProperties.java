@@ -37,10 +37,20 @@ public class DeployerProperties {
 	@NotNull
 	private List<String> deploy = new ArrayList<>();
 
+	private boolean list = false;
+
 	private int statusSleepMillis = 300;
 
+	public boolean isList() {
+		return this.list;
+	}
+
+	public void setList(boolean list) {
+		this.list = list;
+	}
+
 	public List<Deployable> getDeployables() {
-		return deployables;
+		return this.deployables;
 	}
 
 	public void setDeployables(List<Deployable> deployables) {
@@ -48,7 +58,7 @@ public class DeployerProperties {
 	}
 
 	public List<String> getDeploy() {
-		return deploy;
+		return this.deploy;
 	}
 
 	public void setDeploy(List<String> deploy) {
@@ -56,7 +66,7 @@ public class DeployerProperties {
 	}
 
 	public int getStatusSleepMillis() {
-		return statusSleepMillis;
+		return this.statusSleepMillis;
 	}
 
 	public void setStatusSleepMillis(int statusSleepMillis) {
@@ -66,9 +76,9 @@ public class DeployerProperties {
 	@Override
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("DeployerProperties{");
-		sb.append("deployables=").append(deployables);
-		sb.append("deploy=").append(deploy);
-		sb.append("statusSleepMillis=").append(statusSleepMillis);
+		sb.append("deployables=").append(this.deployables);
+		sb.append("deploy=").append(this.deploy);
+		sb.append("statusSleepMillis=").append(this.statusSleepMillis);
 		sb.append('}');
 		return sb.toString();
 	}
@@ -84,7 +94,7 @@ public class DeployerProperties {
 		private String message;
 
 		public String getCoordinates() {
-			return coordinates;
+			return this.coordinates;
 		}
 
 		public void setCoordinates(String coordinates) {
@@ -92,7 +102,7 @@ public class DeployerProperties {
 		}
 
 		public String getName() {
-			return name;
+			return this.name;
 		}
 
 		public void setName(String name) {
@@ -100,7 +110,7 @@ public class DeployerProperties {
 		}
 
 		public int getPort() {
-			return port;
+			return this.port;
 		}
 
 		public void setPort(int port) {
@@ -108,7 +118,7 @@ public class DeployerProperties {
 		}
 
 		public boolean isWaitUntilStarted() {
-			return waitUntilStarted;
+			return this.waitUntilStarted;
 		}
 
 		public void setWaitUntilStarted(boolean waitUntilStarted) {
@@ -117,7 +127,7 @@ public class DeployerProperties {
 
 		@Override
 		public int getOrder() {
-			return order;
+			return this.order;
 		}
 
 		public void setOrder(int order) {
@@ -125,7 +135,7 @@ public class DeployerProperties {
 		}
 
 		public String getMessage() {
-			return message;
+			return this.message;
 		}
 
 		public void setMessage(String message) {
@@ -135,12 +145,12 @@ public class DeployerProperties {
 		@Override
 		public String toString() {
 			final StringBuffer sb = new StringBuffer("Deployable{");
-			sb.append("coordinates='").append(coordinates).append('\'');
-			sb.append(", name='").append(name).append('\'');
-			sb.append(", port=").append(port);
-			sb.append(", waitUntilStarted=").append(waitUntilStarted);
-			sb.append(", order=").append(order);
-			sb.append(", message=").append(message);
+			sb.append("coordinates='").append(this.coordinates).append('\'');
+			sb.append(", name='").append(this.name).append('\'');
+			sb.append(", port=").append(this.port);
+			sb.append(", waitUntilStarted=").append(this.waitUntilStarted);
+			sb.append(", order=").append(this.order);
+			sb.append(", message=").append(this.message);
 			sb.append('}');
 			return sb.toString();
 		}

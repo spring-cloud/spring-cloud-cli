@@ -20,12 +20,15 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.h2.server.web.WebServlet;
 import org.h2.tools.Console;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.SmartLifecycle;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -39,20 +42,27 @@ import org.springframework.util.StringUtils;
 @SpringBootApplication
 @Controller
 public class H2Application {
+
 	private static final Log log = LogFactory.getLog(H2Application.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(H2Application.class, args);
 	}
 
-	@SuppressWarnings("unused")
+	@Bean
+	public ServletRegistrationBean h2Console() {
+		String urlMapping = "/*";
+		ServletRegistrationBean registration = new ServletRegistrationBean(new WebServlet(), urlMapping);
+		registration.addInitParameter("-webAllowOthers", "");
+		return registration;
+	}
 	@Service
 	static class H2Server implements SmartLifecycle {
 		private AtomicBoolean running = new AtomicBoolean(false);
 
 		private Console console;
 
-		@Value("${spring.datasource.url:9096}")
+		@Value("${spring.datasource.url:jdbc:h2:tcp://localhost:9096/./target/test}")
 		private String dataSourceUrl;
 
 		@Override
@@ -72,7 +82,7 @@ public class H2Application {
 				try {
 					log.info("Starting H2 Server");
 					this.console = new Console();
-					this.console.runTool("-tcp", "-pg", "-web",  "-tcpAllowOthers", "-tcpPort", getH2Port(dataSourceUrl));
+					this.console.runTool("-tcp", "-tcpAllowOthers", "-tcpPort", getH2Port(this.dataSourceUrl));
 				} catch (Exception e) {
 					ReflectionUtils.rethrowRuntimeException(e);
 				}
@@ -88,7 +98,7 @@ public class H2Application {
 		@Override
 		public void stop() {
 			if (this.running.compareAndSet(true, false)) {
-				log.info("Stoping H2 Server");
+				log.info("Stopping H2 Server");
 				this.console.shutdown();
 			}
 		}
