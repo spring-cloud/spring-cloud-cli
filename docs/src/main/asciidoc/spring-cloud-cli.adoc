@@ -11,6 +11,46 @@ include::https://raw.githubusercontent.com/spring-cloud/spring-cloud-build/maste
 
 include::install.adoc[]
 
+== Running Spring Cloud Services in Development
+
+The Launcher CLI can be used to run common services like Eureka,
+Config Server etc. from the command line. To list the available
+services you can do `spring cloud --list`, and to launch a default set
+of services just `spring cloud`. To choose the services to deploy,
+just list them on the command line, e.g.
+
+----
+$ spring cloud eureka configserver h2 kafka zipkin
+----
+
+Summary of supported deployables:
+
+[options="header"]
+|===
+|Service | Name | Address | Description 
+
+|eureka  | Eureka Server | http://localhost:8761
+| Eureka server for service registration and discovery. All the other services show up in its catalog by default.
+
+|configserver  | Config Server | http://localhost:8888
+|Spring Cloud Config Server running in the "native" profile and serving configuration from the local directory ./launcher
+
+|h2  | H2 Database | http://localhost:9095 (console), jdbc:h2:tcp://localhost:9096/{data}
+| Relation database service. Use a file path for `{data}` (e.g. `./target/test`) when you connect. Remember that you can add `;MODE=MYSQL` or `;MODE=POSTGRESQL` to connect with compatibility to other server types.
+
+|kafka  | Kafka Broker | http://localhost:9091 (actuator endpoints), localhost:9092
+| 
+
+|hystrixdashboard  | Hystrix Dashboard | http://localhost:7979
+|Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on `/hystrix.stream`. Type that address into the dashboard to visualize all the metrics,
+
+|dataflow  | Dataflow Server | http://localhost:9393
+| Spring Cloud Dataflow server with UI at /admin-ui. Connect the Dataflow shell to target at root path.
+
+|zipkin  | Zipkin Server | http://localhost:9411
+| Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.
+|===
+
 == Writing Groovy Scripts and Running Applications
 
 Spring Cloud CLI has support for most of the Spring Cloud declarative
