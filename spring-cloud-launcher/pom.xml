@@ -26,10 +26,11 @@
 		<module>spring-cloud-launcher-h2</module>
 		<module>spring-cloud-launcher-hystrixdashboard</module>
 		<module>spring-cloud-launcher-kafka</module>
+		<module>spring-cloud-launcher-zipkin</module>
 	</modules>
 
 	<properties>
-		<spring-cloud-bus.version>1.1.0.BUILD-SNAPSHOT</spring-cloud-bus.version>
+		<spring-cloud.version>Camden.BUILD-SNAPSHOT</spring-cloud.version>
 		<spring-cloud-dataflow.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
 		<spring-cloud-deployer.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-deployer.version>
 	</properties>
@@ -38,8 +39,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-bus</artifactId>
-				<version>${spring-cloud-bus.version}</version>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

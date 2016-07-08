@@ -6,6 +6,6 @@ eureka:
     status-page-url-path: /hystrix #allows you to click on the link in eureka dashboard
 
 info:
-  artifactId: @project.artifactId@
-  description: @project.description@
-  version: @project.version@
+  artifactId: "@project.artifactId@"
+  description: "@project.description@"
+  version: "@project.version@"

@@ -1,11 +1,9 @@
+spring:
+  application:
+    name: zipkin
+
 server:
-  port: 9091
-
-kafka:
-  port: 9092
-
-zk:
-  port: 2181
+  port: 9411
 
 info:
   artifactId: "@project.artifactId@"

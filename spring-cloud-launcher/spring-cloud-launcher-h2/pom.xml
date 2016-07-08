@@ -5,7 +5,6 @@
 
 	<groupId>org.springframework.cloud.launcher</groupId>
 	<artifactId>spring-cloud-launcher-h2</artifactId>
-	<version>1.2.0.BUILD-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>spring-cloud-launcher-h2</name>
@@ -24,6 +23,10 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
@@ -33,10 +36,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-eureka</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-bus-kafka</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
