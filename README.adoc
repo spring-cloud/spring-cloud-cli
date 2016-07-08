@@ -2,10 +2,15 @@
 
 image::https://travis-ci.org/spring-cloud/spring-cloud-cli.svg?branch=master[Build Status, link=https://travis-ci.org/spring-cloud/spring-cloud-cli]
 
-Spring Boot CLI provides http://projects.spring.io/spring-boot[Spring Boot] command line features for
-https://github.com/spring-cloud[Spring Cloud]. You can write Groovy scripts to run Spring Cloud component applications
-(e.g. `@EnableEurekaServer`). You can also easily do things like encryption and decryption to support Spring Cloud
-Config clients with secret configuration values.
+Spring Boot CLI provides http://projects.spring.io/spring-boot[Spring
+Boot] command line features for https://github.com/spring-cloud[Spring
+Cloud]. You can write Groovy scripts to run Spring Cloud component
+applications (e.g. `@EnableEurekaServer`). You can also easily do
+things like encryption and decryption to support Spring Cloud Config
+clients with secret configuration values. With the Launcher CLI you
+can also launch services like Eureka, Zipkin, Config Server
+conveniently all at once from the command line (very useful at
+development time).
 
 
 == Installation
@@ -25,11 +30,12 @@ $ sdk install springboot 1.3.5.RELEASE
 $ sdk use springboot 1.3.5.RELEASE
 ```
 
-and install the Spring Cloud plugin:
+and install the Spring Cloud plugins (they are independeny so you can install one or the other or both):
 
 ```
 $ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.1.2.RELEASE
+$ spring install org.springframework.cloud:spring-cloud-cli:1.2.0.BUILD-SNAPSHOT
+$ spring install org.springframework.cloud:spring-cloud-launcher-cli:1.2.0.BUILD-SNAPSHOT
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
