@@ -35,8 +35,7 @@ and install the Spring Cloud plugins (they are independent, so you can install o
 ```
 $ mvn install
 $ spring install org.springframework.cloud:spring-cloud-cli:1.2.0.BUILD-SNAPSHOT
-$ spring install org.springframework.cloud.launcher
-:spring-cloud-launcher-cli:1.2.0.BUILD-SNAPSHOT
+$ spring install org.springframework.cloud.launcher:spring-cloud-launcher-cli:1.2.0.BUILD-SNAPSHOT
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
