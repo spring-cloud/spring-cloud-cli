@@ -81,6 +81,8 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		@Override
 		protected void options() {
+			// if the classloader is loaded here, we could load a collection of interfaces that
+			// can create options and then populate the args[] that is sent to the DeployerThread
 			this.debugOption = option(Arrays.asList("debug", "d"), "Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"), "List the deployables (don't launch anything)");
 			this.gitUriOption = getParser().acceptsAll(Arrays.asList("git-uri", "g"), "URI for git repository for use with configserver").withRequiredArg();
