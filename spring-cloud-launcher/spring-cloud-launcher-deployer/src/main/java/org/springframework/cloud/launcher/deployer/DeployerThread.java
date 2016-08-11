@@ -193,6 +193,7 @@ public class DeployerThread extends Thread {
 		appDefProps.put("server.port", String.valueOf(deployable.getPort()));
 
 		// TODO: move to notDeployedProps or something
+		// these could be part of a collection of an interface to augment properties based on conditions
 		if (!shouldDeploy("kafka", properties)) {
 			appDefProps.put("spring.cloud.bus.enabled", Boolean.FALSE.toString());
 		}
@@ -203,7 +204,6 @@ public class DeployerThread extends Thread {
 			appDefProps.put("spring.profiles.active", "git");
 			appDefProps.put("spring.cloud.config.server.git.uri",
 					environment.getRequiredProperty("git.uri"));
-
 		}
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
