@@ -43,6 +43,7 @@ import org.springframework.cloud.deployer.spi.core.AppDeploymentRequest;
 import org.springframework.cloud.launcher.deployer.DeployerProperties.Deployable;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.OrderComparator;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ClassPathResource;
@@ -136,7 +137,7 @@ public class DeployerThread extends Thread {
 		logger.debug("Deployables {}", properties.getDeployables());
 
 		for (Deployable deployable : deployables) {
-			deploy(deployer, resourceLoader, deployable, properties);
+			deploy(deployer, resourceLoader, deployable, properties, context.getEnvironment());
 		}
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -180,7 +181,7 @@ public class DeployerThread extends Thread {
 	}
 
 	private String deploy(AppDeployer deployer, ResourceLoader resourceLoader, Deployable deployable,
-			DeployerProperties properties) {
+						  DeployerProperties properties, ConfigurableEnvironment environment) {
 		if (!shouldDeploy(deployable, properties)) {
 			return null;
 		}
@@ -197,6 +198,12 @@ public class DeployerThread extends Thread {
 		}
 		if (!shouldDeploy("eureka", properties)) {
 			appDefProps.put("eureka.client.enabled", Boolean.FALSE.toString());
+		}
+		if (deployable.getName().equals("configserver") && environment.containsProperty("git.uri")) {
+			appDefProps.put("spring.profiles.active", "git");
+			appDefProps.put("spring.cloud.config.server.git.uri",
+					environment.getRequiredProperty("git.uri"));
+
 		}
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
