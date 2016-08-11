@@ -42,6 +42,7 @@ import org.springframework.boot.cli.compiler.grape.RepositoryConfiguration;
 import org.springframework.util.StringUtils;
 
 import groovy.lang.GroovyClassLoader;
+import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
@@ -60,6 +61,7 @@ public class LauncherCommand extends OptionParsingCommand {
 		EXAMPLES.add(new HelpExample("Launch Eureka", "spring cloud eureka"));
 		EXAMPLES.add(new HelpExample("Launch Config Server and Eureka", "spring cloud configserver eureka"));
 		EXAMPLES.add(new HelpExample("List deployable apps", "spring cloud --list"));
+		EXAMPLES.add(new HelpExample("Launch Config Server with git repo", "spring cloud --git-uri=http://example.com/proj.git configserver"));
 	}
 
 	public LauncherCommand() {
@@ -75,11 +77,13 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		private OptionSpec<Void> debugOption;
 		private OptionSpec<Void> listOption;
+		private ArgumentAcceptingOptionSpec<String> gitUriOption;
 
 		@Override
 		protected void options() {
 			this.debugOption = option(Arrays.asList("debug", "d"), "Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"), "List the deployables (don't launch anything)");
+			this.gitUriOption = getParser().acceptsAll(Arrays.asList("git-uri", "g"), "URI for git repository for use with configserver").withRequiredArg();
 		}
 
 		@Override
@@ -119,6 +123,9 @@ public class LauncherCommand extends OptionParsingCommand {
 			}
 			if (options.has(this.debugOption)) {
 				args.add("--debug=true");
+			}
+			if (options.has(this.gitUriOption)) {
+				args.add("--git.uri=" + options.valueOf(this.gitUriOption));
 			}
 			if (options.has(this.listOption)) {
 				args.add("--launcher.list=true");

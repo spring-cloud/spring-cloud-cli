@@ -42,9 +42,16 @@ spring:
 
 The `name` attribute is required. If `waitUntilStarted` is true, Launcher will block until the application has reached the `deployed` state. Before commands are deployed, the list is sorted using Spring's `OrderComparator`. In the above case, `configserver` is deployed before any other app is deployed. Currently only `maven:` coordinates and standard Spring Resources (`file:`, etc...) are supported. 
 
-You can also use the `--deploy` option to select from the [predefined deployables](https://github.com/spring-cloud/spring-cloud-cli/blob/devtools/spring-cloud-launcher/spring-cloud-launcher-deployer/src/main/resources/cloud.yml). For example to run Spring Cloud Data Flow execute:
+You can also select from the [predefined deployables](https://github.com/spring-cloud/spring-cloud-cli/blob/devtools/spring-cloud-launcher/spring-cloud-launcher-deployer/src/main/resources/cloud.yml). For example to run Spring Cloud Data Flow execute:
 ```
-spring cloud --launch=configserver,h2,kafka,dataflow
+spring cloud eureka,configserver
+```
+
+### Config Server git uri
+
+To run configserver with a git repo use the `--git-uri` option. For example:
+```
+spring cloud --git-uri=http://mygitserver/myrepo.git configserver
 ```
 
 ### Stopping
@@ -62,9 +69,9 @@ spring cloud --launch=configserver,h2,kafka,dataflow
 - [X] H2 Database
 - [X] Spring Cloud Dataflow server
 - [X] Launcher landing page (Eureka Dashboard works for now)
+- [X] Sleuth/Zipkin
 - [ ] Support external rabbit
 - [ ] Speedup startup (parallel start?, retry for config server, db and kafka?)
-- [ ] Sleuth/Zipkin
 - [ ] Cassandra Database
 - [ ] Client Side Library
 - [ ] Spring Boot Admin (Not compatible with Brixton)
