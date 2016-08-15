@@ -1,6 +1,6 @@
 dt:
   pre: maven://org.springframework.cloud.launcher:spring-cloud-launcher-
-  ver: 1.2.0.BUILD-SNAPSHOT
+  ver: ${launcher.version}
 spring:
   cloud:
     launcher:
