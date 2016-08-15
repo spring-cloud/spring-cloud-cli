@@ -92,7 +92,7 @@ public class LauncherCommand extends OptionParsingCommand {
 		protected synchronized ExitStatus run(OptionSet options) throws Exception {
 
 			try {
-				URLClassLoader classLoader = populateClassloader();
+				URLClassLoader classLoader = populateClassloader(options);
 
 				String name = "org.springframework.cloud.launcher.deployer.DeployerThread";
 				Class<?> threadClass = classLoader.loadClass(name);
@@ -141,7 +141,7 @@ public class LauncherCommand extends OptionParsingCommand {
 			return args.toArray(new String[args.size()]);
 		}
 
-		URLClassLoader populateClassloader() throws MalformedURLException {
+		private URLClassLoader populateClassloader(OptionSet options) throws MalformedURLException {
 			DependencyResolutionContext resolutionContext = new DependencyResolutionContext();
 
 			GroovyClassLoader loader = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(),
@@ -156,21 +156,18 @@ public class LauncherCommand extends OptionParsingCommand {
 				loader.addClasspath(classpath);
 			}
 
-			System.setProperty("groovy.grape.report.downloads", "true");
-			// System.setProperty("grape.root", ".");
+			if (options.has(debugOption)) {
+				System.setProperty("groovy.grape.report.downloads", "true");
+			}
 
 			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(loader, repositoryConfiguration,
 					resolutionContext);
 
-			// GrapeEngineInstaller.install(grapeEngine);
-
-			// TODO: get version dynamically?
 			HashMap<String, String> dependency = new HashMap<>();
 			dependency.put("group", "org.springframework.cloud.launcher");
 			dependency.put("module", "spring-cloud-launcher-deployer");
 			dependency.put("version", getVersion());
 			URI[] uris = grapeEngine.resolve(null, dependency);
-			// System.out.println("resolved URI's " + Arrays.asList(uris));
 			for (URI uri : uris) {
 				loader.addURL(uri.toURL());
 			}
