@@ -77,7 +77,6 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		private OptionSpec<Void> debugOption;
 		private OptionSpec<Void> listOption;
-		private ArgumentAcceptingOptionSpec<String> gitUriOption;
 
 		@Override
 		protected void options() {
@@ -85,7 +84,6 @@ public class LauncherCommand extends OptionParsingCommand {
 			// can create options and then populate the args[] that is sent to the DeployerThread
 			this.debugOption = option(Arrays.asList("debug", "d"), "Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"), "List the deployables (don't launch anything)");
-			this.gitUriOption = getParser().acceptsAll(Arrays.asList("git-uri", "g"), "URI for git repository for use with configserver").withRequiredArg();
 		}
 
 		@Override
@@ -125,9 +123,6 @@ public class LauncherCommand extends OptionParsingCommand {
 			}
 			if (options.has(this.debugOption)) {
 				args.add("--debug=true");
-			}
-			if (options.has(this.gitUriOption)) {
-				args.add("--git.uri=" + options.valueOf(this.gitUriOption));
 			}
 			if (options.has(this.listOption)) {
 				args.add("--launcher.list=true");
