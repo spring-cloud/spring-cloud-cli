@@ -62,6 +62,8 @@ public class DeployerThread extends Thread {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
 
+	private static final String DEFAULT_VERSION = "1.2.0.BUILD-SNAPSHOT";
+
 	private Map<String, DeploymentState> deployed = new ConcurrentHashMap<>();
 
 	private String[] args;
@@ -169,12 +171,17 @@ public class DeployerThread extends Thread {
 		return null;
 	}
 
+	private String getVersion() {
+		Package pkg = DeployerThread.class.getPackage();
+		return (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
+	}
+
 	private void launch() {
 
 		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
 						.web(false).properties("spring.config.name=cloud",
-								"banner.location=launcher-banner.txt")
+								"banner.location=launcher-banner.txt", "launcher.version="+getVersion())
 						.run(this.args);
 
 		final AppDeployer deployer = context.getBean(AppDeployer.class);
