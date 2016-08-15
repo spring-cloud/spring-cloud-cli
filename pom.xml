@@ -24,6 +24,7 @@
         <bintray.package>cli</bintray.package>
         <docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
+		<spring-boot.version>1.4.1.BUILD-SNAPSHOT</spring-boot.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
@@ -96,7 +97,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Brixton.BUILD-SNAPSHOT</version>
+				<version>Camden.BUILD-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>

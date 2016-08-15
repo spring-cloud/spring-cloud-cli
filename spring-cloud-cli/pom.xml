@@ -17,10 +17,6 @@
 		<version>1.2.0.BUILD-SNAPSHOT</version>
 	</parent>
 
-	<properties>
-		<spring-boot.version>1.4.1.BUILD-SNAPSHOT</spring-boot.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud.launcher</groupId>
