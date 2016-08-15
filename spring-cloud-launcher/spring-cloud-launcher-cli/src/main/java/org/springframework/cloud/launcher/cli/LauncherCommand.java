@@ -165,7 +165,7 @@ public class LauncherCommand extends OptionParsingCommand {
 			for (URI uri : uris) {
 				loader.addURL(uri.toURL());
 			}
-			log.debug("resolved URI's " + Arrays.asList(loader.getURLs()));
+			log.debug("resolved URIs " + Arrays.asList(loader.getURLs()));
 			return loader;
 		}
 
