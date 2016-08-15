@@ -22,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -44,9 +45,11 @@ import org.springframework.cloud.launcher.deployer.DeployerProperties.Deployable
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.OrderComparator;
 import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.ClassUtils;
@@ -83,25 +86,16 @@ public class DeployerThread extends Thread {
 	}
 
 	private void quiet() {
-		LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT", LogLevel.OFF);
+		LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT",
+				LogLevel.OFF);
 	}
 
 	private void list() {
 		StandardEnvironment environment = new StandardEnvironment();
-		String path = "/cloud.yml";
-		ClassPathResource resource = new ClassPathResource(path, DeployerThread.class);
-		if (resource.exists()) {
-			try {
-				PropertySource<?> source = new YamlPropertySourceLoader().load(path, resource, null);
-				if (source != null) {
-					environment.getPropertySources().addLast(source);
-				}
-			}
-			catch (IOException e) {
-			}
-		}
+		loadCloudProperties(environment);
 		DeployerProperties properties = new DeployerProperties();
-		PropertiesConfigurationFactory<DeployerProperties> factory = new PropertiesConfigurationFactory<>(properties);
+		PropertiesConfigurationFactory<DeployerProperties> factory = new PropertiesConfigurationFactory<>(
+				properties);
 		factory.setTargetName("spring.cloud.launcher");
 		factory.setPropertySources(environment.getPropertySources());
 		try {
@@ -119,11 +113,68 @@ public class DeployerThread extends Thread {
 		}
 	}
 
+	private void loadCloudProperties(StandardEnvironment environment) {
+		String path = "/cloud.yml";
+		PropertySource<?> source = extractPropertySource(path);
+		if (source != null) {
+			environment.getPropertySources().addLast(source);
+		}
+	}
+
+	private Map<String, String> extractProperties(String path) {
+		PropertySource<?> source = extractPropertySource(path);
+		Map<String, String> map = new LinkedHashMap<String, String>();
+		if (source instanceof EnumerablePropertySource) {
+			EnumerablePropertySource<?> enumerable = (EnumerablePropertySource<?>) source;
+			for (String name : enumerable.getPropertyNames()) {
+				map.put(name, source.getProperty(name) == null ? null
+						: source.getProperty(name).toString());
+			}
+		}
+		return map;
+	}
+
+	private PropertySource<?> extractPropertySource(String path) {
+		PropertySource<?> source = null;
+		Resource resource = new ClassPathResource("config/" + path, DeployerThread.class);
+		source = loadPropertySource(resource, path);
+		if (source==null) {			
+			resource = new ClassPathResource(path, DeployerThread.class);
+			source = loadPropertySource(resource, path);
+		}
+		if (source==null) {			
+			resource = new FileSystemResource("config/" + path);
+			source = loadPropertySource(resource, path);
+		}
+		if (source==null) {			
+			resource = new FileSystemResource(path);
+			source = loadPropertySource(resource, path);
+		}
+		return source;
+	}
+
+	private PropertySource<?> loadPropertySource(Resource resource, String path) {
+		if (resource.exists()) {
+			try {
+				PropertySource<?> source = new YamlPropertySourceLoader().load(path, resource, null);
+				if (source!=null) {
+					logger.info("Loaded YAML properties from: " + resource);
+				}
+				return source;
+			}
+			catch (IOException e) {
+			}
+		}
+		return null;
+	}
+
 	private void launch() {
 
 		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
-				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class).web(false)
-						.properties("spring.config.name=cloud", "banner.location=launcher-banner.txt").run(this.args);
+				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
+						.web(false).properties("spring.config.name=cloud",
+								"banner.location=launcher-banner.txt")
+						.run(this.args);
 
 		final AppDeployer deployer = context.getBean(AppDeployer.class);
 
@@ -137,7 +188,8 @@ public class DeployerThread extends Thread {
 		logger.debug("Deployables {}", properties.getDeployables());
 
 		for (Deployable deployable : deployables) {
-			deploy(deployer, resourceLoader, deployable, properties, context.getEnvironment());
+			deploy(deployer, resourceLoader, deployable, properties,
+					context.getEnvironment());
 		}
 
 		Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -153,8 +205,10 @@ public class DeployerThread extends Thread {
 		});
 
 		for (Deployable deployable : deployables) {
-			if (shouldDeploy(deployable, properties) && StringUtils.hasText(deployable.getMessage())) {
-				System.out.println("\n\n" + deployable.getName() + ": " + deployable.getMessage() + "\n");
+			if (shouldDeploy(deployable, properties)
+					&& StringUtils.hasText(deployable.getMessage())) {
+				System.out.println("\n\n" + deployable.getName() + ": "
+						+ deployable.getMessage() + "\n");
 			}
 		}
 
@@ -180,27 +234,35 @@ public class DeployerThread extends Thread {
 		}
 	}
 
-	private String deploy(AppDeployer deployer, ResourceLoader resourceLoader, Deployable deployable,
-						  DeployerProperties properties, ConfigurableEnvironment environment) {
+	private String deploy(AppDeployer deployer, ResourceLoader resourceLoader,
+			Deployable deployable, DeployerProperties properties,
+			ConfigurableEnvironment environment) {
 		if (!shouldDeploy(deployable, properties)) {
 			return null;
 		}
 
-		logger.debug("getting resource {} = {}", deployable.getName(), deployable.getCoordinates());
+		logger.debug("getting resource {} = {}", deployable.getName(),
+				deployable.getCoordinates());
 		Resource resource = resourceLoader.getResource(deployable.getCoordinates());
 
 		Map<String, String> appDefProps = new HashMap<>();
 		appDefProps.put("server.port", String.valueOf(deployable.getPort()));
 
 		// TODO: move to notDeployedProps or something
-		// these could be part of a collection of an interface to augment properties based on conditions
+		// these could be part of a collection of an interface to augment properties based
+		// on conditions
 		if (!shouldDeploy("kafka", properties)) {
 			appDefProps.put("spring.cloud.bus.enabled", Boolean.FALSE.toString());
 		}
 		if (!shouldDeploy("eureka", properties)) {
 			appDefProps.put("eureka.client.enabled", Boolean.FALSE.toString());
 		}
-		if (deployable.getName().equals("configserver") && environment.containsProperty("git.uri")) {
+		Map<String, String> map = extractProperties(deployable.getName() + ".yml");
+		for (String key : map.keySet()) {
+			appDefProps.put(key, map.get(key));
+		}
+		if (deployable.getName().equals("configserver")
+				&& environment.containsProperty("git.uri")) {
 			appDefProps.put("spring.profiles.active", "git");
 			appDefProps.put("spring.cloud.config.server.git.uri",
 					environment.getRequiredProperty("git.uri"));
@@ -208,14 +270,16 @@ public class DeployerThread extends Thread {
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
 
-		Map<String, String> environmentProperties = Collections.singletonMap(AppDeployer.GROUP_PROPERTY_KEY,
-				"launcher");
-		AppDeploymentRequest request = new AppDeploymentRequest(definition, resource, environmentProperties);
+		Map<String, String> environmentProperties = Collections
+				.singletonMap(AppDeployer.GROUP_PROPERTY_KEY, "launcher");
+		AppDeploymentRequest request = new AppDeploymentRequest(definition, resource,
+				environmentProperties);
 
-		logger.debug("deploying resource {} = {}", deployable.getName(), deployable.getCoordinates());
+		logger.debug("Deploying resource {} = {}", deployable.getName(),
+				deployable.getCoordinates());
+		logger.debug("Properties: {}", appDefProps);
 		String id = deployer.deploy(request);
 		AppStatus appStatus = getAppStatus(deployer, id);
-		logger.info("Status of {}: {}", id, appStatus);
 		// TODO: stream stdout/stderr like docker-compose (with colors and prefix)
 
 		if (deployable.isWaitUntilStarted()) {
@@ -233,6 +297,7 @@ public class DeployerThread extends Thread {
 				logger.error("error updating status of " + id, e);
 			}
 		}
+		logger.info("Status of {}: {}", id, appStatus);
 
 		return id;
 	}
