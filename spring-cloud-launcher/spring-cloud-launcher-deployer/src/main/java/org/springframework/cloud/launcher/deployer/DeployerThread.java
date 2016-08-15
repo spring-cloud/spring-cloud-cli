@@ -136,14 +136,14 @@ public class DeployerThread extends Thread {
 
 	private PropertySource<?> extractPropertySource(String path) {
 		PropertySource<?> source = null;
-		Resource resource = new ClassPathResource("config/" + path, DeployerThread.class);
+		Resource resource = new ClassPathResource("config" + path, DeployerThread.class);
 		source = loadPropertySource(resource, path);
 		if (source==null) {			
 			resource = new ClassPathResource(path, DeployerThread.class);
 			source = loadPropertySource(resource, path);
 		}
 		if (source==null) {			
-			resource = new FileSystemResource("config/" + path);
+			resource = new FileSystemResource("config" + path);
 			source = loadPropertySource(resource, path);
 		}
 		if (source==null) {			
@@ -257,7 +257,7 @@ public class DeployerThread extends Thread {
 		if (!shouldDeploy("eureka", properties)) {
 			appDefProps.put("eureka.client.enabled", Boolean.FALSE.toString());
 		}
-		Map<String, String> map = extractProperties(deployable.getName() + ".yml");
+		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {
 			appDefProps.put(key, map.get(key));
 		}
