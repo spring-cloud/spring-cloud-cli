@@ -27,4 +27,4 @@ env:
   - VERSION=$(mvn validate | grep Building | head -1 | sed -e 's/.* //')
   - MILESTONE=$(echo ${VERSION} | egrep 'M|RC' && echo true || echo false)
   - MVN_PROFILE=$([ "${MILESTONE}" == "true" ] && echo -P milestone)
-  - secure: WNSvUU2eA+mbG+moEORn8Yr9ydoEdkPDccawncKxm8k4vgYTvOXpIUY4aFxI4gfYjDZWxcvKmm/hqEL2qPhzwlYqgljKQmLY6Leto6AaDVTryQGPuRpfDIHgeD7Oxs61Xle+MOWF2UyWbMnvQPQBKUBsn6Tz8qSLCgdVersYIPM=
+  - secure: "mGJnfRsxSdjAwedXAB8kvC3ckc1TGHS2ym+8dP7TSPhknpM9To+S6THwTmawOpJFq09A/1OlUWeanpGEIHCXB/Oz73ZQ9xqheqFf3mk83xOV0TjIP3AzT2boTNRVFGe+LXOIRgTwg7jULl9TIf6pBUK3s5iPvLYlZhCq1Q6QEIU="
