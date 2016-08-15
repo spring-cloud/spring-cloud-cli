@@ -431,7 +431,7 @@ Cloud</a>. You can write Groovy scripts to run Spring Cloud component
 applications (e.g. <code>@EnableEurekaServer</code>). You can also easily do
 things like encryption and decryption to support Spring Cloud Config
 clients with secret configuration values. With the Launcher CLI you
-can also launch services like Eureka, Zipkin, Config Server
+can launch services like Eureka, Zipkin, Config Server
 conveniently all at once from the command line (very useful at
 development time).</p>
 </div>
@@ -579,6 +579,24 @@ just list them on the command line, e.g.</p>
 </tr>
 </tbody>
 </table>
+<div class="paragraph">
+<p>Each of these apps can be configured using a local YAML file with the same name (in the current
+working directory or a subdirectory called "config"). E.g. in <code>configserver.yml</code> you might want to
+do something like this to locate a local git repository for the backend:</p>
+</div>
+<div class="listingblock">
+<div class="title">configserver.yml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/dev/demo/config-repo</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -657,7 +675,7 @@ AQAjPgt3eFZQXwt8tsHAVv/QHiY5sI2dRcR+...</pre>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2016-08-15 14:49:00 UTC
+Last updated 2016-08-15 15:47:28 UTC
 </div>
 </div>
 </body>
