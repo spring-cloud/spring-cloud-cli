@@ -147,7 +147,7 @@ public class DeployerThread extends Thread {
 			source = loadPropertySource(resource, path);
 		}
 		if (source==null) {			
-			resource = new FileSystemResource(path);
+			resource = new FileSystemResource("." + path);
 			source = loadPropertySource(resource, path);
 		}
 		return source;
