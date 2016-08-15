@@ -51,6 +51,23 @@ Summary of supported deployables:
 | Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.
 |===
 
+Each of these apps can be configured using a local YAML file with the same name (in the current
+working directory or a subdirectory called "config"). E.g. in `configserver.yml` you might want to
+do something like this to locate a local git repository for the backend:
+
+.configserver.yml
+[source,yaml,indent=0]
+----
+spring:
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/dev/demo/config-repo
+----
+
 == Writing Groovy Scripts and Running Applications
 
 Spring Cloud CLI has support for most of the Spring Cloud declarative

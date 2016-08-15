@@ -4,7 +4,7 @@ Cloud]. You can write Groovy scripts to run Spring Cloud component
 applications (e.g. `@EnableEurekaServer`). You can also easily do
 things like encryption and decryption to support Spring Cloud Config
 clients with secret configuration values. With the Launcher CLI you
-can also launch services like Eureka, Zipkin, Config Server
+can launch services like Eureka, Zipkin, Config Server
 conveniently all at once from the command line (very useful at
 development time).
 

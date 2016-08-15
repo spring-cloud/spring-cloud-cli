@@ -138,15 +138,15 @@ public class DeployerThread extends Thread {
 		PropertySource<?> source = null;
 		Resource resource = new ClassPathResource("config" + path, DeployerThread.class);
 		source = loadPropertySource(resource, path);
-		if (source==null) {			
+		if (source == null) {
 			resource = new ClassPathResource(path, DeployerThread.class);
 			source = loadPropertySource(resource, path);
 		}
-		if (source==null) {			
+		if (source == null) {
 			resource = new FileSystemResource("config" + path);
 			source = loadPropertySource(resource, path);
 		}
-		if (source==null) {			
+		if (source == null) {
 			resource = new FileSystemResource("." + path);
 			source = loadPropertySource(resource, path);
 		}
@@ -156,8 +156,9 @@ public class DeployerThread extends Thread {
 	private PropertySource<?> loadPropertySource(Resource resource, String path) {
 		if (resource.exists()) {
 			try {
-				PropertySource<?> source = new YamlPropertySourceLoader().load(path, resource, null);
-				if (source!=null) {
+				PropertySource<?> source = new YamlPropertySourceLoader().load(path,
+						resource, null);
+				if (source != null) {
 					logger.info("Loaded YAML properties from: " + resource);
 				}
 				return source;
@@ -260,12 +261,6 @@ public class DeployerThread extends Thread {
 		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {
 			appDefProps.put(key, map.get(key));
-		}
-		if (deployable.getName().equals("configserver")
-				&& environment.containsProperty("git.uri")) {
-			appDefProps.put("spring.profiles.active", "git");
-			appDefProps.put("spring.cloud.config.server.git.uri",
-					environment.getRequiredProperty("git.uri"));
 		}
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
