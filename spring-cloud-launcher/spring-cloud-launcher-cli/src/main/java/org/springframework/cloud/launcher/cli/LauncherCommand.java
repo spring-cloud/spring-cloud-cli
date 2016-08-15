@@ -42,7 +42,6 @@ import org.springframework.boot.cli.compiler.grape.RepositoryConfiguration;
 import org.springframework.util.StringUtils;
 
 import groovy.lang.GroovyClassLoader;
-import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
