@@ -94,7 +94,8 @@ public class DeployerThread extends Thread {
 	private void list() {
 		DeployerProperties properties = loadCloudProperties();
 		if (!properties.getDeployables().isEmpty()) {
-			Collection<String> names = new ArrayList<>(properties.getDeployables().keySet());
+			Collection<String> names = new ArrayList<>(
+					properties.getDeployables().keySet());
 			System.out.println(StringUtils.collectionToDelimitedString(names, " "));
 		}
 	}
@@ -185,7 +186,8 @@ public class DeployerThread extends Thread {
 
 		DeployerProperties properties = context.getBean(DeployerProperties.class);
 
-		ArrayList<Deployable> deployables = new ArrayList<>(properties.getDeployables().values());
+		ArrayList<Deployable> deployables = new ArrayList<>(
+				properties.getDeployables().values());
 		OrderComparator.sort(deployables);
 
 		logger.debug("Deployables {}", properties.getDeployables());
@@ -251,14 +253,12 @@ public class DeployerThread extends Thread {
 		Map<String, String> appDefProps = new HashMap<>();
 		appDefProps.put("server.port", String.valueOf(deployable.getPort()));
 
-		// TODO: move to notDeployedProps or something
-		// these could be part of a collection of an interface to augment properties based
-		// on conditions
-		if (!shouldDeploy("kafka", properties)) {
-			appDefProps.put("spring.cloud.bus.enabled", Boolean.FALSE.toString());
-		}
-		if (!shouldDeploy("eureka", properties)) {
-			appDefProps.put("eureka.client.enabled", Boolean.FALSE.toString());
+		// For each of the other deployables, add "negative" properties that apply to all
+		// apps when it is disabled
+		for (Deployable other : properties.getDeployables().values()) {
+			if (!shouldDeploy(other.getName(), properties)) {
+				appDefProps.putAll(other.getDisabled());
+			}
 		}
 		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {

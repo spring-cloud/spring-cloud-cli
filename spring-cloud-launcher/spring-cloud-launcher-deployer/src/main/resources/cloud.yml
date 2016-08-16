@@ -17,6 +17,8 @@ spring:
           coordinates: ${dt.pre}eureka:${dt.ver}
           port: 8761
           message: To see the dashboard open http://localhost:8761
+          disabled:
+            eureka.client.enabled: false
         h2:
           coordinates: ${dt.pre}h2:${dt.ver}
           port: 9095
@@ -31,6 +33,8 @@ spring:
           port: 9091
           waitUntilStarted: true
           order: -200
+          disabled: 
+            spring.cloud.bus.enabled: false
         zipkin:
           coordinates: ${dt.pre}zipkin:${dt.ver}
           port: 9411

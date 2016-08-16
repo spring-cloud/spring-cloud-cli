@@ -34,14 +34,26 @@ import org.springframework.core.Ordered;
 @ConfigurationProperties(prefix = "spring.cloud.launcher")
 public class DeployerProperties {
 
+	/**
+	 * A set of deployable applications.
+	 */
 	@NotNull
 	private Map<String, Deployable> deployables = new LinkedHashMap<>();
 
+	/**
+	 * The names of the deployable applications to actually deploy.
+	 */
 	@NotNull
 	private List<String> deploy = new ArrayList<>();
 
+	/**
+	 * Flag to say that user only requests a list of deployables.
+	 */
 	private boolean list = false;
 
+	/**
+	 * Time to sleep in a tight loop while waiting for an app to start.
+	 */
 	private int statusSleepMillis = 300;
 
 	public boolean isList() {
@@ -75,12 +87,12 @@ public class DeployerProperties {
 	public void setStatusSleepMillis(int statusSleepMillis) {
 		this.statusSleepMillis = statusSleepMillis;
 	}
-	
+
 	@PostConstruct
 	public void init() {
 		for (String name : deployables.keySet()) {
 			Deployable deployable = deployables.get(name);
-			if (deployable.getName()==null) {
+			if (deployable.getName() == null) {
 				deployable.setName(name);
 			}
 		}
@@ -97,14 +109,39 @@ public class DeployerProperties {
 	}
 
 	public static class Deployable implements Ordered {
+		/**
+		 * Maven (grab-style) co-ordinates of the deployable application artifact in the
+		 * form "group:artifact[:classifer]:version" (classifer defaults to "jar").
+		 */
 		@NotEmpty
 		private String coordinates;
+		/**
+		 * Name of the deployable application.
+		 */
 		@NotEmpty
 		private String name;
+		/**
+		 * Port to listen on.
+		 */
 		private int port = 0;
+		/**
+		 * Flag to say that this application must be running before any with higher order
+		 * are launched.
+		 */
 		private boolean waitUntilStarted;
+		/**
+		 * The order to deploy this application. Default is unordered (so last).
+		 */
 		private int order = 0;
+		/**
+		 * A message to print when the application starts.
+		 */
 		private String message;
+		/**
+		 * A map of"negative" properties that apply to all apps when this one is disabled.
+		 * E.g. when eureka is disabled you might want "eureka.client.enabled=false".
+		 */
+		private Map<String, String> disabled = new LinkedHashMap<>();
 
 		public String getCoordinates() {
 			return this.coordinates;
@@ -155,6 +192,14 @@ public class DeployerProperties {
 			this.message = message;
 		}
 
+		public void setDisabled(Map<String, String> disabled) {
+			this.disabled = disabled;
+		}
+
+		public Map<String, String> getDisabled() {
+			return disabled;
+		}
+
 		@Override
 		public String toString() {
 			final StringBuffer sb = new StringBuffer("Deployable{");
@@ -163,9 +208,11 @@ public class DeployerProperties {
 			sb.append(", port=").append(this.port);
 			sb.append(", waitUntilStarted=").append(this.waitUntilStarted);
 			sb.append(", order=").append(this.order);
+			sb.append(", disabled=").append(this.disabled);
 			sb.append(", message=").append(this.message);
 			sb.append('}');
 			return sb.toString();
 		}
+
 	}
 }
