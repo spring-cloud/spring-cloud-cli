@@ -61,8 +61,6 @@ public class LauncherCommand extends OptionParsingCommand {
 		EXAMPLES.add(new HelpExample("Launch Config Server and Eureka",
 				"spring cloud configserver eureka"));
 		EXAMPLES.add(new HelpExample("List deployable apps", "spring cloud --list"));
-		EXAMPLES.add(new HelpExample("Launch Config Server with git repo",
-				"spring cloud --git-uri=http://example.com/proj.git configserver"));
 	}
 
 	public LauncherCommand() {
@@ -82,10 +80,9 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		@Override
 		protected void options() {
-			// if the classloader is loaded here, we could load a collection of interfaces
-			// that
-			// can create options and then populate the args[] that is sent to the
-			// DeployerThread
+			// if the classloader is loaded here, we could load a collection of
+			// interfaces that can create options and then populate the args[]
+			// that is sent to the DeployerThread
 			this.debugOption = option(Arrays.asList("debug", "d"),
 					"Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"),

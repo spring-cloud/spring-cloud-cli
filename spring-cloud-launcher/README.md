@@ -49,9 +49,11 @@ spring cloud eureka,configserver
 
 ### Config Server git uri
 
-To run configserver with a git repo use the `--git-uri` option. For example:
+To run configserver with a git repo set the following in `./configserver.yml`:
 ```
-spring cloud --git-uri=http://mygitserver/myrepo.git configserver
+spring:
+  profiles.active: git
+  cloud.config.server.git.uri: http://mygitserver/myrepo.git
 ```
 
 ### Stopping
