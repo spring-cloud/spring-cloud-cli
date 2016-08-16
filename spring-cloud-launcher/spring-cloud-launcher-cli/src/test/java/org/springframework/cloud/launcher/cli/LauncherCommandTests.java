@@ -16,7 +16,10 @@
 
 package org.springframework.cloud.launcher.cli;
 
-import org.junit.Ignore;
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -24,10 +27,18 @@ import org.junit.Test;
  */
 public class LauncherCommandTests {
 
+	@Rule
+	public OutputCapture output = new OutputCapture();
+	
 	@Test
-	@Ignore
-	public void testLoadDeployer() throws Exception {
-		//new LauncherCommand().populateClassloader();
-		new LauncherCommand().run();
+	public void testCreateClassLoaderAndListDeployables() throws Exception {
+		new LauncherCommand().run("--list");
+		assertThat(output.toString(), containsString("configserver"));
+	}
+
+	@Test
+	public void testNonOptionArgsPassedDown() throws Exception {
+		new LauncherCommand().run("--list", "--", "--spring.profiles.active=test");
+		assertThat(output.toString(), containsString("foo"));
 	}
 }

@@ -58,13 +58,16 @@ public class LauncherCommand extends OptionParsingCommand {
 
 	static {
 		EXAMPLES.add(new HelpExample("Launch Eureka", "spring cloud eureka"));
-		EXAMPLES.add(new HelpExample("Launch Config Server and Eureka", "spring cloud configserver eureka"));
+		EXAMPLES.add(new HelpExample("Launch Config Server and Eureka",
+				"spring cloud configserver eureka"));
 		EXAMPLES.add(new HelpExample("List deployable apps", "spring cloud --list"));
-		EXAMPLES.add(new HelpExample("Launch Config Server with git repo", "spring cloud --git-uri=http://example.com/proj.git configserver"));
+		EXAMPLES.add(new HelpExample("Launch Config Server with git repo",
+				"spring cloud --git-uri=http://example.com/proj.git configserver"));
 	}
 
 	public LauncherCommand() {
-		super("cloud", "Start Spring Cloud services, like Eureka, Config Server, etc.", new LauncherOptionHandler());
+		super("cloud", "Start Spring Cloud services, like Eureka, Config Server, etc.",
+				new LauncherOptionHandler());
 	}
 
 	@Override
@@ -79,10 +82,14 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		@Override
 		protected void options() {
-			// if the classloader is loaded here, we could load a collection of interfaces that
-			// can create options and then populate the args[] that is sent to the DeployerThread
-			this.debugOption = option(Arrays.asList("debug", "d"), "Debug logging for the deployer");
-			this.listOption = option(Arrays.asList("list", "l"), "List the deployables (don't launch anything)");
+			// if the classloader is loaded here, we could load a collection of interfaces
+			// that
+			// can create options and then populate the args[] that is sent to the
+			// DeployerThread
+			this.debugOption = option(Arrays.asList("debug", "d"),
+					"Debug logging for the deployer");
+			this.listOption = option(Arrays.asList("list", "l"),
+					"List the deployables (don't launch anything)");
 		}
 
 		@Override
@@ -94,8 +101,10 @@ public class LauncherCommand extends OptionParsingCommand {
 				String name = "org.springframework.cloud.launcher.deployer.DeployerThread";
 				Class<?> threadClass = classLoader.loadClass(name);
 
-				Constructor<?> constructor = threadClass.getConstructor(ClassLoader.class, String[].class);
-				Thread thread = (Thread) constructor.newInstance(classLoader, getArgs(options));
+				Constructor<?> constructor = threadClass.getConstructor(ClassLoader.class,
+						String[].class);
+				Thread thread = (Thread) constructor.newInstance(classLoader,
+						getArgs(options));
 				thread.start();
 				thread.join();
 			}
@@ -112,12 +121,14 @@ public class LauncherCommand extends OptionParsingCommand {
 			int sourceArgCount = 0;
 			for (Object option : options.nonOptionArguments()) {
 				if (option instanceof String) {
-					String filename = (String) option;
-					if ("--".equals(filename)) {
-						break;
-					}
 					sourceArgCount++;
-					apps.add(option.toString());
+					if (option.toString().startsWith("--")) {
+						// jopts makes all args after "--" non-options
+						args.add(option.toString());
+					}
+					else {
+						apps.add(option.toString());
+					}
 				}
 			}
 			if (options.has(this.debugOption)) {
@@ -128,22 +139,27 @@ public class LauncherCommand extends OptionParsingCommand {
 			}
 			else {
 				if (!apps.isEmpty()) {
-					args.add("--launcher.deploy=" + StringUtils.collectionToCommaDelimitedString(apps));
+					args.add("--launcher.deploy="
+							+ StringUtils.collectionToCommaDelimitedString(apps));
 				}
 			}
-			args.addAll(options.nonOptionArguments().subList(sourceArgCount, options.nonOptionArguments().size()));
+			args.addAll(options.nonOptionArguments().subList(sourceArgCount,
+					options.nonOptionArguments().size()));
 			return args.toArray(new String[args.size()]);
 		}
 
-		private URLClassLoader populateClassloader(OptionSet options) throws MalformedURLException {
+		private URLClassLoader populateClassloader(OptionSet options)
+				throws MalformedURLException {
 			DependencyResolutionContext resolutionContext = new DependencyResolutionContext();
 
-			GroovyClassLoader loader = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(),
+			GroovyClassLoader loader = new GroovyClassLoader(
+					Thread.currentThread().getContextClassLoader(),
 					new CompilerConfiguration());
 
 			List<RepositoryConfiguration> repositoryConfiguration = RepositoryConfigurationFactory
 					.createDefaultRepositoryConfiguration();
-			repositoryConfiguration.add(0, new RepositoryConfiguration("local", new File("repository").toURI(), true));
+			repositoryConfiguration.add(0, new RepositoryConfiguration("local",
+					new File("repository").toURI(), true));
 
 			String[] classpaths = { "." };
 			for (String classpath : classpaths) {
@@ -154,8 +170,8 @@ public class LauncherCommand extends OptionParsingCommand {
 				System.setProperty("groovy.grape.report.downloads", "true");
 			}
 
-			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(loader, repositoryConfiguration,
-					resolutionContext);
+			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(loader,
+					repositoryConfiguration, resolutionContext);
 
 			HashMap<String, String> dependency = new HashMap<>();
 			dependency.put("group", "org.springframework.cloud.launcher");
@@ -171,7 +187,8 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		private String getVersion() {
 			Package pkg = LauncherCommand.class.getPackage();
-			return (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
+			String version = (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
+			return version != null ? version : DEFAULT_VERSION;
 		}
 
 	}

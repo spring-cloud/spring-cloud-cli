@@ -29,8 +29,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
-import org.springframework.boot.bind.PropertiesConfigurationFactory;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.boot.logging.LogLevel;
@@ -47,7 +47,6 @@ import org.springframework.core.OrderComparator;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertySource;
-import org.springframework.core.env.StandardEnvironment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -93,19 +92,7 @@ public class DeployerThread extends Thread {
 	}
 
 	private void list() {
-		StandardEnvironment environment = new StandardEnvironment();
-		loadCloudProperties(environment);
-		DeployerProperties properties = new DeployerProperties();
-		PropertiesConfigurationFactory<DeployerProperties> factory = new PropertiesConfigurationFactory<>(
-				properties);
-		factory.setTargetName("spring.cloud.launcher");
-		factory.setPropertySources(environment.getPropertySources());
-		try {
-			factory.afterPropertiesSet();
-			properties = factory.getObject();
-		}
-		catch (Exception e) {
-		}
+		DeployerProperties properties = loadCloudProperties();
 		if (!properties.getDeployables().isEmpty()) {
 			Collection<String> names = new ArrayList<>();
 			for (Deployable deployable : properties.getDeployables()) {
@@ -115,11 +102,20 @@ public class DeployerThread extends Thread {
 		}
 	}
 
-	private void loadCloudProperties(StandardEnvironment environment) {
-		String path = "/cloud.yml";
-		PropertySource<?> source = extractPropertySource(path);
-		if (source != null) {
-			environment.getPropertySources().addLast(source);
+	private DeployerProperties loadCloudProperties() {
+
+		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
+				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
+						.bannerMode(Mode.OFF).logStartupInfo(false).web(false)
+						.properties("spring.config.name=cloud", "logging.level.ROOT=OFF",
+								"spring.cloud.launcher.list=true",
+								"launcher.version=" + getVersion())
+						.run(this.args);
+		try {
+			return context.getBean(DeployerProperties.class);
+		}
+		finally {
+			context.close();
 		}
 	}
 
@@ -180,8 +176,10 @@ public class DeployerThread extends Thread {
 
 		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
-						.web(false).properties("spring.config.name=cloud",
-								"banner.location=launcher-banner.txt", "launcher.version="+getVersion())
+						.web(false)
+						.properties("spring.config.name=cloud",
+								"banner.location=launcher-banner.txt",
+								"launcher.version=" + getVersion())
 						.run(this.args);
 
 		final AppDeployer deployer = context.getBean(AppDeployer.class);

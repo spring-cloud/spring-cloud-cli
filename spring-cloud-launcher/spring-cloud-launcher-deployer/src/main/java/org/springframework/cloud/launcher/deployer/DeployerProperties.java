@@ -77,8 +77,8 @@ public class DeployerProperties {
 	public String toString() {
 		final StringBuffer sb = new StringBuffer("DeployerProperties{");
 		sb.append("deployables=").append(this.deployables);
-		sb.append("deploy=").append(this.deploy);
-		sb.append("statusSleepMillis=").append(this.statusSleepMillis);
+		sb.append(", deploy=").append(this.deploy);
+		sb.append(", statusSleepMillis=").append(this.statusSleepMillis);
 		sb.append('}');
 		return sb.toString();
 	}
