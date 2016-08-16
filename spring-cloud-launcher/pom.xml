@@ -18,10 +18,10 @@
 	</parent>
 
 	<modules>
+		<module>spring-cloud-launcher-deployer</module>
 		<module>spring-cloud-launcher-cli</module>
 		<module>spring-cloud-launcher-configserver</module>
 		<module>spring-cloud-launcher-dataflow</module>
-		<module>spring-cloud-launcher-deployer</module>
 		<module>spring-cloud-launcher-eureka</module>
 		<module>spring-cloud-launcher-h2</module>
 		<module>spring-cloud-launcher-hystrixdashboard</module>
