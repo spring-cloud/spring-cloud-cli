@@ -67,7 +67,7 @@ public class DeployerThread extends Thread {
 
 	private String[] args;
 
-	public DeployerThread(ClassLoader classLoader, String[] args) {
+	public DeployerThread(ClassLoader classLoader, String... args) {
 		super("spring-cloud-launcher");
 		this.args = args;
 		setContextClassLoader(classLoader);
@@ -94,10 +94,7 @@ public class DeployerThread extends Thread {
 	private void list() {
 		DeployerProperties properties = loadCloudProperties();
 		if (!properties.getDeployables().isEmpty()) {
-			Collection<String> names = new ArrayList<>();
-			for (Deployable deployable : properties.getDeployables()) {
-				names.add(deployable.getName());
-			}
+			Collection<String> names = new ArrayList<>(properties.getDeployables().keySet());
 			System.out.println(StringUtils.collectionToDelimitedString(names, " "));
 		}
 	}
@@ -188,7 +185,7 @@ public class DeployerThread extends Thread {
 
 		DeployerProperties properties = context.getBean(DeployerProperties.class);
 
-		ArrayList<Deployable> deployables = new ArrayList<>(properties.getDeployables());
+		ArrayList<Deployable> deployables = new ArrayList<>(properties.getDeployables().values());
 		OrderComparator.sort(deployables);
 
 		logger.debug("Deployables {}", properties.getDeployables());

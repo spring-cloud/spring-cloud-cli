@@ -17,8 +17,11 @@
 package org.springframework.cloud.launcher.deployer;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
@@ -32,7 +35,7 @@ import org.springframework.core.Ordered;
 public class DeployerProperties {
 
 	@NotNull
-	private List<Deployable> deployables = new ArrayList<>();
+	private Map<String, Deployable> deployables = new LinkedHashMap<>();
 
 	@NotNull
 	private List<String> deploy = new ArrayList<>();
@@ -49,11 +52,11 @@ public class DeployerProperties {
 		this.list = list;
 	}
 
-	public List<Deployable> getDeployables() {
+	public Map<String, Deployable> getDeployables() {
 		return this.deployables;
 	}
 
-	public void setDeployables(List<Deployable> deployables) {
+	public void setDeployables(Map<String, Deployable> deployables) {
 		this.deployables = deployables;
 	}
 
@@ -71,6 +74,16 @@ public class DeployerProperties {
 
 	public void setStatusSleepMillis(int statusSleepMillis) {
 		this.statusSleepMillis = statusSleepMillis;
+	}
+	
+	@PostConstruct
+	public void init() {
+		for (String name : deployables.keySet()) {
+			Deployable deployable = deployables.get(name);
+			if (deployable.getName()==null) {
+				deployable.setName(name);
+			}
+		}
 	}
 
 	@Override
