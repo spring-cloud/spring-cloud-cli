@@ -40,6 +40,8 @@ class BaseEncryptOptionHandler extends OptionHandler {
 
 	private OptionSpec<String> passwordOption;
 
+	private OptionSpec<String> keyPassOption;
+
 	private Charset charset;
 
 	{
@@ -48,16 +50,18 @@ class BaseEncryptOptionHandler extends OptionHandler {
 
 	@Override
 	protected final void options() {
-		this.keyOption = option(
-				asList("key", "k"),
+		this.keyOption = option(asList("key", "k"),
 				"Specify key (symmetric secret, or pem-encoded key). If the value starts with @ it is interpreted as a file location.")
-				.withRequiredArg();
+						.withRequiredArg();
 		this.passwordOption = option("password",
-				"A password for the keyfile (assuming the --key option is a KetStore file).")
-				.withRequiredArg();
+				"A password for the keyfile (assuming the --key option is a KeyStore file).")
+						.withRequiredArg();
+		this.keyPassOption = option("keypass",
+				"A password for the key, defaults to the same as the store password (assuming the --key option is a KeyStore file).")
+						.withRequiredArg();
 		this.aliasOption = option("alias",
-				"An alias for the the key in a keyfile (assuming the --key option is a KetStore file).")
-				.withRequiredArg();
+				"An alias for the the key in a keyfile (assuming the --key option is a KeyStore file).")
+						.withRequiredArg();
 		doOptions();
 	}
 
@@ -66,17 +70,25 @@ class BaseEncryptOptionHandler extends OptionHandler {
 
 	protected TextEncryptor createEncryptor(OptionSet options) {
 		String value = keyOption.value(options);
-		if (value==null) {
+		if (value == null) {
 			throw new MissingKeyException();
 		}
 		if (options.has(passwordOption)) { // it's a keystore
 			String password = options.valueOf(passwordOption);
 			String alias = options.valueOf(aliasOption);
-			KeyStoreKeyFactory factory = new KeyStoreKeyFactory(new FileSystemResource(
-					value), password.toCharArray());
-			RsaSecretEncryptor encryptor = new RsaSecretEncryptor(
-					factory.getKeyPair(alias));
-			return encryptor;
+			KeyStoreKeyFactory factory = new KeyStoreKeyFactory(
+					new FileSystemResource(value), password.toCharArray());
+			if (options.has(keyPassOption)) {
+				String keypass = options.valueOf(keyPassOption);
+				RsaSecretEncryptor encryptor = new RsaSecretEncryptor(
+						factory.getKeyPair(alias, keypass.toCharArray()));
+				return encryptor;
+			}
+			else {
+				RsaSecretEncryptor encryptor = new RsaSecretEncryptor(
+						factory.getKeyPair(alias));
+				return encryptor;
+			}
 		}
 		boolean verbose = Boolean.getBoolean("debug");
 		if (value.startsWith("@")) {

@@ -22,6 +22,7 @@ import java.nio.charset.Charset;
 import org.junit.Test;
 import org.springframework.boot.cli.command.status.ExitStatus;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
 import org.springframework.util.StreamUtils;
 
@@ -47,6 +48,19 @@ public class DecryptCommandTests {
 		String cipher = encryptor.encrypt("foo");
 		assertEquals(ExitStatus.OK,
 				command.run("-k", "@src/test/resources/private.pem", cipher));
+	}
+
+	@Test
+	public void decryptsFromRsaKeyWithKeyStore() throws Exception {
+		KeyStoreKeyFactory factory = new KeyStoreKeyFactory(
+				new ClassPathResource("keystore.jks"), "letmein".toCharArray());
+		RsaSecretEncryptor encryptor = new RsaSecretEncryptor(
+				factory.getKeyPair("mytestkey", "changeme".toCharArray()));
+		String cipher = encryptor.encrypt("foo");
+		assertEquals(ExitStatus.OK,
+				command.run("-k", "src/test/resources/keystore.jks", "--password",
+						"letmein", "--keypass", "changeme", "--alias", "mytestkey",
+						cipher));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
