@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URI;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -33,6 +34,7 @@ public class SampleIntegrationTests {
 	public CliTester cli = new CliTester("samples/");
 
 	@Test
+	@Ignore
 	public void appSample() throws Exception {
 		String output = this.cli.run("app.groovy");
 		URI scriptUri = new File("samples/app.groovy").toURI();
@@ -41,6 +43,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
+	@Ignore
 	public void eurekaSample() throws Exception {
 		String output = this.cli.run("eureka.groovy");
 		assertTrue("Wrong output: " + output,
@@ -48,13 +51,15 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
+	@Ignore
 	public void eurekaServerSample() throws Exception {
-		String output = this.cli.run("eurekaserver.groovy");
+		String output = this.cli.run("eurekaserver.groovy", "--", "--debug");
 		assertTrue("Wrong output: " + output,
 				output.contains("Setting the eureka configuration.."));
 	}
 
 	@Test
+	@Ignore
 	public void rabbitSample() throws Exception {
 		String output = this.cli.run("rabbit.groovy");
 		assertTrue("Wrong output: " + output,
@@ -62,6 +67,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
+	@Ignore
 	public void configServerSample() throws Exception {
 		String output = this.cli.run("configserver.groovy", "--",
 				"--spring.config.name=configserver");
@@ -70,6 +76,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
+	@Ignore
 	public void zuulProxySample() throws Exception {
 		String output = this.cli.run("zuulproxy.groovy");
 		assertTrue("Wrong output: " + output,
