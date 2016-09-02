@@ -36,4 +36,10 @@ public class DeployerThreadTests {
 		assertThat(output.toString(), containsString("configserver"));
 	}
 
+
+	@Test
+	public void testNonOptionArgsPassedDown() throws Exception {
+		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.list=true", "--spring.profiles.active=test").run();
+		assertThat(output.toString(), containsString("foo"));
+	}
 }
