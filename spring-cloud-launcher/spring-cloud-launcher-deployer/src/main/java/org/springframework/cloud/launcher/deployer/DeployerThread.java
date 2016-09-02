@@ -87,8 +87,12 @@ public class DeployerThread extends Thread {
 	}
 
 	private void quiet() {
-		LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT",
-				LogLevel.OFF);
+		try {
+			LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT",
+					LogLevel.OFF);
+		} catch (Exception e) {
+			logger.error("Unable to turn of ROOT logger for quiet()", e);
+		}
 	}
 
 	private void list() {
