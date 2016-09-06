@@ -34,16 +34,14 @@ public class SampleIntegrationTests {
 	public CliTester cli = new CliTester("samples/");
 
 	@Test
-	@Ignore
 	public void appSample() throws Exception {
-		String output = this.cli.run("app.groovy");
+		String output = this.cli.run("app.groovy", "--verbose");
 		URI scriptUri = new File("samples/app.groovy").toURI();
 		assertTrue("Wrong output: " + output,
 				output.contains("Hello World! From " + scriptUri));
 	}
 
 	@Test
-	@Ignore
 	public void eurekaSample() throws Exception {
 		String output = this.cli.run("eureka.groovy");
 		assertTrue("Wrong output: " + output,
@@ -51,7 +49,6 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore
 	public void eurekaServerSample() throws Exception {
 		String output = this.cli.run("eurekaserver.groovy", "--", "--debug");
 		assertTrue("Wrong output: " + output,
@@ -59,7 +56,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore
+	@Ignore("Seems like this might still be working but the logs are different?")
 	public void rabbitSample() throws Exception {
 		String output = this.cli.run("rabbit.groovy");
 		assertTrue("Wrong output: " + output,
@@ -67,7 +64,6 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore
 	public void configServerSample() throws Exception {
 		String output = this.cli.run("configserver.groovy", "--",
 				"--spring.config.name=configserver");
@@ -76,7 +72,6 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore
 	public void zuulProxySample() throws Exception {
 		String output = this.cli.run("zuulproxy.groovy");
 		assertTrue("Wrong output: " + output,
