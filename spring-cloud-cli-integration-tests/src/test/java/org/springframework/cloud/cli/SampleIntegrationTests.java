@@ -20,7 +20,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.net.URI;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -56,11 +55,10 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore("Seems like this might still be working but the logs are different?")
 	public void rabbitSample() throws Exception {
 		String output = this.cli.run("rabbit.groovy");
 		assertTrue("Wrong output: " + output,
-				output.contains("Registering MessageChannel errorChannel"));
+				output.contains("subscriber to the 'errorChannel' channel"));
 	}
 
 	@Test

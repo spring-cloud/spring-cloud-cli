@@ -1,6 +1,6 @@
 package org.test
 
-@EnableBinding(transport="rabbit")
+@EnableBinding(value=Source, transport="rabbit")
 class Example {
 }
 
