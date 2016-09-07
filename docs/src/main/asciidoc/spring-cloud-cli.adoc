@@ -2,6 +2,7 @@
 :github: https://github.com/spring-cloud/spring-cloud-cli
 :githubmaster: {github}/tree/master
 :docslink: {githubmaster}/docs/src/main/asciidoc
+:nofooter:
 
 include::intro.adoc[]
 
@@ -27,7 +28,7 @@ Summary of supported deployables:
 
 [options="header"]
 |===
-|Service | Name | Address | Description 
+|Service | Name | Address | Description
 
 |eureka  | Eureka Server | http://localhost:8761
 | Eureka server for service registration and discovery. All the other services show up in its catalog by default.
@@ -39,7 +40,7 @@ Summary of supported deployables:
 | Relation database service. Use a file path for `{data}` (e.g. `./target/test`) when you connect. Remember that you can add `;MODE=MYSQL` or `;MODE=POSTGRESQL` to connect with compatibility to other server types.
 
 |kafka  | Kafka Broker | http://localhost:9091 (actuator endpoints), localhost:9092
-| 
+|
 
 |hystrixdashboard  | Hystrix Dashboard | http://localhost:7979
 |Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on `/hystrix.stream`. Type that address into the dashboard to visualize all the metrics,
