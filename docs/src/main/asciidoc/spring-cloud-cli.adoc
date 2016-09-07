@@ -2,6 +2,7 @@
 :github: https://github.com/spring-cloud/spring-cloud-cli
 :githubmaster: {github}/tree/master
 :docslink: {githubmaster}/docs/src/main/asciidoc
+:nofooter:
 
 include::intro.adoc[]
 
