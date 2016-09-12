@@ -20,7 +20,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -53,6 +52,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+
+import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
 
 /**
  * @author Spencer Gibb
@@ -271,14 +272,20 @@ public class DeployerThread extends Thread {
 
 		AppDefinition definition = new AppDefinition(deployable.getName(), appDefProps);
 
-		Map<String, String> environmentProperties = Collections
-				.singletonMap(AppDeployer.GROUP_PROPERTY_KEY, "launcher");
+		Map<String, String> deploymentProperties = new LinkedHashMap<>();
+		deploymentProperties.put(AppDeployer.GROUP_PROPERTY_KEY, "launcher");
+
+		if (deployable.getJavaOptions() != null && !deployable.getJavaOptions().isEmpty()) {
+			deploymentProperties.put("JAVA_OPTS", collectionToCommaDelimitedString(deployable.getJavaOptions()));
+		}
+
 		AppDeploymentRequest request = new AppDeploymentRequest(definition, resource,
-				environmentProperties);
+				deploymentProperties);
 
 		logger.debug("Deploying resource {} = {}", deployable.getName(),
 				deployable.getCoordinates());
-		logger.debug("Properties: {}", appDefProps);
+		logger.debug("AppDefinition Properties: {}", appDefProps);
+		logger.debug("Deployment Properties: {}", deploymentProperties);
 		String id = deployer.deploy(request);
 		AppStatus appStatus = getAppStatus(deployer, id);
 		// TODO: stream stdout/stderr like docker-compose (with colors and prefix)

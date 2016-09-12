@@ -138,10 +138,15 @@ public class DeployerProperties {
 		 */
 		private String message;
 		/**
-		 * A map of"negative" properties that apply to all apps when this one is disabled.
+		 * A map of "negative" properties that apply to all apps when this one is disabled.
 		 * E.g. when eureka is disabled you might want "eureka.client.enabled=false".
 		 */
 		private Map<String, String> disabled = new LinkedHashMap<>();
+		/**
+		 * A list of java options to pass to the jvm command (e.g. java).
+		 * E.g. -Dmy.prop=myval
+		 */
+		private List<String> javaOptions = new ArrayList<>();
 
 		public String getCoordinates() {
 			return this.coordinates;
@@ -200,6 +205,14 @@ public class DeployerProperties {
 			return disabled;
 		}
 
+		public List<String> getJavaOptions() {
+			return javaOptions;
+		}
+
+		public void setJavaOptions(List<String> javaOptions) {
+			this.javaOptions = javaOptions;
+		}
+
 		@Override
 		public String toString() {
 			final StringBuffer sb = new StringBuffer("Deployable{");
@@ -209,6 +222,7 @@ public class DeployerProperties {
 			sb.append(", waitUntilStarted=").append(this.waitUntilStarted);
 			sb.append(", order=").append(this.order);
 			sb.append(", disabled=").append(this.disabled);
+			sb.append(", javaOptions=").append(this.javaOptions);
 			sb.append(", message=").append(this.message);
 			sb.append('}');
 			return sb.toString();
