@@ -16,6 +16,7 @@
 
 package org.springframework.cloud.launcher.deployer;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,6 +64,7 @@ public class DeployerThread extends Thread {
 	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
 
 	private static final String DEFAULT_VERSION = "1.2.0.BUILD-SNAPSHOT";
+	public static final String DIRECTORY_NAME = ".spring-cloud";
 
 	private Map<String, DeploymentState> deployed = new ConcurrentHashMap<>();
 
@@ -151,7 +153,29 @@ public class DeployerThread extends Thread {
 			resource = new FileSystemResource("." + path);
 			source = loadPropertySource(resource, path);
 		}
+		if (source == null) {
+			File home = getHomeFolder();
+			File springCloudDir = (home == null ? null : new File(home, DIRECTORY_NAME));
+			if (logger.isDebugEnabled() && springCloudDir != null) {
+				logger.debug("~/.spring-cloud directory: {}, exists: {}, isDir: {}", springCloudDir,
+						springCloudDir.exists(),  springCloudDir.isDirectory());
+			} else if (logger.isDebugEnabled()){
+				logger.debug("no ~/.spring-cloud directory");
+			}
+			if (springCloudDir != null && springCloudDir.exists() && springCloudDir.isDirectory()) {
+				resource = new FileSystemResource(new File(springCloudDir, path));
+				source = loadPropertySource(resource, path);
+			}
+		}
 		return source;
+	}
+
+	protected File getHomeFolder() {
+		String home = System.getProperty("user.home");
+		if (StringUtils.hasLength(home)) {
+			return new File(home);
+		}
+		return null;
 	}
 
 	private PropertySource<?> loadPropertySource(Resource resource, String path) {
@@ -298,7 +322,7 @@ public class DeployerThread extends Thread {
 						&& appStatus.getState() != DeploymentState.failed) {
 					Thread.sleep(properties.getStatusSleepMillis());
 					appStatus = getAppStatus(deployer, id);
-					logger.debug("State of {} = {}", id, appStatus.getState());
+					logger.trace("State of {} = {}", id, appStatus.getState());
 				}
 			}
 			catch (Exception e) {
@@ -316,7 +340,7 @@ public class DeployerThread extends Thread {
 
 	private boolean shouldDeploy(String name, DeployerProperties properties) {
 		boolean deploy = properties.getDeploy().contains(name);
-		logger.debug("shouldDeploy {} = {}", name, deploy);
+		logger.trace("shouldDeploy {} = {}", name, deploy);
 		return deploy;
 	}
 
