@@ -19,6 +19,7 @@ package org.springframework.cloud.launcher.deployer;
 import java.util.HashMap;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.deployer.resource.maven.MavenProperties;
 import org.springframework.cloud.deployer.resource.maven.MavenResourceLoader;
@@ -53,6 +54,7 @@ public class DeployerConfiguration {
 		return new LocalAppDeployer(localDeployerProperties());
 	}
 
+	@ConfigurationProperties(prefix = "spring.cloud.maven")
 	@Bean
 	public MavenProperties mavenProperties() {
 		return new MavenProperties(); //TODO: exposed as config properties?
