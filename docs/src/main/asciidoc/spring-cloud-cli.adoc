@@ -53,7 +53,7 @@ Summary of supported deployables:
 |===
 
 Each of these apps can be configured using a local YAML file with the same name (in the current
-working directory or a subdirectory called "config"). E.g. in `configserver.yml` you might want to
+working directory or a subdirectory called "config" or in `~/.spring-cloud`). E.g. in `configserver.yml` you might want to
 do something like this to locate a local git repository for the backend:
 
 .configserver.yml
