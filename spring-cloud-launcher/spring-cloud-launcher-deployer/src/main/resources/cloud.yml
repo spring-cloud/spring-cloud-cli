@@ -3,6 +3,14 @@ dt:
   ver: ${launcher.version}
 spring:
   cloud:
+    maven:
+      remote-repositories:
+        central:
+          url: http://repo1.maven.org/maven2
+        spring-milestone:
+          url: http://repo.spring.io/milestone
+        spring-snapshot:
+          url: http://repo.spring.io/snapshot
     launcher:
       deployables:
         configserver:
