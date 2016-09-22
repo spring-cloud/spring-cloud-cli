@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: zipkin
+
+server:
+  port: 9411
+
+info:
+  artifactId: "spring-cloud-launcher-zipkin"
+  description: "Spring Cloud Launcher ConfigServer"
+  version: "1.2.0.BUILD-SNAPSHOT"

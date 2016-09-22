@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        bootstrap: true
+        native:
+          search-locations: classpath:/launcher/, file:./launcher/
+
+server:
+  port: 8888
+
+management:
+  context-path: /admin
+
+eureka:
+  instance:
+    status-page-url-path: ${management.context-path}/info
+
+info:
+  artifactId: "spring-cloud-launcher-configserver"
+  description: "Spring Cloud Launcher ConfigServer"
+  version: "1.2.0.BUILD-SNAPSHOT"

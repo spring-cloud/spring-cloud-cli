@@ -1,0 +1,50 @@
+dt:
+  pre: maven://org.springframework.cloud.launcher:spring-cloud-launcher-
+  ver: ${launcher.version}
+spring:
+  cloud:
+    maven:
+      remote-repositories:
+        central:
+          url: http://repo1.maven.org/maven2
+        spring-milestone:
+          url: http://repo.spring.io/milestone
+        spring-snapshot:
+          url: http://repo.spring.io/snapshot
+    launcher:
+      deployables:
+        configserver:
+          coordinates: ${dt.pre}configserver:${dt.ver}
+          port: 8888
+          waitUntilStarted: true
+          order: -100
+        dataflow:
+          coordinates: ${dt.pre}dataflow:${dt.ver}
+          port: 9393
+        eureka:
+          coordinates: ${dt.pre}eureka:${dt.ver}
+          port: 8761
+          message: To see the dashboard open http://localhost:8761
+          disabled:
+            eureka.client.enabled: false
+        h2:
+          coordinates: ${dt.pre}h2:${dt.ver}
+          port: 9095
+          message: Connect on jdbc:h2:tcp://localhost:9096/./target/test, web console at http://localhost:9095
+          waitUntilStarted: true
+          order: -50
+        hystrixdashboard:
+          coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
+          port: 7979
+        kafka:
+          coordinates: ${dt.pre}kafka:${dt.ver}
+          port: 9091
+          waitUntilStarted: true
+          order: -200
+          disabled: 
+            spring.cloud.bus.enabled: false
+        zipkin:
+          coordinates: ${dt.pre}zipkin:${dt.ver}
+          port: 9411
+          order: 0
+      deploy: ${launcher.deploy:configserver,eureka}

@@ -1,0 +1,15 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+  server:
+    renewal-percent-threshold: 0.01
+    waitTimeInMsWhenSyncEmpty: 0
+
+info:
+  artifactId: "spring-cloud-launcher-eureka"
+  description: "Spring Cloud Launcher Eureka"
+  version: "1.2.0.BUILD-SNAPSHOT"

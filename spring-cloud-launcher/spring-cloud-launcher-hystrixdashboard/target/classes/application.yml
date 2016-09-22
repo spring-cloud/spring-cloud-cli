@@ -1,0 +1,11 @@
+server:
+  port: 7979
+
+eureka:
+  instance:
+    status-page-url-path: /hystrix #allows you to click on the link in eureka dashboard
+
+info:
+  artifactId: "spring-cloud-launcher-hystrixdashboard"
+  description: "Spring Cloud Launcher Hystrix Dashboard"
+  version: "1.2.0.BUILD-SNAPSHOT"

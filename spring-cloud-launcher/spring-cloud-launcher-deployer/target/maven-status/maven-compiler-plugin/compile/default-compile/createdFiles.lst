@@ -1,0 +1,6 @@
+META-INF/spring-configuration-metadata.json
+org/springframework/cloud/launcher/deployer/DeployerProperties$Deployable.class
+org/springframework/cloud/launcher/deployer/DeployerThread.class
+org/springframework/cloud/launcher/deployer/DeployerConfiguration.class
+org/springframework/cloud/launcher/deployer/DeployerProperties.class
+org/springframework/cloud/launcher/deployer/DeployerThread$1.class

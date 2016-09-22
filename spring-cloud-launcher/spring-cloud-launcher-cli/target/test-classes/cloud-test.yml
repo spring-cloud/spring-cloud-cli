@@ -1,0 +1,9 @@
+spring:
+  cloud:
+    launcher:
+      deployables:
+        foo:
+          coordinates: com.example:foo:0.0.1-SNAPSHOT
+          port: 8000
+          waitUntilStarted: true
+          order: -200

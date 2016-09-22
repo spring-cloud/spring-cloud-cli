@@ -1,0 +1,3 @@
+org/springframework/cloud/launcher/kafka/KafkaApplication.class
+org/springframework/cloud/launcher/kafka/KafkaApplication$EmbeddedZookeeper.class
+org/springframework/cloud/launcher/kafka/KafkaApplication$KafkaDevServer.class
