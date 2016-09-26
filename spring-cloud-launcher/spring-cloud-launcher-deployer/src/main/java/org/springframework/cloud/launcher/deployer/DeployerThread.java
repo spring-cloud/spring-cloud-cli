@@ -63,7 +63,7 @@ public class DeployerThread extends Thread {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
 
-	private static final String DEFAULT_VERSION = "1.2.0.RC1";
+	private static final String DEFAULT_VERSION = "1.2.0.BUILD-SNAPSHOT";
 	public static final String DIRECTORY_NAME = ".spring-cloud";
 
 	private Map<String, DeploymentState> deployed = new ConcurrentHashMap<>();
