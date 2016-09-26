@@ -8,10 +8,6 @@
 
 Install Spring CLI first: https://github.com/spring-cloud/spring-cloud-cli/blob/master/docs/src/main/asciidoc/install.adoc
 
-```
-$ spring install org.springframework.cloud:spring-cloud-cli:1.2.0.BUILD-SNAPSHOT
-```
-
 ### Running
 
 ```
