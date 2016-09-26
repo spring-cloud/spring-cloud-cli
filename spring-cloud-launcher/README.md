@@ -8,6 +8,10 @@
 
 Install Spring CLI first: https://github.com/spring-cloud/spring-cloud-cli/blob/master/docs/src/main/asciidoc/install.adoc
 
+```
+$ spring install org.springframework.cloud:spring-cloud-cli:1.2.0.BUILD-SNAPSHOT
+```
+
 ### Running
 
 ```
@@ -27,12 +31,12 @@ spring:
     launcher:
       deployables:
         - name: configserver
-          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-configserver:1.2.0.RC1
+          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-configserver:1.1.0.BUILD-SNAPSHOT
           port: 8888
           waitUntilStarted: true
           order: -10
         - name: eureka
-          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-eureka:1.2.0.RC1
+          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-eureka:1.1.0.BUILD-SNAPSHOT
           port: 8761
 ```
 
