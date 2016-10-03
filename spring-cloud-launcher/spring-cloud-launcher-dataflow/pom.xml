@@ -31,19 +31,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-task-batch</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-deployer-local</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-dataflow-server-core</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-dataflow-server-core</artifactId>
+			<artifactId>spring-cloud-starter-dataflow-server-local</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

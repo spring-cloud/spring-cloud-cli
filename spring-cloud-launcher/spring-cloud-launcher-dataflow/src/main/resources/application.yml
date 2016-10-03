@@ -3,7 +3,7 @@ server:
 
 eureka:
   instance:
-    status-page-url-path: /admin-ui #allows you to click on the link in eureka dashboard
+    status-page-url-path: /dashboard #allows you to click on the link in eureka dashboard
 
 info:
   artifactId: "@project.artifactId@"
