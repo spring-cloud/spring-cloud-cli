@@ -20,6 +20,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.containsString;
+import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
 
 /**
@@ -40,5 +41,11 @@ public class LauncherCommandTests {
 	public void testNonOptionArgsPassedDown() throws Exception {
 		new LauncherCommand().run("--list", "--", "--spring.profiles.active=test");
 		assertThat(output.toString(), containsString("foo"));
+	}
+
+	@Test
+	public void testVersion() throws Exception {
+		new LauncherCommand().run("--version");
+		assertThat(output.toString(), startsWith("Spring Cloud CLI v"));
 	}
 }

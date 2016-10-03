@@ -61,6 +61,7 @@ public class LauncherCommand extends OptionParsingCommand {
 		EXAMPLES.add(new HelpExample("Launch Config Server and Eureka",
 				"spring cloud configserver eureka"));
 		EXAMPLES.add(new HelpExample("List deployable apps", "spring cloud --list"));
+		EXAMPLES.add(new HelpExample("Show version", "spring cloud --version"));
 	}
 
 	public LauncherCommand() {
@@ -77,6 +78,7 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		private OptionSpec<Void> debugOption;
 		private OptionSpec<Void> listOption;
+		private OptionSpec<Void> versionOption;
 
 		@Override
 		protected void options() {
@@ -87,11 +89,16 @@ public class LauncherCommand extends OptionParsingCommand {
 					"Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"),
 					"List the deployables (don't launch anything)");
+			this.versionOption = option(Arrays.asList("version", "v"),
+					"Show the version (don't launch anything)");
 		}
 
 		@Override
 		protected synchronized ExitStatus run(OptionSet options) throws Exception {
-
+			if (options.has(this.versionOption)) {
+				System.out.println("Spring Cloud CLI v"+getVersion());
+				return ExitStatus.OK;
+			}
 			try {
 				URLClassLoader classLoader = populateClassloader(options);
 
@@ -106,7 +113,8 @@ public class LauncherCommand extends OptionParsingCommand {
 				thread.join();
 			}
 			catch (Exception e) {
-				e.printStackTrace();
+				log.error("Error running spring cloud", e);
+				return ExitStatus.ERROR;
 			}
 
 			return ExitStatus.OK;
