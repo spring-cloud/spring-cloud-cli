@@ -30,7 +30,7 @@
 	</modules>
 
 	<properties>
-		<spring-cloud-dataflow.version>1.0.2.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
+		<spring-cloud-dataflow.version>1.0.1.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
 		<spring-cloud-deployer.version>1.0.3.BUILD-SNAPSHOT</spring-cloud-deployer.version>
 	</properties>
 
