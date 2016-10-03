@@ -16,6 +16,22 @@
 		<version>1.2.0.BUILD-SNAPSHOT</version>
 	</parent>
 
+	<properties>
+		<spring-cloud-dataflow.version>1.0.1.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dataflow-dependencies</artifactId>
+				<version>${spring-cloud-dataflow.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -29,33 +29,6 @@
 		<module>spring-cloud-launcher-zipkin</module>
 	</modules>
 
-	<properties>
-		<spring-cloud-dataflow.version>1.0.1.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
-		<spring-cloud-deployer.version>1.0.3.BUILD-SNAPSHOT</spring-cloud-deployer.version>
-	</properties>
-
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-dataflow-dependencies</artifactId>
-				<version>${spring-cloud-dataflow.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-deployer-local</artifactId>
-				<version>${spring-cloud-deployer.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>org.springframework.cloud</groupId>
-				<artifactId>spring-cloud-deployer-resource-support</artifactId>
-				<version>${spring-cloud-deployer.version}</version>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
