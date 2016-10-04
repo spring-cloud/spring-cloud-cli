@@ -18,3 +18,7 @@ management:
   context-path: /admin
   security:
     enabled: false
+
+spring.cloud.dataflow.applicationProperties.stream.spring.cloud.deployer.JAVA_OPTS: -Xmx128m
+#  app.time.spring.cloud.deployer.JAVA_OPTS: -Xmx128m
+#  app.log.spring.cloud.deployer.JAVA_OPTS: -Xmx128m
