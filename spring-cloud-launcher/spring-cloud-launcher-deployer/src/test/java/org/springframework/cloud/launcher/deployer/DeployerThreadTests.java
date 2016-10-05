@@ -36,10 +36,15 @@ public class DeployerThreadTests {
 		assertThat(output.toString(), containsString("configserver"));
 	}
 
-
 	@Test
 	public void testNonOptionArgsPassedDown() throws Exception {
 		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.list=true", "--spring.profiles.active=test").run();
 		assertThat(output.toString(), containsString("foo"));
+	}
+
+	@Test
+	public void testInvalidDeployableFails() throws Exception {
+		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.deploy=foo,bar").run();
+		assertThat(output.toString(), containsString("The following are not valid: 'foo,bar'"));
 	}
 }

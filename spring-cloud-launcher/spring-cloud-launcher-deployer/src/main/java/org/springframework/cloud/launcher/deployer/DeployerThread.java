@@ -215,6 +215,21 @@ public class DeployerThread extends Thread {
 
 		DeployerProperties properties = context.getBean(DeployerProperties.class);
 
+		ArrayList<String> invalid = new ArrayList<>();
+		// validate that items in deploy, are valid deployables
+		for (String toDeploy : properties.getDeploy()) {
+			if (!properties.getDeployables().containsKey(toDeploy)) {
+				invalid.add(toDeploy);
+			}
+		}
+
+		if (!invalid.isEmpty()) {
+			logger.error("Error starting 'spring cloud'."+"\n\nThe following are not valid: '" +
+					collectionToCommaDelimitedString(invalid) + "'. Please check the name(s) and try again.\n" +
+					"Valid choices are: "+ collectionToCommaDelimitedString(properties.getDeployables().keySet())+".\n");
+			return;
+		}
+
 		ArrayList<Deployable> deployables = new ArrayList<>(
 				properties.getDeployables().values());
 		OrderComparator.sort(deployables);
