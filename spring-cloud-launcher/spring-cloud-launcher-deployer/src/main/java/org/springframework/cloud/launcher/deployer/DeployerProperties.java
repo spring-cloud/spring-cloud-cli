@@ -138,8 +138,9 @@ public class DeployerProperties {
 		 */
 		private String message;
 		/**
-		 * A map of "negative" properties that apply to all apps when this one is disabled.
-		 * E.g. when eureka is disabled you might want "eureka.client.enabled=false".
+		 * A map of "negative" properties that apply to all apps when this one is
+		 * disabled. E.g. when eureka is disabled you might want
+		 * "eureka.client.enabled=false".
 		 */
 		private Map<String, String> disabled = new LinkedHashMap<>();
 		/**
@@ -148,10 +149,11 @@ public class DeployerProperties {
 		 */
 		private Map<String, String> enabled = new LinkedHashMap<>();
 		/**
-		 * A list of java options to pass to the jvm command (e.g. java).
-		 * E.g. -Dmy.prop=myval
+		 * A map of "deployment" properties passed to the deployer (not the app) when this
+		 * app is launched. You can use JAVA_OPTS here to pass JVM args to a local deployer.
 		 */
-		private List<String> javaOptions = new ArrayList<>();
+		// TODO: update javadocs when JAVA_OPTS are passed as javaOpts or whatever it is)
+		private Map<String, String> properties = new LinkedHashMap<>();
 
 		public String getCoordinates() {
 			return this.coordinates;
@@ -210,20 +212,20 @@ public class DeployerProperties {
 			return disabled;
 		}
 
-		public List<String> getJavaOptions() {
-			return javaOptions;
-		}
-
-		public void setJavaOptions(List<String> javaOptions) {
-			this.javaOptions = javaOptions;
-		}
-
 		public Map<String, String> getEnabled() {
 			return enabled;
 		}
 
 		public void setEnabled(Map<String, String> enabled) {
 			this.enabled = enabled;
+		}
+
+		public Map<String, String> getProperties() {
+			return properties;
+		}
+
+		public void setProperties(Map<String, String> properties) {
+			this.properties = properties;
 		}
 
 		@Override
@@ -236,7 +238,7 @@ public class DeployerProperties {
 			sb.append(", order=").append(this.order);
 			sb.append(", disabled=").append(this.disabled);
 			sb.append(", enabled=").append(this.disabled);
-			sb.append(", javaOptions=").append(this.javaOptions);
+			sb.append(", properties=").append(this.properties);
 			sb.append(", message=").append(this.message);
 			sb.append('}');
 			return sb.toString();

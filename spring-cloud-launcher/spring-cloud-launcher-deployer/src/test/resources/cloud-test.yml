@@ -7,3 +7,5 @@ spring:
           port: 8000
           waitUntilStarted: true
           order: -200
+          properties:
+            JAVA_OPTS: -Xmx64m
