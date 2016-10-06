@@ -304,6 +304,11 @@ public class DeployerThread extends Thread {
 				appDefProps.putAll(other.getDisabled());
 			}
 		}
+		for (Deployable other : properties.getDeployables().values()) {
+			if (shouldDeploy(other.getName(), properties)) {
+				appDefProps.putAll(other.getEnabled());
+			}
+		}
 		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {
 			appDefProps.put(key, map.get(key));

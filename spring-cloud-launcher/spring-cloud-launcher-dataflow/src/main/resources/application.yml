@@ -1,6 +1,8 @@
 server:
   port: 9393
 
+debug: true
+
 eureka:
   instance:
     status-page-url-path: /dashboard #allows you to click on the link in eureka dashboard
@@ -15,7 +17,6 @@ security:
     enabled: false
 
 management:
-  context-path: /admin
   security:
     enabled: false
 
