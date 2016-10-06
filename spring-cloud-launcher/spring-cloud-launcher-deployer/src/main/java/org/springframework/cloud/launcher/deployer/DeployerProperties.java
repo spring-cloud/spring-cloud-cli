@@ -143,6 +143,11 @@ public class DeployerProperties {
 		 */
 		private Map<String, String> disabled = new LinkedHashMap<>();
 		/**
+		 * A map of "positive" properties that apply to all apps when this one is enabled.
+		 * E.g. when h2 is disabled you might want the JDBC URL to be used everywhere.
+		 */
+		private Map<String, String> enabled = new LinkedHashMap<>();
+		/**
 		 * A list of java options to pass to the jvm command (e.g. java).
 		 * E.g. -Dmy.prop=myval
 		 */
@@ -213,6 +218,14 @@ public class DeployerProperties {
 			this.javaOptions = javaOptions;
 		}
 
+		public Map<String, String> getEnabled() {
+			return enabled;
+		}
+
+		public void setEnabled(Map<String, String> enabled) {
+			this.enabled = enabled;
+		}
+
 		@Override
 		public String toString() {
 			final StringBuffer sb = new StringBuffer("Deployable{");
@@ -222,6 +235,7 @@ public class DeployerProperties {
 			sb.append(", waitUntilStarted=").append(this.waitUntilStarted);
 			sb.append(", order=").append(this.order);
 			sb.append(", disabled=").append(this.disabled);
+			sb.append(", enabled=").append(this.disabled);
 			sb.append(", javaOptions=").append(this.javaOptions);
 			sb.append(", message=").append(this.message);
 			sb.append('}');

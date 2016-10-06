@@ -1,6 +1,16 @@
 dt:
   pre: maven://org.springframework.cloud.launcher:spring-cloud-launcher-
   ver: ${launcher.version}
+
+deployer:
+  local:
+    envVarsToInherit:
+      - TMP
+      - LANG
+      - LANGUAGE
+      - LC_.*
+      - PATH
+
 spring:
   cloud:
     maven:
@@ -33,6 +43,8 @@ spring:
           message: Connect on jdbc:h2:tcp://localhost:9096/./target/test, web console at http://localhost:9095
           waitUntilStarted: true
           order: -50
+          enabled:
+            spring.datasource.url: jdbc:h2:tcp://localhost:9096/./target/test
         hystrixdashboard:
           coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
           port: 7979
