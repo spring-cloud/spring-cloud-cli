@@ -1,3 +1,4 @@
+debug: true
 spring:
   cloud:
     launcher:

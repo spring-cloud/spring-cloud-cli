@@ -69,6 +69,36 @@ spring:
           uri: file://${user.home}/dev/demo/config-repo
 ----
 
+=== Adding Additional Applications
+
+Additional applications can be added to `./config/cloud.yml` (not
+`./config.yml` because that would replace the defaults), e.g. with
+
+.config/cloud.yml
+[source,yaml]
+----
+spring:
+  cloud:
+    launcher:
+      deployables:
+        source:
+          coordinates: maven://com.example:source:0.0.1-SNAPSHOT
+          port: 7000
+        sink:
+          coordinates: maven://com.example:sink:0.0.1-SNAPSHOT
+          port: 7001
+----
+
+when you list the apps:
+
+[source]
+----
+$ spring cloud --list
+source sink configserver dataflow eureka h2 hystrixdashboard kafka zipkin
+----
+
+(notice the additional apps at the start of the list).
+
 == Writing Groovy Scripts and Running Applications
 
 Spring Cloud CLI has support for most of the Spring Cloud declarative
