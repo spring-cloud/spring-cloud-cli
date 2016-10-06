@@ -16,17 +16,6 @@
 
 package org.springframework.cloud.launcher.deployer;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner.Mode;
@@ -53,6 +42,17 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
 
@@ -318,10 +318,7 @@ public class DeployerThread extends Thread {
 
 		Map<String, String> deploymentProperties = new LinkedHashMap<>();
 		deploymentProperties.put(AppDeployer.GROUP_PROPERTY_KEY, "launcher");
-
-		if (deployable.getJavaOptions() != null && !deployable.getJavaOptions().isEmpty()) {
-			deploymentProperties.put("JAVA_OPTS", collectionToCommaDelimitedString(deployable.getJavaOptions()));
-		}
+		deploymentProperties.putAll(deployable.getProperties());
 
 		AppDeploymentRequest request = new AppDeploymentRequest(definition, resource,
 				deploymentProperties);
