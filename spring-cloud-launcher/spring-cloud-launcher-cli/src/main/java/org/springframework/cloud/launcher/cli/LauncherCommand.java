@@ -166,11 +166,6 @@ public class LauncherCommand extends OptionParsingCommand {
 			repositoryConfiguration.add(0, new RepositoryConfiguration("local",
 					new File("repository").toURI(), true));
 
-			String[] classpaths = { "." };
-			for (String classpath : classpaths) {
-				loader.addClasspath(classpath);
-			}
-
 			if (options.has(debugOption)) {
 				System.setProperty("groovy.grape.report.downloads", "true");
 			}
