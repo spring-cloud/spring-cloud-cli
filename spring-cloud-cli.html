@@ -596,6 +596,40 @@ do something like this to locate a local git repository for the backend:</p>
           uri: file://${user.home}/dev/demo/config-repo</code></pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_adding_additional_applications">Adding Additional Applications</h3>
+<div class="paragraph">
+<p>Additional applications can be added to <code>./config/cloud.yml</code> (not
+<code>./config.yml</code> because that would replace the defaults), e.g. with</p>
+</div>
+<div class="listingblock">
+<div class="title">config/cloud.yml</div>
+<div class="content">
+<pre class="highlight"><code class="language-yaml" data-lang="yaml">spring:
+  cloud:
+    launcher:
+      deployables:
+        source:
+          coordinates: maven://com.example:source:0.0.1-SNAPSHOT
+          port: 7000
+        sink:
+          coordinates: maven://com.example:sink:0.0.1-SNAPSHOT
+          port: 7001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>when you list the apps:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>$ spring cloud --list
+source sink configserver dataflow eureka h2 hystrixdashboard kafka zipkin</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(notice the additional apps at the start of the list).</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
