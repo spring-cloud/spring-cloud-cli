@@ -16,11 +16,11 @@
 
 package org.springframework.cloud.launcher.deployer;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
-
 import org.junit.Rule;
 import org.junit.Test;
+
+import static org.hamcrest.CoreMatchers.containsString;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Spencer Gibb

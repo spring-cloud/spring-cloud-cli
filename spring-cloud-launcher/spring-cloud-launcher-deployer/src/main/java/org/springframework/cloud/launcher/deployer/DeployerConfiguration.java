@@ -16,48 +16,38 @@
 
 package org.springframework.cloud.launcher.deployer;
 
-import java.util.HashMap;
-
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.deployer.resource.maven.MavenProperties;
 import org.springframework.cloud.deployer.resource.maven.MavenResourceLoader;
 import org.springframework.cloud.deployer.resource.support.DelegatingResourceLoader;
 import org.springframework.cloud.deployer.spi.app.AppDeployer;
-import org.springframework.cloud.deployer.spi.local.LocalAppDeployer;
-import org.springframework.cloud.deployer.spi.local.LocalDeployerProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.io.ResourceLoader;
+
+import java.util.HashMap;
 
 /**
  * @author Spencer Gibb
  */
 @Configuration
-@EnableConfigurationProperties
+@EnableAutoConfiguration
+@EnableConfigurationProperties({ DeployerProperties.class })
 public class DeployerConfiguration {
 
 	@Bean
-	public DeployerProperties deployerProperties() {
-		return new DeployerProperties();
-	}
-
-	@Bean
-	public LocalDeployerProperties localDeployerProperties() {
-		return new LocalDeployerProperties();
-	}
-
-	@Bean
-	@ConditionalOnMissingBean
-	public AppDeployer appDeployer() {
-		return new LocalAppDeployer(localDeployerProperties());
+	public Deployer deployer(AppDeployer deployer, MavenResourceLoader resourceLoader,
+			DeployerProperties properties, ConfigurableEnvironment environment) {
+		return new Deployer(deployer, resourceLoader, properties, environment);
 	}
 
 	@ConfigurationProperties(prefix = "spring.cloud.maven")
 	@Bean
 	public MavenProperties mavenProperties() {
-		return new MavenProperties(); //TODO: exposed as config properties?
+		return new MavenProperties();
 	}
 
 	@Bean
