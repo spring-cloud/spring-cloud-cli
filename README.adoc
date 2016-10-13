@@ -34,7 +34,7 @@ and install the Spring Cloud plugin
 
 ```
 $ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.2.0.RELEASE
+$ spring install org.springframework.cloud:spring-cloud-cli:1.2.1.BUILD-SNAPSHOT
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
