@@ -57,7 +57,6 @@ public class KafkaApplication {
 				.run(args);
 	}
 
-	@SuppressWarnings("unused")
 	@Service
 	static class KafkaDevServer implements SmartLifecycle {
 		private AtomicBoolean running = new AtomicBoolean(false);
