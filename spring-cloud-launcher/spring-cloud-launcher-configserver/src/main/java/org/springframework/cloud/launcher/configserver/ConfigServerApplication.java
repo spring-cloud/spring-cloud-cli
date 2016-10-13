@@ -17,15 +17,11 @@
 package org.springframework.cloud.launcher.configserver;
 
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.util.Collections;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.config.server.EnableConfigServer;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 
 /**
  * @author Spencer Gibb
@@ -36,8 +32,6 @@ import org.springframework.core.io.Resource;
 public class ConfigServerApplication {
 
 	public static void main(String[] args) throws IOException {
-		Resource resource = new ClassPathResource("/launcher");
-		FileSystems.newFileSystem(resource.getURI(), Collections.<String,Object>emptyMap());
 		SpringApplication.run(ConfigServerApplication.class, args);
 	}
 }
