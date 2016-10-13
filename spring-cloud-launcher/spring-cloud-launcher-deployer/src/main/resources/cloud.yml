@@ -1,6 +1,7 @@
 dt:
   pre: maven://org.springframework.cloud.launcher:spring-cloud-launcher-
   ver: ${launcher.version}
+  opts: -Xmx128m
 
 deployer:
   local:
@@ -28,15 +29,21 @@ spring:
           port: 8888
           waitUntilStarted: true
           order: -100
+          properties:
+            JAVA_OPTS: ${dt.opts}
         dataflow:
           coordinates: ${dt.pre}dataflow:${dt.ver}
           port: 9393
+          properties:
+            JAVA_OPTS: ${dt.opts}
         eureka:
           coordinates: ${dt.pre}eureka:${dt.ver}
           port: 8761
           message: To see the dashboard open http://localhost:8761
           disabled:
             eureka.client.enabled: false
+          properties:
+            JAVA_OPTS: ${dt.opts}
         h2:
           coordinates: ${dt.pre}h2:${dt.ver}
           port: 9095
@@ -45,9 +52,13 @@ spring:
           order: -50
           enabled:
             spring.datasource.url: jdbc:h2:tcp://localhost:9096/./target/test
+          properties:
+            JAVA_OPTS: ${dt.opts}
         hystrixdashboard:
           coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
           port: 7979
+          properties:
+            JAVA_OPTS: ${dt.opts}
         kafka:
           coordinates: ${dt.pre}kafka:${dt.ver}
           port: 9091
@@ -55,8 +66,12 @@ spring:
           order: -200
           disabled: 
             spring.cloud.bus.enabled: false
+          properties:
+            JAVA_OPTS: ${dt.opts}
         zipkin:
           coordinates: ${dt.pre}zipkin:${dt.ver}
           port: 9411
           order: 0
+          properties:
+            JAVA_OPTS: ${dt.opts}
       deploy: ${launcher.deploy:configserver,eureka}
