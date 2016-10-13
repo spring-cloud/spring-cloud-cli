@@ -16,7 +16,7 @@ ribbon:
   ConnectTimeout: 3000
   ReadTimeout: 60000
 
-h2.datasource.url: jdbc:h2:tcp://localhost:9096/~/launcher
+h2.datasource.url: jdbc:h2:tcp://localhost:9096/./target/test
 #spring:
 #  datasource:
 #    url: ${h2.datasource.url}
