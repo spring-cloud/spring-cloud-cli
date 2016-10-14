@@ -17,7 +17,7 @@
 	</parent>
 
 	<properties>
-		<spring-cloud-dataflow.version>1.0.1.BUILD-SNAPSHOT</spring-cloud-dataflow.version>
+		<spring-cloud-dataflow.version>1.0.1.RELEASE</spring-cloud-dataflow.version>
 	</properties>
 
 	<dependencyManagement>
