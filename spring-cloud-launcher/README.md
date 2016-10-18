@@ -27,12 +27,12 @@ spring:
     launcher:
       deployables:
         - name: configserver
-          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-configserver:1.1.0.BUILD-SNAPSHOT
+          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-configserver:1.2.1.RELEASE
           port: 8888
           waitUntilStarted: true
           order: -10
         - name: eureka
-          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-eureka:1.1.0.BUILD-SNAPSHOT
+          coordinates: maven://org.springframework.cloud.launcher:spring-cloud-launcher-eureka:1.2.1.RELEASE
           port: 8761
 ```
 
