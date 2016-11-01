@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-cli-parent</artifactId>
-	<version>1.2.2.BUILD-SNAPSHOT</version>
+	<version>1.2.2.RELEASE</version>
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-build</artifactId>
-		<version>1.2.2.BUILD-SNAPSHOT</version>
+		<version>1.2.1.RELEASE</version>
 		<relativePath/>
 	</parent>
 	<packaging>pom</packaging>
@@ -24,7 +24,7 @@
         <bintray.package>cli</bintray.package>
         <docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>1.4.2.BUILD-SNAPSHOT</spring-boot.version>
+		<spring-boot.version>1.4.1.RELEASE</spring-boot.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
@@ -111,7 +111,7 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-dependencies</artifactId>
-				<version>Camden.BUILD-SNAPSHOT</version>
+				<version>Camden.SR2</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
