@@ -26,43 +26,43 @@ import static org.junit.Assert.*;
 /**
  * @author William Witt
  */
-public class UrlEncodeCommandTest {
-	Command command = new UrlEncodeCommand();
+public class UrlDecodeCommandTest {
+	Command command = new UrlDecodeCommand();
 
 	@Rule
 	public OutputCapture capture = new OutputCapture();
 
 	@Test
-	public void urlEncodeNoSpecialChars() throws Exception {
+	public void urlDecodeNoSpecialChars() throws Exception {
 		command.run("abcdefg");
 		assertEquals("abcdefg\n", capture.toString());
 	}
 
 	@Test
-	public void urlEncodeSpecialChars() throws Exception {
-		command.run("a b c&d%efg+");
-		assertEquals("a+b+c%26d%25efg%2B\n", capture.toString());
+	public void urlDecodeSpecialChars() throws Exception {
+		command.run("a+b+c%26d%25efg%2B");
+		assertEquals("a b c&d%efg+\n", capture.toString());
 	}
 
 	@Test
-	public void urlEncodeNoSpecialCharsWithCharset() throws Exception {
+	public void urlDecodeNoSpecialCharsWithCharset() throws Exception {
 		command.run("-c", "UTF-8", "abcdefg");
 		assertEquals("abcdefg\n", capture.toString());
 	}
 
 	@Test
-	public void urlEncodeSpecialCharsWithCharset() throws Exception {
-		command.run("-c", "UTF-8", "a b c&d%efg+");
-		assertEquals("a+b+c%26d%25efg%2B\n", capture.toString());
+	public void urlDecodeSpecialCharsWithCharset() throws Exception {
+		command.run("-c", "UTF-8", "a+b+c%26d%25efg%2B");
+		assertEquals("a b c&d%efg+\n", capture.toString());
 	}
 
 	@Test
-	public void urlEncodeNoSpecialCharsWithUnsupportedCharset() throws Exception {
+	public void urlDecodeNoSpecialCharsWithUnsupportedCharset() throws Exception {
 		assertEquals(ExitStatus.ERROR, command.run("-c", "UTF-9", "abcdefg"));
 	}
 
 	@Test
-	public void urlEncodeSpecialCharsWithUnsupportedCharset() throws Exception {
+	public void urlDecodeSpecialCharsWithUnsupportedCharset() throws Exception {
 		assertEquals(ExitStatus.ERROR, command.run("-c", "UTF-9", "a b c&d%efg+"));
 	}
 }

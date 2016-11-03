@@ -22,6 +22,7 @@ import org.springframework.boot.cli.command.Command;
 import org.springframework.boot.cli.command.CommandFactory;
 import org.springframework.cloud.cli.command.encrypt.DecryptCommand;
 import org.springframework.cloud.cli.command.encrypt.EncryptCommand;
+import org.springframework.cloud.cli.command.url.UrlDecodeCommand;
 import org.springframework.cloud.cli.command.url.UrlEncodeCommand;
 import org.springframework.cloud.launcher.cli.LauncherCommand;
 
@@ -33,7 +34,7 @@ public class CloudCommandFactory implements CommandFactory {
 
 	@Override
 	public Collection<Command> getCommands() {
-		return Arrays.<Command>asList(new EncryptCommand(), new DecryptCommand(), new UrlEncodeCommand(), new LauncherCommand());
+		return Arrays.<Command>asList(new EncryptCommand(), new DecryptCommand(), new UrlEncodeCommand(), new UrlDecodeCommand(), new LauncherCommand());
 	}
 
 }

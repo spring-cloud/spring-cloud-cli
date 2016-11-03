@@ -15,32 +15,35 @@
  */
 package org.springframework.cloud.cli.command.url;
 
-import joptsimple.OptionSet;
-import org.springframework.boot.cli.command.OptionParsingCommand;
-import org.springframework.boot.cli.command.status.ExitStatus;
-import org.springframework.util.StringUtils;
-
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.UnsupportedCharsetException;
 
+import org.springframework.boot.cli.command.OptionParsingCommand;
+import org.springframework.boot.cli.command.options.OptionHandler;
+import org.springframework.boot.cli.command.status.ExitStatus;
+import org.springframework.util.StringUtils;
+
+import joptsimple.OptionSet;
+
 /**
  * @author William Witt
  */
-public class UrlEncodeCommand extends OptionParsingCommand {
+public class UrlDecodeCommand extends OptionParsingCommand {
 
-	public UrlEncodeCommand() {
-		super("urlEncode", "URL encodes the subsequent string",
-				new UrlEncodeOptionHandler());
+	public UrlDecodeCommand() {
+		super("urlDecode", "URL decodes the subsequent string",
+				new UrlDecodeOptionHandler());
 	}
 
 	@Override
 	public String getUsageHelp() {
-		return "[options] <text>";
+		return "<text>";
 	}
 
-	private static class UrlEncodeOptionHandler extends BaseEncodeOptionHandler{
+	private static class UrlDecodeOptionHandler extends BaseEncodeOptionHandler {
 
 		@Override
 		protected synchronized ExitStatus run(OptionSet options) throws Exception {
@@ -52,7 +55,7 @@ public class UrlEncodeCommand extends OptionParsingCommand {
 					.collectionToDelimitedString(options.nonOptionArguments(), " ");
 			try {
 				Charset.forName(charset);
-				String outText = URLEncoder.encode(text, charset);
+				String outText = URLDecoder.decode(text, charset);
 				System.out.println(outText);
 				return ExitStatus.OK;
 			} catch (UnsupportedCharsetException e){
@@ -62,4 +65,3 @@ public class UrlEncodeCommand extends OptionParsingCommand {
 		}
 	}
 }
-
