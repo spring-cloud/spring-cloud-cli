@@ -20,6 +20,7 @@ import org.springframework.batch.core.repository.support.JobRepositoryFactoryBea
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.batch.BatchDatabaseInitializer;
+import org.springframework.boot.autoconfigure.batch.BatchProperties;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -31,6 +32,7 @@ import org.springframework.cloud.dataflow.server.repository.support.DataflowRdbm
 import org.springframework.cloud.task.repository.support.TaskRepositoryInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 import javax.sql.DataSource;
@@ -67,8 +69,8 @@ public class DataFlowApplication {
 
 		@Bean
 		public BatchDatabaseInitializer batchRepositoryInitializer(
-				DataSource dataSource) {
-			return new BatchDatabaseInitializer();
+				DataSource dataSource, ResourceLoader resourceLoader, BatchProperties batchProperties) {
+			return new BatchDatabaseInitializer(dataSource, resourceLoader, batchProperties);
 		}
 
 		@Bean
