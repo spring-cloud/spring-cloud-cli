@@ -150,9 +150,8 @@ public class DeployerProperties {
 		private Map<String, String> enabled = new LinkedHashMap<>();
 		/**
 		 * A map of "deployment" properties passed to the deployer (not the app) when this
-		 * app is launched. You can use JAVA_OPTS here to pass JVM args to a local deployer.
+		 * app is launched. You can use <code>javaOpts</code> here to pass JVM args to a local deployer.
 		 */
-		// TODO: update javadocs when JAVA_OPTS are passed as javaOpts or whatever it is)
 		private Map<String, String> properties = new LinkedHashMap<>();
 
 		public String getCoordinates() {

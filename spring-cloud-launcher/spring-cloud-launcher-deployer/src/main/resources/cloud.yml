@@ -3,15 +3,6 @@ dt:
   ver: ${launcher.version}
   opts: -Xmx128m
 
-deployer:
-  local:
-    envVarsToInherit:
-      - TMP
-      - LANG
-      - LANGUAGE
-      - LC_.*
-      - PATH
-
 spring:
   cloud:
     maven:
@@ -30,12 +21,12 @@ spring:
           waitUntilStarted: true
           order: -100
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         dataflow:
           coordinates: ${dt.pre}dataflow:${dt.ver}
           port: 9393
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         eureka:
           coordinates: ${dt.pre}eureka:${dt.ver}
           port: 8761
@@ -43,7 +34,7 @@ spring:
           disabled:
             eureka.client.enabled: false
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         h2:
           coordinates: ${dt.pre}h2:${dt.ver}
           port: 9095
@@ -53,12 +44,12 @@ spring:
           enabled:
             spring.datasource.url: jdbc:h2:tcp://localhost:9096/./target/test
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         hystrixdashboard:
           coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
           port: 7979
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         kafka:
           coordinates: ${dt.pre}kafka:${dt.ver}
           port: 9091
@@ -67,11 +58,11 @@ spring:
           disabled: 
             spring.cloud.bus.enabled: false
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
         zipkin:
           coordinates: ${dt.pre}zipkin:${dt.ver}
           port: 9411
           order: 0
           properties:
-            JAVA_OPTS: ${dt.opts}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
       deploy: ${launcher.deploy:configserver,eureka}
