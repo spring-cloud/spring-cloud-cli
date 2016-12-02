@@ -150,7 +150,8 @@ public class DeployerProperties {
 		private Map<String, String> enabled = new LinkedHashMap<>();
 		/**
 		 * A map of "deployment" properties passed to the deployer (not the app) when this
-		 * app is launched. You can use <code>javaOpts</code> here to pass JVM args to a local deployer.
+		 * app is launched. You can use <code>spring.cloud.deployer.local.javaOpts</code>
+		 * here to pass JVM args to a local deployer.
 		 */
 		private Map<String, String> properties = new LinkedHashMap<>();
 
