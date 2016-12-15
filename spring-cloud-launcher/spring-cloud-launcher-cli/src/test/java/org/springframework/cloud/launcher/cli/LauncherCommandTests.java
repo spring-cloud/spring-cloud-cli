@@ -30,7 +30,7 @@ public class LauncherCommandTests {
 
 	@Rule
 	public OutputCapture output = new OutputCapture();
-	
+
 	@Test
 	public void testCreateClassLoaderAndListDeployables() throws Exception {
 		new LauncherCommand().run("--list");
@@ -39,7 +39,8 @@ public class LauncherCommandTests {
 
 	@Test
 	public void testNonOptionArgsPassedDown() throws Exception {
-		new LauncherCommand().run("--list", "--", "--spring.profiles.active=test");
+		new LauncherCommand().run("--list", "--", "--spring.profiles.active=test",
+				"--spring.config.location=file:./src/test/resources/");
 		assertThat(output.toString(), containsString("foo"));
 	}
 

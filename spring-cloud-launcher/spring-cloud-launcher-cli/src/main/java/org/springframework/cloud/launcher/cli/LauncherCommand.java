@@ -17,9 +17,9 @@
 package org.springframework.cloud.launcher.cli;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
 import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.codehaus.groovy.control.CompilerConfiguration;
+
 import org.springframework.boot.cli.command.HelpExample;
 import org.springframework.boot.cli.command.OptionParsingCommand;
 import org.springframework.boot.cli.command.options.OptionHandler;
@@ -41,7 +41,6 @@ import org.springframework.boot.cli.compiler.grape.DependencyResolutionContext;
 import org.springframework.boot.cli.compiler.grape.RepositoryConfiguration;
 import org.springframework.util.StringUtils;
 
-import groovy.lang.GroovyClassLoader;
 import joptsimple.OptionSet;
 import joptsimple.OptionSpec;
 
@@ -96,21 +95,17 @@ public class LauncherCommand extends OptionParsingCommand {
 		@Override
 		protected synchronized ExitStatus run(OptionSet options) throws Exception {
 			if (options.has(this.versionOption)) {
-				System.out.println("Spring Cloud CLI v"+getVersion());
+				System.out.println("Spring Cloud CLI v" + getVersion());
 				return ExitStatus.OK;
 			}
 			try {
 				URLClassLoader classLoader = populateClassloader(options);
-
-				String name = "org.springframework.cloud.launcher.deployer.DeployerThread";
+				// This is the main class in the deployer archive:
+				String name = "org.springframework.boot.loader.wrapper.ThinJarWrapper";
 				Class<?> threadClass = classLoader.loadClass(name);
-
-				Constructor<?> constructor = threadClass.getConstructor(ClassLoader.class,
-						String[].class);
-				Thread thread = (Thread) constructor.newInstance(classLoader,
-						getArgs(options));
-				thread.start();
-				thread.join();
+				URL url = classLoader.getURLs()[0];
+				threadClass.getMethod("main", String[].class).invoke(null,
+						new Object[] { getArgs(options, url) });
 			}
 			catch (Exception e) {
 				log.error("Error running spring cloud", e);
@@ -120,9 +115,10 @@ public class LauncherCommand extends OptionParsingCommand {
 			return ExitStatus.OK;
 		}
 
-		private String[] getArgs(OptionSet options) {
+		private String[] getArgs(OptionSet options, URL url) {
 			List<Object> args = new ArrayList<>();
 			List<String> apps = new ArrayList<>();
+			args.add("--thin.archive=" + url.toString());
 			int sourceArgCount = 0;
 			for (Object option : options.nonOptionArguments()) {
 				if (option instanceof String) {
@@ -157,10 +153,6 @@ public class LauncherCommand extends OptionParsingCommand {
 				throws MalformedURLException {
 			DependencyResolutionContext resolutionContext = new DependencyResolutionContext();
 
-			GroovyClassLoader loader = new GroovyClassLoader(
-					Thread.currentThread().getContextClassLoader(),
-					new CompilerConfiguration());
-
 			List<RepositoryConfiguration> repositoryConfiguration = RepositoryConfigurationFactory
 					.createDefaultRepositoryConfiguration();
 			repositoryConfiguration.add(0, new RepositoryConfiguration("local",
@@ -170,7 +162,7 @@ public class LauncherCommand extends OptionParsingCommand {
 				System.setProperty("groovy.grape.report.downloads", "true");
 			}
 
-			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(loader,
+			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(null,
 					repositoryConfiguration, resolutionContext);
 
 			HashMap<String, String> dependency = new HashMap<>();
@@ -178,16 +170,16 @@ public class LauncherCommand extends OptionParsingCommand {
 			dependency.put("module", "spring-cloud-launcher-deployer");
 			dependency.put("version", getVersion());
 			URI[] uris = grapeEngine.resolve(null, dependency);
-			for (URI uri : uris) {
-				loader.addURL(uri.toURL());
-			}
+			URLClassLoader loader = new URLClassLoader(new URL[] { uris[0].toURL() },
+					getClass().getClassLoader().getParent());
 			log.debug("resolved URIs " + Arrays.asList(loader.getURLs()));
 			return loader;
 		}
 
 		private String getVersion() {
 			Package pkg = LauncherCommand.class.getPackage();
-			String version = (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
+			String version = (pkg != null ? pkg.getImplementationVersion()
+					: DEFAULT_VERSION);
 			return version != null ? version : DEFAULT_VERSION;
 		}
 

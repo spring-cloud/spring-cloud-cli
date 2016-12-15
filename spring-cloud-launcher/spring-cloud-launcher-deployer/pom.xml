@@ -18,6 +18,7 @@
 
 	<properties>
 		<spring-cloud-deployer.version>1.1.1.RELEASE</spring-cloud-deployer.version>
+		<spring-cloud-deployer-thin.version>0.0.1.BUILD-SNAPSHOT</spring-cloud-deployer-thin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -26,6 +27,11 @@
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-deployer-local</artifactId>
 				<version>${spring-cloud-deployer.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-deployer-thin</artifactId>
+				<version>${spring-cloud-deployer-thin.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
@@ -55,4 +61,12 @@
 		</dependency>
 	</dependencies>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>

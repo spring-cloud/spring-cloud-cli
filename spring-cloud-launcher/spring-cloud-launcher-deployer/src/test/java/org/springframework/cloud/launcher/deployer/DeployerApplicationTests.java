@@ -25,26 +25,28 @@ import static org.junit.Assert.assertThat;
 /**
  * @author Spencer Gibb
  */
-public class DeployerThreadTests {
+public class DeployerApplicationTests {
 
 	@Rule
 	public OutputCapture output = new OutputCapture();
-	
+
 	@Test
 	public void testCreateClassLoaderAndListDeployables() throws Exception {
-		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.list=true").run();;
+		new DeployerApplication("--launcher.list=true").run();
 		assertThat(output.toString(), containsString("configserver"));
 	}
 
 	@Test
 	public void testNonOptionArgsPassedDown() throws Exception {
-		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.list=true", "--spring.profiles.active=test").run();
+		new DeployerApplication("--launcher.list=true", "--spring.profiles.active=test")
+				.run();
 		assertThat(output.toString(), containsString("foo"));
 	}
 
 	@Test
 	public void testInvalidDeployableFails() throws Exception {
-		new DeployerThread(DeployerThread.class.getClassLoader(), "--launcher.deploy=foo,bar").run();
-		assertThat(output.toString(), containsString("The following are not valid: 'foo,bar'"));
+		new DeployerApplication("--launcher.deploy=foo,bar").run();
+		assertThat(output.toString(),
+				containsString("The following are not valid: 'foo,bar'"));
 	}
 }

@@ -16,8 +16,14 @@
 
 package org.springframework.cloud.launcher.deployer;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.Banner.Mode;
 import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -27,31 +33,27 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * @author Spencer Gibb
  */
-public class DeployerThread extends Thread {
+public class DeployerApplication {
 
-	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
+	private static final Logger logger = LoggerFactory
+			.getLogger(DeployerApplication.class);
 
-	private static final String DEFAULT_VERSION = "1.2.3.BUILD-SNAPSHOT";
+	private static final String DEFAULT_VERSION = "1.3.0.BUILD-SNAPSHOT";
 
 	private String[] args;
 
-	public DeployerThread(ClassLoader classLoader, String... args) {
-		super("spring-cloud-launcher");
+	public DeployerApplication(String... args) {
 		this.args = args;
-		setContextClassLoader(classLoader);
-		setDaemon(true);
 	}
 
-	@Override
-	public void run() {
+	public static void main(String[] args) {
+		new DeployerApplication(args).run();
+	}
+
+	void run() {
 		List<String> list = Arrays.asList(this.args);
 		if (list.contains("--launcher.list=true")) {
 			quiet();
@@ -64,9 +66,10 @@ public class DeployerThread extends Thread {
 
 	private void quiet() {
 		try {
-			LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader()).setLogLevel("ROOT",
-					LogLevel.OFF);
-		} catch (Exception e) {
+			LogbackLoggingSystem.get(ClassUtils.getDefaultClassLoader())
+					.setLogLevel("ROOT", LogLevel.OFF);
+		}
+		catch (Exception e) {
 			logger.error("Unable to turn of ROOT logger for quiet()", e);
 		}
 	}
@@ -98,7 +101,7 @@ public class DeployerThread extends Thread {
 	}
 
 	private String getVersion() {
-		Package pkg = DeployerThread.class.getPackage();
+		Package pkg = DeployerApplication.class.getPackage();
 		return (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
 	}
 

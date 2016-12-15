@@ -16,8 +16,17 @@
 
 package org.springframework.cloud.launcher.deployer;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import org.springframework.boot.env.YamlPropertySourceLoader;
 import org.springframework.cloud.deployer.spi.app.AppDeployer;
 import org.springframework.cloud.deployer.spi.app.AppStatus;
@@ -36,14 +45,6 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.StringUtils;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.springframework.util.StringUtils.collectionToCommaDelimitedString;
 
@@ -102,8 +103,7 @@ public class Deployer {
 		logger.debug("Deployables {}", properties.getDeployables());
 
 		for (Deployable deployable : deployables) {
-			deployInternal(deployer, resourceLoader, deployable,
-					properties, environment);
+			deployInternal(deployer, resourceLoader, deployable, properties, environment);
 		}
 
 		for (Deployable deployable : deployables) {
@@ -251,10 +251,11 @@ public class Deployer {
 
 	private PropertySource<?> extractPropertySource(String path) {
 		PropertySource<?> source = null;
-		Resource resource = new ClassPathResource("config" + path, DeployerThread.class);
+		Resource resource = new ClassPathResource("config" + path,
+				DeployerApplication.class);
 		source = loadPropertySource(resource, path);
 		if (source == null) {
-			resource = new ClassPathResource(path, DeployerThread.class);
+			resource = new ClassPathResource(path, DeployerApplication.class);
 			source = loadPropertySource(resource, path);
 		}
 		if (source == null) {
