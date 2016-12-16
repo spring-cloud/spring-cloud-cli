@@ -77,6 +77,8 @@ public class LauncherCommand extends OptionParsingCommand {
 
 		private OptionSpec<Void> debugOption;
 		private OptionSpec<Void> listOption;
+		private OptionSpec<String> deployerOption;
+		private OptionSpec<String> profileOption;
 		private OptionSpec<Void> versionOption;
 
 		@Override
@@ -88,6 +90,12 @@ public class LauncherCommand extends OptionParsingCommand {
 					"Debug logging for the deployer");
 			this.listOption = option(Arrays.asList("list", "l"),
 					"List the deployables (don't launch anything)");
+			this.deployerOption = option(Arrays.asList("deployer"),
+					"Use a different deployer instead of the default local one (either 'local' or 'thin')")
+							.withRequiredArg().defaultsTo("local");
+			this.profileOption = option(Arrays.asList("profile", "p"),
+					"Use a different Spring profile (or profiles) for the deployer app, e.g. 'rabbit' for a Spring Cloud Bus with RabbitMQ")
+							.withOptionalArg();
 			this.versionOption = option(Arrays.asList("version", "v"),
 					"Show the version (don't launch anything)");
 		}
@@ -134,6 +142,12 @@ public class LauncherCommand extends OptionParsingCommand {
 			}
 			if (options.has(this.debugOption)) {
 				args.add("--debug=true");
+			}
+			if (options.has(this.profileOption)) {
+				args.add("--spring.profiles.active=" + profileOption.value(options));
+			}
+			if (options.has(this.deployerOption)) {
+				args.add("--thin.profile=" + deployerOption.value(options));
 			}
 			if (options.has(this.listOption)) {
 				args.add("--launcher.list=true");

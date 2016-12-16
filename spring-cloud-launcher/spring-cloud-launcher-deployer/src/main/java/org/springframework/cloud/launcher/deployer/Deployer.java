@@ -178,6 +178,7 @@ public class Deployer {
 				appDefProps.putAll(other.getEnabled());
 			}
 		}
+		appDefProps.putAll(deployable.getApplicationProperties());
 		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {
 			appDefProps.put(key, map.get(key));
@@ -198,7 +199,8 @@ public class Deployer {
 		logger.debug("Deployment Properties: {}", deploymentProperties);
 		String id = deployer.deploy(request);
 		AppStatus appStatus = getAppStatus(deployer, id);
-		// TODO: stream stdout/stderr like docker-compose (with colors and prefix)
+		// TODO: stream stdout/stderr like docker-compose (with colors and prefix) - the
+		// colors work with the "thin" deployer, but there is no prefix in the logs yet
 
 		if (deployable.isWaitUntilStarted()) {
 			try {

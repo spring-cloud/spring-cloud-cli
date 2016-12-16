@@ -25,6 +25,7 @@ import javax.annotation.PostConstruct;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.Ordered;
 
@@ -149,11 +150,18 @@ public class DeployerProperties {
 		 */
 		private Map<String, String> enabled = new LinkedHashMap<>();
 		/**
-		 * A map of "deployment" properties passed to the deployer (not the app) when this
-		 * app is launched. You can use <code>spring.cloud.deployer.local.javaOpts</code>
-		 * here to pass JVM args to a local deployer.
+		 * A map of "deployment" properties passed to the deployer (not the app) when an
+		 * app is launched. E.g. you can use
+		 * <code>spring.cloud.deployer.local.javaOpts</code> here to pass JVM args to a
+		 * local deployer.
 		 */
 		private Map<String, String> properties = new LinkedHashMap<>();
+
+		/**
+		 * A map of properties passed to the app (not the deployer) when an app is
+		 * launched.
+		 */
+		private Map<String, String> applicationProperties;
 
 		public String getCoordinates() {
 			return this.coordinates;
@@ -226,6 +234,14 @@ public class DeployerProperties {
 
 		public void setProperties(Map<String, String> properties) {
 			this.properties = properties;
+		}
+
+		public Map<String, String> getApplicationProperties() {
+			return applicationProperties;
+		}
+
+		public void setApplicationProperties(Map<String, String> applicationProperties) {
+			this.applicationProperties = applicationProperties;
 		}
 
 		@Override
