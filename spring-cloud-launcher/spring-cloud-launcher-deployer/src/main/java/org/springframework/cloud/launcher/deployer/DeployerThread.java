@@ -39,7 +39,7 @@ public class DeployerThread extends Thread {
 
 	private static final Logger logger = LoggerFactory.getLogger(DeployerThread.class);
 
-	private static final String DEFAULT_VERSION = "1.2.3.RELEASE";
+	private static final String DEFAULT_VERSION = "1.2.3.BUILD-SNAPSHOT";
 
 	private String[] args;
 

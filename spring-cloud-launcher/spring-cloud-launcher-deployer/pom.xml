@@ -13,11 +13,11 @@
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-launcher</artifactId>
-		<version>1.2.3.RELEASE</version>
+		<version>1.2.3.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<properties>
-		<spring-cloud-deployer.version>1.0.3.RELEASE</spring-cloud-deployer.version>
+		<spring-cloud-deployer.version>1.0.4.BUILD-SNAPSHOT</spring-cloud-deployer.version>
 	</properties>
 
 	<dependencyManagement>
