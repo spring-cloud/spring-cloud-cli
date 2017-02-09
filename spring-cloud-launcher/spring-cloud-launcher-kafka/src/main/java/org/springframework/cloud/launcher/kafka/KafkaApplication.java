@@ -29,6 +29,7 @@ import org.apache.kafka.common.protocol.SecurityProtocol;
 import org.apache.kafka.common.utils.Utils;
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -53,8 +54,7 @@ public class KafkaApplication {
 	private static final Log log = LogFactory.getLog(KafkaApplication.class);
 
 	public static void main(String[] args) {
-		new SpringApplicationBuilder(KafkaApplication.class)
-				.run(args);
+		new SpringApplicationBuilder(KafkaApplication.class).run(args);
 	}
 
 	@Service
@@ -94,7 +94,8 @@ public class KafkaApplication {
 					try {
 						int zkConnectionTimeout = 10000;
 						int zkSessionTimeout = 10000;
-						zkClient = new ZkClient(zkConnectString, zkSessionTimeout, zkConnectionTimeout, ZKStringSerializer$.MODULE$);
+						zkClient = new ZkClient(zkConnectString, zkSessionTimeout,
+								zkConnectionTimeout, ZKStringSerializer$.MODULE$);
 					}
 					catch (Exception e) {
 						zookeeper.shutdown();
@@ -102,27 +103,36 @@ public class KafkaApplication {
 					}
 					try {
 						log.info("Creating Kafka server");
-						//TODO: move to properties?
+						// TODO: move to properties?
 						int nodeId = 0;
 						boolean enableControlledShutdown = true;
-						Properties brokerConfigProperties = TestUtils.createBrokerConfig(nodeId, zkConnectString, enableControlledShutdown,
-								true, port,
-								scala.Option.<SecurityProtocol>apply(null),
+						Properties brokerConfigProperties = TestUtils.createBrokerConfig(
+								nodeId, zkConnectString, enableControlledShutdown, true,
+								port, scala.Option.<SecurityProtocol>apply(null),
 								scala.Option.<File>apply(null),
-								true, false, 0, false, 0, false, 0);
-						brokerConfigProperties.setProperty("replica.socket.timeout.ms", "1000");
-						brokerConfigProperties.setProperty("controller.socket.timeout.ms", "1000");
-						brokerConfigProperties.setProperty("offsets.topic.replication.factor", "1");
+								scala.Option.<Properties>apply(null), true, false, 0,
+								false, 0, false, 0, scala.Option.<String>apply(null));
+						brokerConfigProperties.setProperty("replica.socket.timeout.ms",
+								"1000");
+						brokerConfigProperties.setProperty("controller.socket.timeout.ms",
+								"1000");
+						brokerConfigProperties
+								.setProperty("offsets.topic.replication.factor", "1");
 						brokerConfigProperties.put("zookeeper.connect", zkConnectString);
-						kafkaServer = TestUtils.createServer(new KafkaConfig(brokerConfigProperties), SystemTime$.MODULE$);
-						log.info("Created Kafka server at " + kafkaServer.config().hostName() + ":" + kafkaServer.config().port());
+						kafkaServer = TestUtils.createServer(
+								new KafkaConfig(brokerConfigProperties),
+								SystemTime$.MODULE$);
+						log.info("Created Kafka server at "
+								+ kafkaServer.config().hostName() + ":"
+								+ kafkaServer.config().port());
 					}
 					catch (Exception e) {
 						zookeeper.shutdown();
 						zkClient.close();
 						throw e;
 					}
-				} catch (Exception e) {
+				}
+				catch (Exception e) {
 					ReflectionUtils.rethrowRuntimeException(e);
 				}
 			}
@@ -133,7 +143,8 @@ public class KafkaApplication {
 			if (this.running.compareAndSet(true, false)) {
 				log.info("Stoping Kafka");
 				try {
-					if (kafkaServer.brokerState().currentState() != (NotRunning.state())) {
+					if (kafkaServer.brokerState()
+							.currentState() != (NotRunning.state())) {
 						kafkaServer.shutdown();
 						kafkaServer.awaitShutdown();
 					}
@@ -142,12 +153,12 @@ public class KafkaApplication {
 					// do nothing
 				}
 				try {
-					CoreUtils.rm(kafkaServer.config().logDirs());
+					CoreUtils.delete(kafkaServer.config().logDirs());
 				}
 				catch (Exception e) {
 					// do nothing
 				}
-				log.info("Stoping Zookeeper");
+				log.info("Stopping Zookeeper");
 				try {
 					this.zkClient.close();
 				}
