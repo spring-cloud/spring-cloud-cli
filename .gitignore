@@ -9,3 +9,8 @@ sample-pages
 docs/
 spring-cloud-cli/
 spring-cloud-versions/
+*.iml
+target
+*.class
+*.jar
+*.jar.original
