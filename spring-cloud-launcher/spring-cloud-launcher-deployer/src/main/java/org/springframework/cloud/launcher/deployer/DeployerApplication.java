@@ -25,7 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.Banner.Mode;
-import org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration;
+import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.logback.LogbackLoggingSystem;
@@ -102,7 +102,8 @@ public class DeployerApplication {
 
 	private String getVersion() {
 		Package pkg = DeployerApplication.class.getPackage();
-		return (pkg != null ? pkg.getImplementationVersion() : DEFAULT_VERSION);
+		return (pkg != null ? pkg.getImplementationVersion() == null ? DEFAULT_VERSION
+				: pkg.getImplementationVersion() : DEFAULT_VERSION);
 	}
 
 	private void launch() {

@@ -18,7 +18,7 @@
 
 	<properties>
 		<spring-cloud-deployer.version>1.1.1.RELEASE</spring-cloud-deployer.version>
-		<spring-cloud-deployer-thin.version>0.0.1.BUILD-SNAPSHOT</spring-cloud-deployer-thin.version>
+		<spring-cloud-deployer-thin.version>1.0.0.BUILD-SNAPSHOT</spring-cloud-deployer-thin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -38,21 +38,26 @@
 				<artifactId>spring-cloud-deployer-resource-support</artifactId>
 				<version>${spring-cloud-deployer.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.maven</groupId>
+				<artifactId>maven-aether-provider</artifactId>
+				<version>3.3.9</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-validation</artifactId>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-deployer-local</artifactId>
+			<artifactId>spring-cloud-deployer-thin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-deployer-resource-support</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

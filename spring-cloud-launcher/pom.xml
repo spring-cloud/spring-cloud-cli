@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<thin-jar.version>0.0.1.BUILD-SNAPSHOT</thin-jar.version>
+		<thin-jar.version>1.0.0.BUILD-SNAPSHOT</thin-jar.version>
 	</properties>
 
 	<modules>
@@ -51,7 +51,7 @@
 					<dependencies>
 						<dependency>
 							<groupId>org.springframework.boot.experimental</groupId>
-							<artifactId>spring-boot-thin-launcher</artifactId>
+							<artifactId>spring-boot-thin-layout</artifactId>
 							<version>${thin-jar.version}</version>
 						</dependency>
 					</dependencies>
