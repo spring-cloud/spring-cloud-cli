@@ -179,13 +179,14 @@ public class LauncherCommand extends OptionParsingCommand {
 			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(null,
 					repositoryConfiguration, resolutionContext);
 
-			HashMap<String, String> dependency = new HashMap<>();
+			HashMap<String, Object> dependency = new HashMap<>();
 			dependency.put("group", "org.springframework.cloud.launcher");
 			dependency.put("module", "spring-cloud-launcher-deployer");
 			dependency.put("version", getVersion());
+			dependency.put("transitive", false);
 			URI[] uris = grapeEngine.resolve(null, dependency);
 			URLClassLoader loader = new URLClassLoader(new URL[] { uris[0].toURL() },
-					getClass().getClassLoader().getParent());
+					getClass().getClassLoader().getParent().getParent());
 			log.debug("resolved URIs " + Arrays.asList(loader.getURLs()));
 			return loader;
 		}
