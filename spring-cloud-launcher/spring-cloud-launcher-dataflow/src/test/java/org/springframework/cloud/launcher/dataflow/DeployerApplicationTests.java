@@ -7,8 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest({ "spring.datasource.url=jdbc:h2:tcp://localhost:9096/./target/test",
-		"spring.cloud.bus.enabled=false", "eureka.client.enabled=false" })
+@SpringBootTest({ "spring.cloud.bus.enabled=false", "eureka.client.enabled=false" })
 public class DeployerApplicationTests {
 
 	@Test

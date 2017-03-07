@@ -48,11 +48,12 @@ spring:
         h2:
           coordinates: ${dt.pre}h2:${dt.ver}
           port: 9095
-          message: Connect on jdbc:h2:tcp://localhost:9096/./target/test, web console at http://localhost:9095
+          message: Connect on jdbc:h2:tcp://localhost:9096/mem:test, web console at http://localhost:9095
           waitUntilStarted: true
           order: -50
           enabled:
-            spring.datasource.url: jdbc:h2:tcp://localhost:9096/./target/test
+            spring.datasource.url: jdbc:h2:tcp://localhost:9096/mem:test
+            spring.dataflow.embedded.database.enabled: false
           properties:
             spring.cloud.deployer.memory: ${dt.mem}
             spring.cloud.deployer.local.javaOpts: ${dt.opts}
