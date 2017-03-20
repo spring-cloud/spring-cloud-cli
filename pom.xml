@@ -24,7 +24,7 @@
         <bintray.package>cli</bintray.package>
         <docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>1.5.1.RELEASE</spring-boot.version>
+		<spring-boot.version>1.5.2.RELEASE</spring-boot.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
