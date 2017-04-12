@@ -28,7 +28,7 @@ import org.springframework.boot.cli.compiler.GenericBomAstTransformation;
 @GroovyASTTransformation(phase = CompilePhase.CONVERSION)
 public class SpringCloudBomAstTransformation extends GenericBomAstTransformation {
 
-	private static final String SPRING_CLOUD_VERSION = "Dalston.RELEASE";
+	private static final String SPRING_CLOUD_VERSION = "Dalston.BUILD-SNAPSHOT";
 
 	@Override
 	protected String getBomModule() {
