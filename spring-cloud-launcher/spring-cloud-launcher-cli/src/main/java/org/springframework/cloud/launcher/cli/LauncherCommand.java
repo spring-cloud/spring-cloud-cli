@@ -172,12 +172,14 @@ public class LauncherCommand extends OptionParsingCommand {
 			repositoryConfiguration.add(0, new RepositoryConfiguration("local",
 					new File("repository").toURI(), true));
 
+			boolean quiet = true;
 			if (options.has(debugOption)) {
 				System.setProperty("groovy.grape.report.downloads", "true");
+				quiet = false;
 			}
 
 			AetherGrapeEngine grapeEngine = AetherGrapeEngineFactory.create(null,
-					repositoryConfiguration, resolutionContext);
+					repositoryConfiguration, resolutionContext, quiet);
 
 			HashMap<String, Object> dependency = new HashMap<>();
 			dependency.put("group", "org.springframework.cloud.launcher");
