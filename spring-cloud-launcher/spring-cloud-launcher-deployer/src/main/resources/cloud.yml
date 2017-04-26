@@ -98,9 +98,10 @@ spring:
       deployables:
         configserver:
           properties:
-            spring.cloud.deployer.thin.profile: rabbit
+            thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            debug: true
         eureka:
           properties:
             spring.cloud.deployer.thin.profile: rabbit

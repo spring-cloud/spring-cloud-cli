@@ -41,7 +41,7 @@ public class DeployerApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeployerApplication.class);
 
-	private static final String DEFAULT_VERSION = "1.3.1.BUILD-SNAPSHOT";
+	private static final String DEFAULT_VERSION = "1.3.2.BUILD-SNAPSHOT";
 
 	private String[] args;
 
@@ -100,7 +100,7 @@ public class DeployerApplication {
 		}
 	}
 
-	private String getVersion() {
+	String getVersion() {
 		Package pkg = DeployerApplication.class.getPackage();
 		return (pkg != null ? pkg.getImplementationVersion() == null ? DEFAULT_VERSION
 				: pkg.getImplementationVersion() : DEFAULT_VERSION);

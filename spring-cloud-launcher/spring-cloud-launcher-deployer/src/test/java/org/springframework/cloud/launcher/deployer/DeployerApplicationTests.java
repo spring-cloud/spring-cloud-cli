@@ -31,6 +31,15 @@ public class DeployerApplicationTests {
 	public OutputCapture output = new OutputCapture();
 
 	@Test
+	public void testDefaultLibrary() throws Exception {
+		DeployerApplication wrapper = new DeployerApplication();
+		if (System.getProperty("project.version") != null) {
+			assertThat(wrapper.getVersion(),
+					containsString(System.getProperty("project.version")));
+		}
+	}
+
+	@Test
 	public void testCreateClassLoaderAndListDeployables() throws Exception {
 		new DeployerApplication("--launcher.list=true").run();
 		assertThat(output.toString(), containsString("configserver"));
