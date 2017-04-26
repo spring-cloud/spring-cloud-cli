@@ -97,33 +97,26 @@ spring:
     launcher:
       deployables:
         configserver:
-          properties:
+          application-properties:
             thin.profile: rabbit
-          application-properties:
             spring.cloud.bus.enabled: true
-            debug: true
         eureka:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            thin.profile: rabbit
         h2:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            thin.profile: rabbit
         dataflow:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            thin.profile: rabbit
         hystrixdashboard:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            thin.profile: rabbit
         zipkin:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
           application-properties:
             spring.cloud.bus.enabled: true
+            thin.profile: rabbit
