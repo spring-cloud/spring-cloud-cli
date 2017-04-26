@@ -1,7 +1,7 @@
 server:
   port: 9393
 
-debug: true
+# debug: true
 
 eureka:
   instance:
