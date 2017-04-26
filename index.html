@@ -29,11 +29,11 @@ badges:
 
 {% capture billboard_description %}
 
-Spring Cloud CLI is a set of extensions for the
-[Spring Boot CLI](http://docs.spring.io/spring-boot) making it possible
-to write Spring Cloud apps in Groovy scripts and run them from a
-shell. Auto-imports and dependency management is provided for all
-Spring Cloud projects.
+Spring Cloud CLI is a set of extensions for the [Spring Boot
+CLI](http://docs.spring.io/spring-boot) making it possible to run
+Spring Cloud server apps and write Spring Cloud apps in Groovy scripts
+and run them from a shell. Auto-imports and dependency management is
+provided for all Spring Cloud projects.
 
 {% endcapture %}
 
@@ -42,19 +42,6 @@ Spring Cloud projects.
 <span id="quick-start"></span>
 
 ## Quick Start
-
-Any Spring Boot CLI app with the Cloud CLI extensions installed will
-be a Spring Cloud Config Client, so set the `spring.cloud.config.uri`
-to point to a Config Server and you are in business (defaults to
-"http://localhost:8888").
-
-Here's a complete Eureka Server:
-
-```groovy
-@EnableEurekaServer
-@RestController
-class Eureka {}
-```
 
 To install the CLI, make
 sure you have
@@ -75,6 +62,41 @@ and install the Spring Cloud plugin:
 
 ```
 $ spring install org.springframework.cloud:spring-cloud-cli:1.3.1.RELEASE
+```
+
+### Launch a Server
+
+To run a config server:
+
+```
+$ spring cloud configserver
+```
+
+You can also run eureka, zipkin, hystrixdashboard, h2, kafka or
+dataflow (multiple apps can be run if separated by spaces on the
+command line).
+
+### Write a Groovy Script and Run It
+
+Any Spring Boot CLI app with the Cloud CLI extensions installed will
+be a Spring Cloud Config Client, so set the `spring.cloud.config.uri`
+to point to a Config Server and you are in business (defaults to
+"http://localhost:8888").
+
+Here's a complete Eureka Server:
+
+```groovy
+@EnableEurekaServer
+@RestController
+class Eureka {}
+```
+
+### Encrypt and Decrypt
+
+Example (symmetric key):
+
+```
+$ spring encrypt --key=secret foo
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
