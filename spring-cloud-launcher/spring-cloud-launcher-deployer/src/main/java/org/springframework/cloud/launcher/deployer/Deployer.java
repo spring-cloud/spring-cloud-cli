@@ -179,6 +179,7 @@ public class Deployer {
 			}
 		}
 		appDefProps.putAll(deployable.getApplicationProperties());
+		appDefProps.putAll(getThinProperties(deployable.getProperties()));
 		Map<String, String> map = extractProperties("/" + deployable.getName() + ".yml");
 		for (String key : map.keySet()) {
 			appDefProps.put(key, map.get(key));
@@ -220,6 +221,17 @@ public class Deployer {
 		logger.info("Status of {}: {}", id, appStatus);
 
 		return id;
+	}
+
+	private Map<String, String> getThinProperties(
+			Map<String, String> properties) {
+		Map<String, String> map = new HashMap<>();
+		for (String key : properties.keySet()) {
+			if (key.startsWith(AppDeployer.PREFIX + "thin.")) {
+				map.put(key, properties.get(key));
+			}
+		}
+		return map ;
 	}
 
 	private boolean shouldDeploy(Deployable deployable, DeployerProperties properties) {

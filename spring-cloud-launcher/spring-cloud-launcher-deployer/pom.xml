@@ -13,12 +13,12 @@
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-launcher</artifactId>
-		<version>1.3.2.BUILD-SNAPSHOT</version>
+		<version>1.3.2.RELEASE</version>
 	</parent>
 
 	<properties>
 		<spring-cloud-deployer.version>1.1.4.RELEASE</spring-cloud-deployer.version>
-		<spring-cloud-deployer-thin.version>1.0.0.RELEASE</spring-cloud-deployer-thin.version>
+		<spring-cloud-deployer-thin.version>1.0.1.RELEASE</spring-cloud-deployer-thin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -49,7 +49,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-deployer-local</artifactId>
+			<artifactId>spring-cloud-deployer-thin</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
