@@ -41,7 +41,7 @@ public class DeployerApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeployerApplication.class);
 
-	private static final String DEFAULT_VERSION = "1.3.5.BUILD-SNAPSHOT";
+	private static final String DEFAULT_VERSION = "1.4.0.BUILD-SNAPSHOT";
 
 	private String[] args;
 
