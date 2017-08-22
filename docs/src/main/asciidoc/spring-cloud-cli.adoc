@@ -21,7 +21,7 @@ of services just `spring cloud`. To choose the services to deploy,
 just list them on the command line, e.g.
 
 ----
-$ spring cloud eureka configserver h2 kafka zipkin
+$ spring cloud eureka configserver h2 kafka zipkin stubrunner
 ----
 
 Summary of supported deployables:
@@ -50,6 +50,9 @@ Summary of supported deployables:
 
 |zipkin  | Zipkin Server | http://localhost:9411
 | Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.
+
+|stubrunner  | Stub Runner Boot | http://localhost:8750
+| Downloads WireMock stubs, starts WireMock and feeds the started servers with stored stubs. Pass `stubrunner.ids` to pass stub coordinates and then go to `http://localhost:8750/stubs`.
 |===
 
 Each of these apps can be configured using a local YAML file with the same name (in the current
@@ -94,7 +97,7 @@ when you list the apps:
 [source]
 ----
 $ spring cloud --list
-source sink configserver dataflow eureka h2 hystrixdashboard kafka zipkin
+source sink configserver dataflow eureka h2 hystrixdashboard kafka zipkin stubrunner
 ----
 
 (notice the additional apps at the start of the list).

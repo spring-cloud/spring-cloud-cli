@@ -30,6 +30,7 @@
 		<module>spring-cloud-launcher-h2</module>
 		<module>spring-cloud-launcher-hystrixdashboard</module>
 		<module>spring-cloud-launcher-kafka</module>
+		<module>spring-cloud-launcher-stubrunner</module>
 		<module>spring-cloud-launcher-zipkin</module>
 	</modules>
 
