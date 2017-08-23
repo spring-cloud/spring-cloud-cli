@@ -8,4 +8,5 @@ org.springframework.cloud.cli.compiler.OAuth2LoadBalancedCompilerAutoConfigurati
 org.springframework.cloud.cli.compiler.RibbonClientCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.StreamKafkaCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.StreamRabbitCompilerAutoConfiguration
+org.springframework.cloud.cli.compiler.StubRunnerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.ZuulCompilerAutoConfiguration

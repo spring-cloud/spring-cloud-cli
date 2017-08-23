@@ -79,6 +79,16 @@ spring:
             spring.cloud.deployer.local.javaOpts: ${dt.opts}
           application-properties:
             management.security.enabled: false
+        stubrunner:
+          coordinates: ${dt.pre}stubrunner:${dt.ver}
+          port: 8750
+          message: To see the registered stubs open http://localhost:8750/stubs
+          order: 0
+          properties:
+            spring.cloud.deployer.memory: ${dt.mem}
+            spring.cloud.deployer.local.javaOpts: ${dt.opts}
+          application-properties:
+            management.security.enabled: false
         zipkin:
           coordinates: ${dt.pre}zipkin:${dt.ver}
           port: 9411
@@ -117,6 +127,11 @@ spring:
           application-properties:
             spring.cloud.bus.enabled: true
         hystrixdashboard:
+          properties:
+            spring.cloud.deployer.thin.profile: rabbit
+          application-properties:
+            spring.cloud.bus.enabled: true
+        stubrunner:
           properties:
             spring.cloud.deployer.thin.profile: rabbit
           application-properties:
