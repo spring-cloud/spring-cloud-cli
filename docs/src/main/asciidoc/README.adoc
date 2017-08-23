@@ -1,4 +1,4 @@
-image::https://travis-ci.org/spring-cloud/spring-cloud-cli.svg?branch=master[Build Status, link=https://travis-ci.org/spring-cloud/spring-cloud-cli]
+image:https://circleci.com/gh/spring-cloud/spring-cloud-cli.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud/spring-cloud-cli"]
 
 include::intro.adoc[]
 
