@@ -512,7 +512,7 @@ just list them on the command line, e.g.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>$ spring cloud eureka configserver h2 kafka zipkin</pre>
+<pre>$ spring cloud eureka configserver h2 kafka stubrunner zipkin</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -576,6 +576,12 @@ just list them on the command line, e.g.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9411" class="bare">http://localhost:9411</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stubrunner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stub Runner Boot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:8750" class="bare">http://localhost:8750</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Downloads WireMock stubs, starts WireMock and feeds the started servers with stored stubs. Pass <code>stubrunner.ids</code> to pass stub coordinates and then go to <code><a href="http://localhost:8750/stubs" class="bare">http://localhost:8750/stubs</a></code>.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="paragraph">
@@ -594,6 +600,18 @@ do something like this to locate a local git repository for the backend:</p>
       server:
         git:
           uri: file://${user.home}/dev/demo/config-repo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>E.g. in Stub Runner app you could fetch stubs from your local <code>.m2</code> in the following way.</p>
+</div>
+<div class="listingblock">
+<div class="title">stubrunner.yml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code class="language-yaml" data-lang="yaml">stubrunner:
+  workOffline: true
+  ids:
+    - com.example:beer-api-producer:+:9876</code></pre>
 </div>
 </div>
 <div class="sect2">
@@ -623,7 +641,7 @@ do something like this to locate a local git repository for the backend:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code>$ spring cloud --list
-source sink configserver dataflow eureka h2 hystrixdashboard kafka zipkin</code></pre>
+source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin</code></pre>
 </div>
 </div>
 <div class="paragraph">
