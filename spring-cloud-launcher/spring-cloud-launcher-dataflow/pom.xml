@@ -18,7 +18,7 @@
 
 	<properties>
 		<spring-cloud-dataflow.version>1.2.3.RELEASE</spring-cloud-dataflow.version>
-		</properties>
+	</properties>
 
 	<dependencyManagement>
 		<dependencies>
