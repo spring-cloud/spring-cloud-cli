@@ -28,13 +28,13 @@ sure you have
 <link xl:href="https://github.com/spring-projects/spring-boot">Spring Boot CLI</link>
 (1.5.2 or better):</simpara>
 <literallayout class="monospaced">$ spring version
-Spring CLI v1.5.4.RELEASE</literallayout>
+Spring CLI v1.5.8.RELEASE</literallayout>
 <simpara>E.g. for SDKMan users</simpara>
-<screen>$ sdk install springboot 1.5.4.RELEASE
-$ sdk use springboot 1.5.4.RELEASE</screen>
+<screen>$ sdk install springboot 1.5.8.RELEASE
+$ sdk use springboot 1.5.8.RELEASE</screen>
 <simpara>and install the Spring Cloud plugin</simpara>
 <screen>$ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:1.4.0.BUILD-SNAPSHOT</screen>
+$ spring install org.springframework.cloud:spring-cloud-cli:1.4.1.BUILD-SNAPSHOT</screen>
 <important>
 <simpara><emphasis role="strong">Prerequisites:</emphasis> to use the encryption and decryption features
 you need the full-strength JCE installed in your JVM (it&#8217;s not there by default).
