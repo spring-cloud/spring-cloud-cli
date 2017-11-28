@@ -37,7 +37,7 @@ public class HystrixDashboardCompilerAutoConfiguration extends CompilerAutoConfi
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
 				"org.springframework.cloud.netflix.hystrix.dashboard.EnableHystrixDashboard")
-				.add("spring-cloud-starter-hystrix-dashboard");
+				.add("spring-cloud-starter-netflix-hystrix-dashboard");
 	}
 
 	@Override

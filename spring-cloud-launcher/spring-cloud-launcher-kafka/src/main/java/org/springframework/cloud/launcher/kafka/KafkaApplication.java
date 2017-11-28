@@ -25,7 +25,7 @@ import org.I0Itec.zkclient.ZkClient;
 import org.I0Itec.zkclient.exception.ZkInterruptedException;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.kafka.common.protocol.SecurityProtocol;
+import org.apache.kafka.common.utils.Time;
 import org.apache.kafka.common.utils.Utils;
 import org.apache.zookeeper.server.NIOServerCnxnFactory;
 import org.apache.zookeeper.server.ZooKeeperServer;
@@ -41,12 +41,13 @@ import kafka.server.KafkaConfig;
 import kafka.server.KafkaServer;
 import kafka.server.NotRunning;
 import kafka.utils.CoreUtils;
-import kafka.utils.SystemTime$;
 import kafka.utils.TestUtils;
 import kafka.utils.ZKStringSerializer$;
 
 /**
  * @author Spencer Gibb
+ *
+ * see https://github.com/spring-projects/spring-kafka/blob/2.0.x/spring-kafka-test/src/main/java/org/springframework/kafka/test/rule/KafkaEmbedded.java
  */
 @SpringBootApplication
 public class KafkaApplication {
@@ -108,10 +109,10 @@ public class KafkaApplication {
 						boolean enableControlledShutdown = true;
 						Properties brokerConfigProperties = TestUtils.createBrokerConfig(
 								nodeId, zkConnectString, enableControlledShutdown, true,
-								port, scala.Option.<SecurityProtocol>apply(null),
-								scala.Option.<File>apply(null),
-								scala.Option.<Properties>apply(null), true, false, 0,
-								false, 0, false, 0, scala.Option.<String>apply(null));
+								port, scala.Option.apply(null),
+								scala.Option.apply(null),
+								scala.Option.apply(null), true, false, 0,
+								false, 0, false, 0, scala.Option.apply(null), 1);
 						brokerConfigProperties.setProperty("replica.socket.timeout.ms",
 								"1000");
 						brokerConfigProperties.setProperty("controller.socket.timeout.ms",
@@ -121,7 +122,7 @@ public class KafkaApplication {
 						brokerConfigProperties.put("zookeeper.connect", zkConnectString);
 						kafkaServer = TestUtils.createServer(
 								new KafkaConfig(brokerConfigProperties),
-								SystemTime$.MODULE$);
+								Time.SYSTEM);
 						log.info("Created Kafka server at "
 								+ kafkaServer.config().hostName() + ":"
 								+ kafkaServer.config().port());

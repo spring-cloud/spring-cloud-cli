@@ -37,7 +37,7 @@ public class EurekaServerCompilerAutoConfiguration extends CompilerAutoConfigura
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
 				"org.springframework.cloud.netflix.eureka.server.EnableEurekaServer")
-				.add("spring-cloud-starter-eureka-server");
+				.add("spring-cloud-starter-netflix-eureka-server");
 	}
 
 	@Override

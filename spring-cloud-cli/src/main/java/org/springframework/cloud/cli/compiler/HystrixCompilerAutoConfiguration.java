@@ -37,7 +37,7 @@ public class HystrixCompilerAutoConfiguration extends CompilerAutoConfiguration 
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies.ifAnyMissingClasses(
 				"org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker")
-				.add("spring-cloud-starter-hystrix");
+				.add("spring-cloud-starter-netflix-hystrix");
 	}
 
 	@Override

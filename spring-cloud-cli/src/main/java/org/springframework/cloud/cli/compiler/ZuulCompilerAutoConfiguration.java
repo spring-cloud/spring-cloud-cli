@@ -37,7 +37,7 @@ public class ZuulCompilerAutoConfiguration extends CompilerAutoConfiguration {
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses("org.springframework.cloud.netflix.zuul.EnableZuulProxy")
-				.add("spring-cloud-starter-zuul");
+				.add("spring-cloud-starter-netflix-zuul");
 	}
 	
 	@Override
