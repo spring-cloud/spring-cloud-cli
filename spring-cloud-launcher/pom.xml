@@ -25,6 +25,7 @@
 		<module>spring-cloud-launcher-deployer</module>
 		<module>spring-cloud-launcher-cli</module>
 		<module>spring-cloud-launcher-configserver</module>
+		<!-- FIXME: 2.0.x -->
 		<!--<module>spring-cloud-launcher-dataflow</module>-->
 		<module>spring-cloud-launcher-eureka</module>
 		<module>spring-cloud-launcher-h2</module>
