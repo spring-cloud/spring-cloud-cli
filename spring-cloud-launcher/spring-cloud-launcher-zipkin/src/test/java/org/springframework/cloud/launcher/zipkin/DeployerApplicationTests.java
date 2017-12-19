@@ -1,5 +1,6 @@
 package org.springframework.cloud.launcher.zipkin;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -11,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 public class DeployerApplicationTests {
 
 	@Test
+	@Ignore
 	public void contextLoads() {
 	}
 
