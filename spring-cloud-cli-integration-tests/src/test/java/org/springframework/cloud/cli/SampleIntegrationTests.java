@@ -73,7 +73,7 @@ public class SampleIntegrationTests {
 	public void zuulProxySample() throws Exception {
 		String output = this.cli.run("zuulproxy.groovy");
 		assertTrue("Wrong output: " + output,
-				output.contains("Mapping servlet: 'zuulServlet' to [/zuul/*]"));
+				output.contains("Servlet zuulServlet mapped to [/zuul/*]"));
 	}
 
 	@Test
