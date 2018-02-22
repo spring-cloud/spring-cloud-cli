@@ -312,7 +312,7 @@ public class Deployer {
 		if (resource.exists()) {
 			try {
 				PropertySource<?> source = new YamlPropertySourceLoader().load(path,
-						resource, null);
+						resource, null, this.environment::acceptsProfiles);
 				if (source != null) {
 					logger.info("Loaded YAML properties from: " + resource);
 				}
