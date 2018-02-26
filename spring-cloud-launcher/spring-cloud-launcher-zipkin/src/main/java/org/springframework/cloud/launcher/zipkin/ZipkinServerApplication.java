@@ -26,22 +26,18 @@ import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 import zipkin.collector.CollectorMetrics;
 import zipkin.collector.CollectorSampler;
 import zipkin.internal.V2StorageComponent;
-import zipkin.server.ZipkinQueryApiV1;
-import zipkin.server.ZipkinServerConfiguration;
-import zipkin.server.brave.BraveConfiguration;
+import zipkin.server.EnableZipkinServer;
 import zipkin.storage.StorageComponent;
 import zipkin2.storage.InMemoryStorage;
 
 /**
  * @author Spencer Gibb
  */
-// @EnableZipkinServer
-@Import({ZipkinServerConfiguration.class, BraveConfiguration.class, ZipkinQueryApiV1.class})
+@EnableZipkinServer
 @EnableDiscoveryClient
 @SpringBootApplication
 public class ZipkinServerApplication {
