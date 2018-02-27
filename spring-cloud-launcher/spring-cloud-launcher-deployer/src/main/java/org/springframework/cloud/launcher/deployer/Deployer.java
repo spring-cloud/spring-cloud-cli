@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -37,6 +38,7 @@ import org.springframework.cloud.launcher.deployer.DeployerProperties.Deployable
 import org.springframework.context.event.ContextClosedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.core.OrderComparator;
+import org.springframework.core.env.CompositePropertySource;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.EnumerablePropertySource;
 import org.springframework.core.env.PropertySource;
@@ -311,12 +313,21 @@ public class Deployer {
 	private PropertySource<?> loadPropertySource(Resource resource, String path) {
 		if (resource.exists()) {
 			try {
-				PropertySource<?> source = new YamlPropertySourceLoader().load(path,
-						resource, null, this.environment::acceptsProfiles);
-				if (source != null) {
+				List<PropertySource<?>> sources = new YamlPropertySourceLoader().load(path,
+						resource);
+				if (sources != null) {
 					logger.info("Loaded YAML properties from: " + resource);
+				} else if (sources == null || sources.isEmpty()){
+				    return null;
+                }
+
+				CompositePropertySource composite = new CompositePropertySource("cli-sources");
+
+				for (PropertySource propertySource : sources) {
+					composite.addPropertySource(propertySource);
 				}
-				return source;
+
+				return composite;
 			}
 			catch (IOException e) {
 			}
