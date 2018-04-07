@@ -67,7 +67,6 @@ spring:
 - [X] H2 Database
 - [X] Spring Cloud Dataflow server
 - [X] Launcher landing page (Eureka Dashboard works for now)
-- [X] Sleuth/Zipkin
 - [ ] Support external rabbit
 - [ ] Speedup startup (parallel start?, retry for config server, db and kafka?)
 - [ ] Cassandra Database

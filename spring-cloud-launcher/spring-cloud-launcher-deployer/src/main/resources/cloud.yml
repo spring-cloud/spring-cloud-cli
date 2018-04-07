@@ -89,15 +89,6 @@ spring:
             spring.cloud.deployer.local.javaOpts: ${dt.opts}
           application-properties:
             management.security.enabled: false
-        zipkin:
-          coordinates: ${dt.pre}zipkin:${dt.ver}
-          port: 9411
-          order: 0
-          properties:
-            spring.cloud.deployer.memory: ${dt.mem}
-            spring.cloud.deployer.local.javaOpts: ${dt.opts}
-          application-properties:
-            management.security.enabled: false
       deploy: ${launcher.deploy:configserver,eureka}
 
 ---
@@ -132,11 +123,6 @@ spring:
           application-properties:
             spring.cloud.bus.enabled: true
         stubrunner:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
-          application-properties:
-            spring.cloud.bus.enabled: true
-        zipkin:
           properties:
             spring.cloud.deployer.thin.profile: rabbit
           application-properties:
