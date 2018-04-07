@@ -21,7 +21,7 @@ of services just `spring cloud`. To choose the services to deploy,
 just list them on the command line, e.g.
 
 ----
-$ spring cloud eureka configserver h2 kafka stubrunner zipkin
+$ spring cloud eureka configserver h2 kafka stubrunner
 ----
 
 Summary of supported deployables:
@@ -48,12 +48,12 @@ Summary of supported deployables:
 |dataflow  | Dataflow Server | http://localhost:9393
 | Spring Cloud Dataflow server with UI at /admin-ui. Connect the Dataflow shell to target at root path.
 
-|zipkin  | Zipkin Server | http://localhost:9411
-| Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.
-
 |stubrunner  | Stub Runner Boot | http://localhost:8750
 | Downloads WireMock stubs, starts WireMock and feeds the started servers with stored stubs. Pass `stubrunner.ids` to pass stub coordinates and then go to `http://localhost:8750/stubs`.
 |===
+
+IMPORTANT: With 2.0.0 the Zipkin support got removed in favour of using the
+Zipkin's far jar. Read more about this in the https://github.com/openzipkin/zipkin#quick-start[Zipkin's documenation].
 
 Each of these apps can be configured using a local YAML file with the same name (in the current
 working directory or a subdirectory called "config" or in `~/.spring-cloud`). E.g. in `configserver.yml` you might want to
@@ -108,7 +108,7 @@ when you list the apps:
 [source]
 ----
 $ spring cloud --list
-source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin
+source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner
 ----
 
 (notice the additional apps at the start of the list).
