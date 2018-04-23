@@ -90,7 +90,7 @@ spring:
           application-properties:
             management.security.enabled: false
         zipkin:
-          coordinates: ${dt.pre}zipkin:${dt.ver}
+          coordinates: io.zipkin.java:zipkin-server:jar:exec:2.7.1
           port: 9411
           order: 0
           properties:

@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<thin-jar.version>1.0.7.RELEASE</thin-jar.version>
+		<thin-jar.version>1.0.10.RELEASE</thin-jar.version>
 	</properties>
 
 	<modules>
@@ -32,7 +32,6 @@
 		<module>spring-cloud-launcher-hystrixdashboard</module>
 		<module>spring-cloud-launcher-kafka</module>
 		<module>spring-cloud-launcher-stubrunner</module>
-		<module>spring-cloud-launcher-zipkin</module>
 	</modules>
 
 	<dependencies>
