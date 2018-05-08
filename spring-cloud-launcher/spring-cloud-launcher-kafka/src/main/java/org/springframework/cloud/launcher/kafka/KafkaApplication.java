@@ -142,7 +142,7 @@ public class KafkaApplication {
 		@Override
 		public void stop() {
 			if (this.running.compareAndSet(true, false)) {
-				log.info("Stoping Kafka");
+				log.info("Stopping Kafka");
 				try {
 					if (kafkaServer.brokerState()
 							.currentState() != (NotRunning.state())) {
