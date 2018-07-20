@@ -18,7 +18,7 @@
 	</parent>
 
 	<properties>
-		<thin-jar.version>1.0.10.RELEASE</thin-jar.version>
+		<thin-jar.version>1.0.12.RELEASE</thin-jar.version>
 	</properties>
 
 	<modules>
