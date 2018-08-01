@@ -15,14 +15,9 @@
  */
 package org.springframework.cloud.cli.command.encrypt;
 
-import static java.util.Arrays.asList;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.nio.charset.Charset;
-
-import joptsimple.OptionSet;
-import joptsimple.OptionSpec;
 
 import org.springframework.boot.cli.command.options.OptionHandler;
 import org.springframework.boot.cli.util.Log;
@@ -31,6 +26,11 @@ import org.springframework.security.crypto.encrypt.TextEncryptor;
 import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 import org.springframework.security.rsa.crypto.RsaSecretEncryptor;
 import org.springframework.util.StreamUtils;
+
+import static java.util.Arrays.asList;
+
+import joptsimple.OptionSet;
+import joptsimple.OptionSpec;
 
 class BaseEncryptOptionHandler extends OptionHandler {
 
@@ -104,7 +104,7 @@ class BaseEncryptOptionHandler extends OptionHandler {
 		catch (Exception e) {
 			// not a file
 		}
-		return new EncryptorFactory(verbose).create(value.trim());
+		return new EncryptorFactory(verbose).create(value.trim().replaceAll("\n", ""));
 	}
 
 	private String readFile(String filename) {
