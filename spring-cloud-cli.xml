@@ -34,7 +34,7 @@ Spring CLI v2.0.0.M6</literallayout>
 $ sdk use springboot 2.0.0.M6</screen>
 <simpara>and install the Spring Cloud plugin</simpara>
 <screen>$ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:2.0.0.BUILD-SNAPSHOT</screen>
+$ spring install org.springframework.cloud:spring-cloud-cli:2.0.1.BUILD-SNAPSHOT</screen>
 <important>
 <simpara><emphasis role="strong">Prerequisites:</emphasis> to use the encryption and decryption features
 you need the full-strength JCE installed in your JVM (it&#8217;s not there by default).
