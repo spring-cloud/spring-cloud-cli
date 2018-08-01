@@ -13,13 +13,6 @@ spring:
 server:
   port: 8888
 
-management:
-  context-path: /admin
-
-eureka:
-  instance:
-    status-page-url-path: ${management.context-path}/info
-
 info:
   artifactId: "@project.artifactId@"
   description: "@project.description@"
