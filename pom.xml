@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-cli-parent</artifactId>
@@ -16,15 +18,18 @@
 	<url>https://projects.spring.io/spring-cloud/</url>
 	<scm>
 		<url>https://github.com/spring-cloud/spring-cloud-cli</url>
-		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-cli.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/spring-cloud/spring-cloud-cli.git</developerConnection>
+		<connection>scm:git:git://github.com/spring-cloud/spring-cloud-cli.git
+		</connection>
+		<developerConnection>
+			scm:git:ssh://git@github.com/spring-cloud/spring-cloud-cli.git
+		</developerConnection>
 		<tag>HEAD</tag>
 	</scm>
 	<properties>
-        <bintray.package>cli</bintray.package>
-        <docs.main>spring-cloud-cli</docs.main>
+		<bintray.package>cli</bintray.package>
+		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>2.1.0.M1</spring-boot.version>
+		<spring-boot.version>2.1.0.M4</spring-boot.version>
 		<spring-cloud.version>Greenwich.BUILD-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>

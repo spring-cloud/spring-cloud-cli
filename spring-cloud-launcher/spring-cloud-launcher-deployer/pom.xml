@@ -17,8 +17,9 @@
 	</parent>
 
 	<properties>
-		<spring-cloud-deployer.version>1.2.2.RELEASE</spring-cloud-deployer.version>
-		<spring-cloud-deployer-thin.version>1.0.10.RELEASE</spring-cloud-deployer-thin.version>
+		<spring-cloud-deployer.version>2.1.0.BUILD-SNAPSHOT</spring-cloud-deployer.version>
+		<spring-cloud-deployer-resource-support.version>2.1.0.BUILD-SNAPSHOT</spring-cloud-deployer-resource-support.version>
+		<spring-cloud-deployer-thin.version>2.0.0.BUILD-SNAPSHOT</spring-cloud-deployer-thin.version>
 	</properties>
 
 	<dependencyManagement>
@@ -42,12 +43,12 @@
 			<dependency>
 				<groupId>org.springframework.cloud</groupId>
 				<artifactId>spring-cloud-deployer-resource-support</artifactId>
-				<version>${spring-cloud-deployer.version}</version>
+				<version>${spring-cloud-deployer-resource-support.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.maven</groupId>
 				<artifactId>maven-aether-provider</artifactId>
-				<version>3.3.9</version>
+				<version>3.5.4</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

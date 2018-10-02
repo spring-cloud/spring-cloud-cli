@@ -25,6 +25,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.boot.Banner.Mode;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.context.PropertyPlaceholderAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.logging.LogLevel;
@@ -41,7 +42,7 @@ public class DeployerApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeployerApplication.class);
 
-	private static final String DEFAULT_VERSION = "2.0.1.BUILD-SNAPSHOT";
+	private static final String DEFAULT_VERSION = "2.1.0.BUILD-SNAPSHOT";
 
 	private String[] args;
 
@@ -87,7 +88,7 @@ public class DeployerApplication {
 
 		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
-						.bannerMode(Mode.OFF).logStartupInfo(false).web(false)
+						.bannerMode(Mode.OFF).logStartupInfo(false).web(WebApplicationType.NONE)
 						.properties("spring.config.name=cloud", "logging.level.ROOT=OFF",
 								"spring.cloud.launcher.list=true",
 								"launcher.version=" + getVersion())
@@ -110,7 +111,7 @@ public class DeployerApplication {
 
 		final ConfigurableApplicationContext context = new SpringApplicationBuilder(
 				PropertyPlaceholderAutoConfiguration.class, DeployerConfiguration.class)
-						.web(false)
+						.web(WebApplicationType.NONE)
 						.properties("spring.config.name=cloud",
 								"banner.location=launcher-banner.txt",
 								"launcher.version=" + getVersion())

@@ -4,20 +4,20 @@ https://github.com/spring-projects/spring-boot[Spring Boot CLI]
 (2.0.0 or better):
 
     $ spring version
-    Spring CLI v2.0.0.M6
+    Spring CLI v2.1.0.M4
 
 E.g. for SDKMan users
 
 ```
-$ sdk install springboot 2.0.0.M6
-$ sdk use springboot 2.0.0.M6
+$ sdk install springboot 2.1.0.M4
+$ sdk use springboot 2.1.0.M4
 ```
 
 and install the Spring Cloud plugin
 
 ```
 $ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:2.0.1.BUILD-SNAPSHOT
+$ spring install org.springframework.cloud:spring-cloud-cli:2.1.0.BUILD-SNAPSHOT
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
