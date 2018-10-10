@@ -59,7 +59,7 @@
 						<id>install-cli</id>
 						<phase>generate-test-sources</phase>
 						<configuration>
-							<executable>${project.basedir}/scripts/set-cli.sh</executable>
+							<executable>${project.parent.basedir}/scripts/set-cli.sh</executable>
 							<arguments>
 								<argument>${spring-boot.version}</argument>
 								<argument>${project.version}</argument>
