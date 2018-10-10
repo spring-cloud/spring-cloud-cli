@@ -3,6 +3,16 @@
 desired_spring_boot_cli_version="${1}"
 desired_spring_cloud_cli_version="${2}"
 
+echo -e "\nCheck if sdkman is installed"
+SDK_INSTALLED="no"
+[[ -s "${HOME}/.sdkman/bin/sdkman-init.sh" ]] && yes | source "${HOME}/.sdkman/bin/sdkman-init.sh" || echo "Failed to source sdkman"
+sdk version && SDK_INSTALLED="true" || echo "Failed to execute SDKman"
+if [[ "${SDK_INSTALLED}" == "no" ]] ; then
+  echo "Installing SDKman"
+  curl -s "https://get.sdkman.io" | bash
+  source "${HOME}/.sdkman/bin/sdkman-init.sh"
+fi
+
 spring_installed="false"
 spring --version && echo "Spring CLI installed" && spring_installed="true" || echo "No Spring Installed"
 

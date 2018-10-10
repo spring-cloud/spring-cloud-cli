@@ -59,10 +59,10 @@
 						<id>install-cli</id>
 						<phase>generate-test-sources</phase>
 						<configuration>
-							<executable>spring</executable>
+							<executable>${project.basedir}/scripts/set-cli.sh</executable>
 							<arguments>
-								<argument>install</argument>
-								<argument>org.springframework.cloud:spring-cloud-cli:${project.version}</argument>
+								<argument>${spring-boot.version}</argument>
+								<argument>${project.version}</argument>
 							</arguments>
 						</configuration>
 						<goals>
