@@ -51,27 +51,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.6.0</version>
-				<executions>
-					<execution>
-						<id>install-cli</id>
-						<phase>generate-test-sources</phase>
-						<configuration>
-							<executable>${project.parent.basedir}/scripts/set-cli.sh</executable>
-							<arguments>
-								<argument>${spring-boot.version}</argument>
-								<argument>${project.version}</argument>
-							</arguments>
-						</configuration>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
