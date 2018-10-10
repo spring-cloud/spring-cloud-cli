@@ -15,13 +15,13 @@
  */
 package org.springframework.cloud.cli;
 
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.net.URI;
 
 import org.junit.Rule;
 import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dave Syer
@@ -34,7 +34,7 @@ public class SampleIntegrationTests {
 
 	@Test
 	public void appSample() throws Exception {
-		String output = this.cli.run("app.groovy", "--verbose");
+		String output = this.cli.run("app.groovy");
 		URI scriptUri = new File("samples/app.groovy").toURI();
 		assertTrue("Wrong output: " + output,
 				output.contains("Hello World! From " + scriptUri));
