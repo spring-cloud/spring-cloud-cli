@@ -86,7 +86,7 @@ public class SampleIntegrationTests {
 	public void stubRunnerSample() throws Exception {
 		String output = this.cli.run("stubrunner.groovy");
 		assertTrue("Wrong output: " + output,
-				output.contains("[/stubs],produces=[application/json]"));
+				output.contains("No stubs to download have been passed"));
 	}
 
 }
