@@ -18,6 +18,7 @@ package org.springframework.cloud.cli;
 import java.io.File;
 import java.net.URI;
 
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -31,6 +32,11 @@ public class SampleIntegrationTests {
 
 	@Rule
 	public CliTester cli = new CliTester("samples/");
+
+	@BeforeClass
+	public static void setup() {
+		System.setProperty("spring.main.allow-bean-definition-overriding", "true");
+	}
 
 	@Test
 	public void appSample() throws Exception {
