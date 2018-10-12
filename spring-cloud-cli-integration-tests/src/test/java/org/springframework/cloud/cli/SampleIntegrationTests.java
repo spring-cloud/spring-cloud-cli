@@ -17,6 +17,7 @@ package org.springframework.cloud.cli;
 
 import java.io.File;
 import java.net.URI;
+import java.util.concurrent.Executors;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -70,9 +71,9 @@ public class SampleIntegrationTests {
 	@Test
 	public void configServerSample() throws Exception {
 		String output = this.cli.run("configserver.groovy", "--",
-				"--spring.config.name=configserver");
+				"--spring.config.name=configserver", "--logging.level.org.springframework=DEBUG");
 		assertTrue("Wrong output: " + output,
-				output.contains("[/{name}/{profiles}/{label:.*}],methods=[GET]"));
+				output.contains("ConfigServerAutoConfiguration matched"));
 	}
 
 	@Test
@@ -86,7 +87,7 @@ public class SampleIntegrationTests {
 	public void stubRunnerSample() throws Exception {
 		String output = this.cli.run("stubrunner.groovy");
 		assertTrue("Wrong output: " + output,
-				output.contains("[/stubs],produces=[application/json]"));
+				output.contains("No stubs to download have been passed"));
 	}
 
 }

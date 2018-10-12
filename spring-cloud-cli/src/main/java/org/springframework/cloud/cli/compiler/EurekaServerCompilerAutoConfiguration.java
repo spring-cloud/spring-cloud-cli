@@ -38,6 +38,11 @@ public class EurekaServerCompilerAutoConfiguration extends CompilerAutoConfigura
 		dependencies.ifAnyMissingClasses(
 				"org.springframework.cloud.netflix.eureka.server.EnableEurekaServer")
 				.add("spring-cloud-starter-netflix-eureka-server");
+		if (JavaVersion.current().isJava11Compatible()) {
+			dependencies.add("jaxb-api")
+					.add("javax.activation-api")
+					.add("jaxb-runtime");
+		}
 	}
 
 	@Override
