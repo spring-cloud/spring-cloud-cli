@@ -159,7 +159,7 @@ enum JavaVersion {
 
 	@Override
 	public String toString() {
-		return versionName;
+		return this.versionName;
 	}
 
 
