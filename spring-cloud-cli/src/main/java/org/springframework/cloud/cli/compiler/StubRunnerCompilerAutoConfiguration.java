@@ -37,7 +37,7 @@ public class StubRunnerCompilerAutoConfiguration extends CompilerAutoConfigurati
 	public void applyDependencies(DependencyCustomizer dependencies) {
 		dependencies
 				.ifAnyMissingClasses("org.springframework.cloud.contract.stubrunner.server.EnableStubRunnerServer")
-				.add("spring-cloud-starter-contract-stub-runner");
+				.add("spring-cloud-contract-stub-runner-boot");
 	}
 	
 	@Override
