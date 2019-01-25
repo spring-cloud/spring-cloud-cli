@@ -17,7 +17,6 @@ package org.springframework.cloud.cli;
 
 import java.io.File;
 import java.net.URI;
-import java.util.concurrent.Executors;
 
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -80,7 +79,7 @@ public class SampleIntegrationTests {
 	public void zuulProxySample() throws Exception {
 		String output = this.cli.run("zuulproxy.groovy");
 		assertTrue("Wrong output: " + output,
-				output.contains("Servlet zuulServlet mapped to [/zuul/*]"));
+				output.contains("o.s.c.n.zuul.ZuulFilterInitializer"));
 	}
 
 	@Test
