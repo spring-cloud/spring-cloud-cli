@@ -49,7 +49,7 @@ To run configserver with a git repo set the following in `./configserver.yml`:
 ```yaml
 spring:
   profiles.active: git
-  cloud.config.server.git.uri: http://mygitserver/myrepo.git
+  cloud.config.server.git.uri: https://mygitserver/myrepo.git
 ```
 
 ### Stopping
