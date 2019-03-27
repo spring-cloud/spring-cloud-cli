@@ -22,8 +22,8 @@ import java.util.List;
  * TAKEN FROM GRADLE (https://github.com/gradle/gradle/blob/master/subprojects/base-services/src/main/java/org/gradle/api/JavaVersion.java)
  *
  * An enumeration of Java versions.
- * Before 9: http://www.oracle.com/technetwork/java/javase/versioning-naming-139433.html
- * 9+: http://openjdk.java.net/jeps/223
+ * Before 9: https://www.oracle.com/technetwork/java/javase/versioning-naming-139433.html
+ * 9+: https://openjdk.java.net/jeps/223
  */
 enum JavaVersion {
 	VERSION_1_1, VERSION_1_2, VERSION_1_3, VERSION_1_4,
