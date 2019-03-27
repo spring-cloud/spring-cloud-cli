@@ -8,7 +8,7 @@
 </info>
 <preface>
 <title></title>
-<simpara>Spring Boot CLI provides <link xl:href="http://projects.spring.io/spring-boot">Spring
+<simpara>Spring Boot CLI provides <link xl:href="https://projects.spring.io/spring-boot">Spring
 Boot</link> command line features for <link xl:href="https://github.com/spring-cloud">Spring
 Cloud</link>. You can write Groovy scripts to run Spring Cloud component
 applications (e.g. <literal>@EnableEurekaServer</literal>). You can also easily do
