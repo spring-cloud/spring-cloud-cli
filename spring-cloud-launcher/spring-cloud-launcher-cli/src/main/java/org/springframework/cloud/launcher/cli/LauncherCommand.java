@@ -51,7 +51,7 @@ public class LauncherCommand extends OptionParsingCommand {
 
 	public static final Log log = LogFactory.getLog(LauncherCommand.class);
 
-	private static final String DEFAULT_VERSION = "2.1.0.RELEASE";
+	private static final String DEFAULT_VERSION = "2.1.1.BUILD-SNAPSHOT";
 
 	private static final Collection<HelpExample> EXAMPLES = new ArrayList<>();
 

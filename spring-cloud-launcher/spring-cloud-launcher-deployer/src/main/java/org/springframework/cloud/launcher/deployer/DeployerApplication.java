@@ -42,7 +42,7 @@ public class DeployerApplication {
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeployerApplication.class);
 
-	private static final String DEFAULT_VERSION = "2.1.0.RELEASE";
+	private static final String DEFAULT_VERSION = "2.1.1.BUILD-SNAPSHOT";
 
 	private String[] args;
 
