@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc?>
+<?asciidoc-numbered?>
+<book xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>Spring Boot Cloud CLI</title>
+<date>2019-06-28</date>
+</info>
+<preface>
+<title></title>
+<simpara>Spring Boot CLI provides <link xl:href="https://projects.spring.io/spring-boot">Spring
+Boot</link> command line features for <link xl:href="https://github.com/spring-cloud">Spring
+Cloud</link>. You can write Groovy scripts to run Spring Cloud component
+applications (e.g. <literal>@EnableEurekaServer</literal>). You can also easily do
+things like encryption and decryption to support Spring Cloud Config
+clients with secret configuration values. With the Launcher CLI you
+can launch services like Eureka, Zipkin, Config Server
+conveniently all at once from the command line (very useful at
+development time).</simpara>
+<note>
+<simpara>Spring Cloud is released under the non-restrictive Apache 2.0 license. If you would like to contribute to this section of the documentation or if you find an error, please find the source code and issue trackers in the project at <link xl:href="https://github.com/spring-cloud/spring-cloud-cli/tree/master/docs/src/main/asciidoc">github</link>.</simpara>
+</note>
+</preface>
+<chapter xml:id="_installation">
+<title>Installation</title>
+<simpara>To install, make
+sure you have
+<link xl:href="https://github.com/spring-projects/spring-boot">Spring Boot CLI</link>
+(2.1.0 or better):</simpara>
+<literallayout class="monospaced">$ spring version
+Spring CLI v2.1.7.BUILD-SNAPSHOT</literallayout>
+<simpara>E.g. for SDKMan users</simpara>
+<screen>$ sdk install springboot 2.1.7.BUILD-SNAPSHOT
+$ sdk use springboot 2.1.7.BUILD-SNAPSHOT</screen>
+<simpara>and install the Spring Cloud plugin</simpara>
+<screen>$ mvn install
+$ spring install org.springframework.cloud:spring-cloud-cli:2.1.1.BUILD-SNAPSHOT</screen>
+<important>
+<simpara><emphasis role="strong">Prerequisites:</emphasis> to use the encryption and decryption features
+you need the full-strength JCE installed in your JVM (it&#8217;s not there by default).
+You can download the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
+from Oracle, and follow instructions for installation (essentially replace the 2 policy files
+in the JRE lib/security directory with the ones that you downloaded).</simpara>
+</important>
+</chapter>
+<chapter xml:id="_running_spring_cloud_services_in_development">
+<title>Running Spring Cloud Services in Development</title>
+<simpara>The Launcher CLI can be used to run common services like Eureka,
+Config Server etc. from the command line. To list the available
+services you can do <literal>spring cloud --list</literal>, and to launch a default set
+of services just <literal>spring cloud</literal>. To choose the services to deploy,
+just list them on the command line, e.g.</simpara>
+<screen>$ spring cloud eureka configserver h2 kafka stubrunner zipkin</screen>
+<simpara>Summary of supported deployables:</simpara>
+<informaltable frame="all" rowsep="1" colsep="1">
+<tgroup cols="4">
+<colspec colname="col_1" colwidth="25*"/>
+<colspec colname="col_2" colwidth="25*"/>
+<colspec colname="col_3" colwidth="25*"/>
+<colspec colname="col_4" colwidth="25*"/>
+<thead>
+<row>
+<entry align="left" valign="top">Service</entry>
+<entry align="left" valign="top">Name</entry>
+<entry align="left" valign="top">Address</entry>
+<entry align="left" valign="top">Description</entry>
+</row>
+</thead>
+<tbody>
+<row>
+<entry align="left" valign="top"><simpara>eureka</simpara></entry>
+<entry align="left" valign="top"><simpara>Eureka Server</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:8761">http://localhost:8761</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Eureka server for service registration and discovery. All the other services show up in its catalog by default.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>configserver</simpara></entry>
+<entry align="left" valign="top"><simpara>Config Server</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:8888">http://localhost:8888</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Spring Cloud Config Server running in the "native" profile and serving configuration from the local directory ./launcher</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>h2</simpara></entry>
+<entry align="left" valign="top"><simpara>H2 Database</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:9095">http://localhost:9095</link> (console), jdbc:h2:tcp://localhost:9096/{data}</simpara></entry>
+<entry align="left" valign="top"><simpara>Relation database service. Use a file path for <literal>{data}</literal> (e.g. <literal>./target/test</literal>) when you connect. Remember that you can add <literal>;MODE=MYSQL</literal> or <literal>;MODE=POSTGRESQL</literal> to connect with compatibility to other server types.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>kafka</simpara></entry>
+<entry align="left" valign="top"><simpara>Kafka Broker</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:9091">http://localhost:9091</link> (actuator endpoints), localhost:9092</simpara></entry>
+<entry align="left" valign="top"></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>hystrixdashboard</simpara></entry>
+<entry align="left" valign="top"><simpara>Hystrix Dashboard</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:7979">http://localhost:7979</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on <literal>/hystrix.stream</literal>. Type that address into the dashboard to visualize all the metrics,</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>dataflow</simpara></entry>
+<entry align="left" valign="top"><simpara>Dataflow Server</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:9393">http://localhost:9393</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Spring Cloud Dataflow server with UI at /admin-ui. Connect the Dataflow shell to target at root path.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>zipkin</simpara></entry>
+<entry align="left" valign="top"><simpara>Zipkin Server</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:9411">http://localhost:9411</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.</simpara></entry>
+</row>
+<row>
+<entry align="left" valign="top"><simpara>stubrunner</simpara></entry>
+<entry align="left" valign="top"><simpara>Stub Runner Boot</simpara></entry>
+<entry align="left" valign="top"><simpara><link xl:href="http://localhost:8750">http://localhost:8750</link></simpara></entry>
+<entry align="left" valign="top"><simpara>Downloads WireMock stubs, starts WireMock and feeds the started servers with stored stubs. Pass <literal>stubrunner.ids</literal> to pass stub coordinates and then go to <literal><link xl:href="http://localhost:8750/stubs">http://localhost:8750/stubs</link></literal>.</simpara></entry>
+</row>
+</tbody>
+</tgroup>
+</informaltable>
+<simpara>Each of these apps can be configured using a local YAML file with the same name (in the current
+working directory or a subdirectory called "config" or in <literal>~/.spring-cloud</literal>). E.g. in <literal>configserver.yml</literal> you might want to
+do something like this to locate a local git repository for the backend:</simpara>
+<formalpara>
+<title>configserver.yml</title>
+<para>
+<programlisting language="yaml" linenumbering="unnumbered">spring:
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/dev/demo/config-repo</programlisting>
+</para>
+</formalpara>
+<simpara>E.g. in Stub Runner app you could fetch stubs from your local <literal>.m2</literal> in the following way.</simpara>
+<formalpara>
+<title>stubrunner.yml</title>
+<para>
+<programlisting language="yaml" linenumbering="unnumbered">stubrunner:
+  workOffline: true
+  ids:
+    - com.example:beer-api-producer:+:9876</programlisting>
+</para>
+</formalpara>
+<section xml:id="_adding_additional_applications">
+<title>Adding Additional Applications</title>
+<simpara>Additional applications can be added to <literal>./config/cloud.yml</literal> (not
+<literal>./config.yml</literal> because that would replace the defaults), e.g. with</simpara>
+<formalpara>
+<title>config/cloud.yml</title>
+<para>
+<programlisting language="yaml" linenumbering="unnumbered">spring:
+  cloud:
+    launcher:
+      deployables:
+        source:
+          coordinates: maven://com.example:source:0.0.1-SNAPSHOT
+          port: 7000
+        sink:
+          coordinates: maven://com.example:sink:0.0.1-SNAPSHOT
+          port: 7001</programlisting>
+</para>
+</formalpara>
+<simpara>when you list the apps:</simpara>
+<screen>$ spring cloud --list
+source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin</screen>
+<simpara>(notice the additional apps at the start of the list).</simpara>
+</section>
+</chapter>
+<chapter xml:id="_writing_groovy_scripts_and_running_applications">
+<title>Writing Groovy Scripts and Running Applications</title>
+<simpara>Spring Cloud CLI has support for most of the Spring Cloud declarative
+features, such as the <literal>@Enable*</literal> class of annotations. For example,
+here is a fully functional Eureka server</simpara>
+<formalpara>
+<title>app.groovy</title>
+<para>
+<programlisting language="groovy" linenumbering="unnumbered">@EnableEurekaServer
+class Eureka {}</programlisting>
+</para>
+</formalpara>
+<simpara>which you can run from the command line like this</simpara>
+<screen>$ spring run app.groovy</screen>
+<simpara>To include additional dependencies, often it suffices just to add the
+appropriate feature-enabling annotation, e.g. <literal>@EnableConfigServer</literal>,
+<literal>@EnableOAuth2Sso</literal> or <literal>@EnableEurekaClient</literal>. To manually include a
+dependency you can use a <literal>@Grab</literal> with the special "Spring Boot" short
+style artifact co-ordinates, i.e. with just the artifact ID (no need
+for group or version information), e.g. to set up a client app to
+listen on AMQP for management events from the Spring CLoud Bus:</simpara>
+<formalpara>
+<title>app.groovy</title>
+<para>
+<programlisting language="groovy" linenumbering="unnumbered">@Grab('spring-cloud-starter-bus-amqp')
+@RestController
+class Service {
+  @RequestMapping('/')
+  def home() { [message: 'Hello'] }
+}</programlisting>
+</para>
+</formalpara>
+</chapter>
+<chapter xml:id="_encryption_and_decryption">
+<title>Encryption and Decryption</title>
+<simpara>The Spring Cloud CLI comes with an "encrypt" and a "decrypt"
+command. Both accept arguments in the same form with a key specified
+as a mandatory "--key", e.g.</simpara>
+<screen>$ spring encrypt mysecret --key foo
+682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+$ spring decrypt --key foo 682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+mysecret</screen>
+<simpara>To use a key in a file (e.g. an RSA public key for encyption) prepend
+the key value with "@" and provide the file path, e.g.</simpara>
+<screen>$ spring encrypt mysecret --key @${HOME}/.ssh/id_rsa.pub
+AQAjPgt3eFZQXwt8tsHAVv/QHiY5sI2dRcR+...</screen>
+</chapter>
+</book>
