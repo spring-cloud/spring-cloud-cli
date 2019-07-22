@@ -188,9 +188,19 @@ public class LauncherCommand extends OptionParsingCommand {
 			dependency.put("transitive", false);
 			URI[] uris = grapeEngine.resolve(null, dependency);
 			URLClassLoader loader = new URLClassLoader(new URL[] { uris[0].toURL() },
-					getClass().getClassLoader().getParent().getParent());
+					systemClassLoader(getClass().getClassLoader()));
 			log.debug("resolved URIs " + Arrays.asList(loader.getURLs()));
 			return loader;
+		}
+
+		private ClassLoader systemClassLoader(ClassLoader classLoader) {
+			if (classLoader.getParent().getParent()!=null) {
+				if (classLoader.getParent().getParent().getParent()!=null) {
+					return classLoader.getParent().getParent().getParent();
+				}
+				return classLoader.getParent().getParent();
+			}
+			return classLoader.getParent();
 		}
 
 		private String getVersion() {
