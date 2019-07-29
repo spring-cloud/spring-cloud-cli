@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.7.1">
+<title>Spring Boot Cloud CLI</title>
+<link rel="stylesheet" href="css/spring.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<style>
+.hidden {
+	display: none;
+}
+
+.switch {
+	border-width: 1px 1px 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+	display: inline-block;
+}
+
+.switch--item {
+	padding: 10px;
+	background-color: #ffffff;
+	color: #7a2518;
+	display: inline-block;
+	cursor: pointer;
+}
+
+.switch--item:not(:first-child) {
+	border-width: 0 0 0 1px;
+	border-style: solid;
+	border-color: #7a2518;
+}
+
+.switch--item.selected {
+	background-color: #7a2519;
+	color: #ffffff;
+}
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+<script type="text/javascript">
+function addBlockSwitches() {
+	$('.primary').each(function() {
+		primary = $(this);
+		createSwitchItem(primary, createBlockSwitch(primary)).item.addClass("selected");
+		primary.children('.title').remove();
+	});
+	$('.secondary').each(function(idx, node) {
+		secondary = $(node);
+		primary = findPrimary(secondary);
+		switchItem = createSwitchItem(secondary, primary.children('.switch'));
+		switchItem.content.addClass('hidden');
+		findPrimary(secondary).append(switchItem.content);
+		secondary.remove();
+	});
+}
+
+function createBlockSwitch(primary) {
+	blockSwitch = $('<div class="switch"></div>');
+	primary.prepend(blockSwitch);
+	return blockSwitch;
+}
+
+function findPrimary(secondary) {
+	candidate = secondary.prev();
+	while (!candidate.is('.primary')) {
+		candidate = candidate.prev();
+	}
+	return candidate;
+}
+
+function createSwitchItem(block, blockSwitch) {
+	blockName = block.children('.title').text();
+	content = block.children('.content').first().append(block.next('.colist'));
+	item = $('<div class="switch--item">' + blockName + '</div>');
+	item.on('click', '', content, function(e) {
+		$(this).addClass('selected');
+		$(this).siblings().removeClass('selected');
+		e.data.siblings('.content').addClass('hidden');
+		e.data.removeClass('hidden');
+	});
+	blockSwitch.append(item);
+	return {'item': item, 'content': content};
+}
+
+$(addBlockSwitches);
+</script>
+
+</head>
+<body class="book toc2 toc-left">
+<div id="header">
+<h1>Spring Boot Cloud CLI</h1>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_installation">Installation</a></li>
+<li><a href="#_running_spring_cloud_services_in_development">Running Spring Cloud Services in Development</a>
+<ul class="sectlevel2">
+<li><a href="#_adding_additional_applications">Adding Additional Applications</a></li>
+</ul>
+</li>
+<li><a href="#_writing_groovy_scripts_and_running_applications">Writing Groovy Scripts and Running Applications</a></li>
+<li><a href="#_encryption_and_decryption">Encryption and Decryption</a></li>
+</ul>
+</div>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Boot CLI provides <a href="https://projects.spring.io/spring-boot">Spring
+Boot</a> command line features for <a href="https://github.com/spring-cloud">Spring
+Cloud</a>. You can write Groovy scripts to run Spring Cloud component
+applications (e.g. <code>@EnableEurekaServer</code>). You can also easily do
+things like encryption and decryption to support Spring Cloud Config
+clients with secret configuration values. With the Launcher CLI you
+can launch services like Eureka, Zipkin, Config Server
+conveniently all at once from the command line (very useful at
+development time).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Spring Cloud is released under the non-restrictive Apache 2.0 license. If you would like to contribute to this section of the documentation or if you find an error, please find the source code and issue trackers in the project at <a href="https://github.com/spring-cloud/spring-cloud-cli/tree/master/docs/src/main/asciidoc">github</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation"><a class="link" href="#_installation">Installation</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To install, make
+sure you have
+<a href="https://github.com/spring-projects/spring-boot">Spring Boot CLI</a>
+(2.0.0 or better):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>$ spring version
+Spring CLI v2.2.0.BUILD-SNAPSHOT</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>E.g. for SDKMan users</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ sdk install springboot 2.2.0.BUILD-SNAPSHOT
+$ sdk use springboot 2.2.0.BUILD-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and install the Spring Cloud plugin</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ mvn install
+$ spring install org.springframework.cloud:spring-cloud-cli:2.2.0.BUILD-SNAPSHOT</code></pre>
+</div>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>Prerequisites:</strong> to use the encryption and decryption features
+you need the full-strength JCE installed in your JVM (it&#8217;s not there by default).
+You can download the "Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files"
+from Oracle, and follow instructions for installation (essentially replace the 2 policy files
+in the JRE lib/security directory with the ones that you downloaded).
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_spring_cloud_services_in_development"><a class="link" href="#_running_spring_cloud_services_in_development">Running Spring Cloud Services in Development</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Launcher CLI can be used to run common services like Eureka,
+Config Server etc. from the command line. To list the available
+services you can do <code>spring cloud --list</code>, and to launch a default set
+of services just <code>spring cloud</code>. To choose the services to deploy,
+just list them on the command line, e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring cloud eureka configserver h2 kafka stubrunner zipkin</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Summary of supported deployables:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Service</th>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Address</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">eureka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eureka Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:8761" class="bare">http://localhost:8761</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Eureka server for service registration and discovery. All the other services show up in its catalog by default.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">configserver</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Config Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:8888" class="bare">http://localhost:8888</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Cloud Config Server running in the "native" profile and serving configuration from the local directory ./launcher</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">h2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">H2 Database</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9095" class="bare">http://localhost:9095</a> (console), jdbc:h2:tcp://localhost:9096/{data}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Relation database service. Use a file path for <code>{data}</code> (e.g. <code>./target/test</code>) when you connect. Remember that you can add <code>;MODE=MYSQL</code> or <code>;MODE=POSTGRESQL</code> to connect with compatibility to other server types.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kafka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kafka Broker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9091" class="bare">http://localhost:9091</a> (actuator endpoints), localhost:9092</p></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">hystrixdashboard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hystrix Dashboard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:7979" class="bare">http://localhost:7979</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on <code>/hystrix.stream</code>. Type that address into the dashboard to visualize all the metrics,</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dataflow</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dataflow Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9393" class="bare">http://localhost:9393</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spring Cloud Dataflow server with UI at /admin-ui. Connect the Dataflow shell to target at root path.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">zipkin</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zipkin Server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9411" class="bare">http://localhost:9411</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zipkin Server with UI for visualizing traces. Stores span data in memory and accepts them via HTTP POST of JSON data.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">stubrunner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stub Runner Boot</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:8750" class="bare">http://localhost:8750</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Downloads WireMock stubs, starts WireMock and feeds the started servers with stored stubs. Pass <code>stubrunner.ids</code> to pass stub coordinates and then go to <code><a href="http://localhost:8750/stubs" class="bare">http://localhost:8750/stubs</a></code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Each of these apps can be configured using a local YAML file with the same name (in the current
+working directory or a subdirectory called "config" or in <code>~/.spring-cloud</code>). E.g. in <code>configserver.yml</code> you might want to
+do something like this to locate a local git repository for the backend:</p>
+</div>
+<div class="listingblock">
+<div class="title">configserver.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  profiles:
+    active: git
+  cloud:
+    config:
+      server:
+        git:
+          uri: file://${user.home}/dev/demo/config-repo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>E.g. in Stub Runner app you could fetch stubs from your local <code>.m2</code> in the following way.</p>
+</div>
+<div class="listingblock">
+<div class="title">stubrunner.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">stubrunner:
+  workOffline: true
+  ids:
+    - com.example:beer-api-producer:+:9876</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_additional_applications"><a class="link" href="#_adding_additional_applications">Adding Additional Applications</a></h3>
+<div class="paragraph">
+<p>Additional applications can be added to <code>./config/cloud.yml</code> (not
+<code>./config.yml</code> because that would replace the defaults), e.g. with</p>
+</div>
+<div class="listingblock">
+<div class="title">config/cloud.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spring:
+  cloud:
+    launcher:
+      deployables:
+        source:
+          coordinates: maven://com.example:source:0.0.1-SNAPSHOT
+          port: 7000
+        sink:
+          coordinates: maven://com.example:sink:0.0.1-SNAPSHOT
+          port: 7001</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>when you list the apps:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>$ spring cloud --list
+source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(notice the additional apps at the start of the list).</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_writing_groovy_scripts_and_running_applications"><a class="link" href="#_writing_groovy_scripts_and_running_applications">Writing Groovy Scripts and Running Applications</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Spring Cloud CLI has support for most of the Spring Cloud declarative
+features, such as the <code>@Enable*</code> class of annotations. For example,
+here is a fully functional Eureka server</p>
+</div>
+<div class="listingblock">
+<div class="title">app.groovy</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@EnableEurekaServer
+class Eureka {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>which you can run from the command line like this</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring run app.groovy</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To include additional dependencies, often it suffices just to add the
+appropriate feature-enabling annotation, e.g. <code>@EnableConfigServer</code>,
+<code>@EnableOAuth2Sso</code> or <code>@EnableEurekaClient</code>. To manually include a
+dependency you can use a <code>@Grab</code> with the special "Spring Boot" short
+style artifact co-ordinates, i.e. with just the artifact ID (no need
+for group or version information), e.g. to set up a client app to
+listen on AMQP for management events from the Spring CLoud Bus:</p>
+</div>
+<div class="listingblock">
+<div class="title">app.groovy</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Grab('spring-cloud-starter-bus-amqp')
+@RestController
+class Service {
+  @RequestMapping('/')
+  def home() { [message: 'Hello'] }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_encryption_and_decryption"><a class="link" href="#_encryption_and_decryption">Encryption and Decryption</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Spring Cloud CLI comes with an "encrypt" and a "decrypt"
+command. Both accept arguments in the same form with a key specified
+as a mandatory "--key", e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring encrypt mysecret --key foo
+682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+$ spring decrypt --key foo 682bc583f4641835fa2db009355293665d2647dade3375c0ee201de2a49f7bda
+mysecret</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To use a key in a file (e.g. an RSA public key for encyption) prepend
+the key value with "@" and provide the file path, e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ spring encrypt mysecret --key @${HOME}/.ssh/id_rsa.pub
+AQAjPgt3eFZQXwt8tsHAVv/QHiY5sI2dRcR+...</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="js/tocbot/tocbot.min.js"></script>
+<script type="text/javascript" src="js/toc.js"></script>
+<link rel="stylesheet" href="js/highlight/styles/atom-one-dark-reasonable.min.css">
+<script src="js/highlight/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
+</body>
+</html>
