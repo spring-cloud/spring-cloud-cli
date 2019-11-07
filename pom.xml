@@ -38,6 +38,14 @@
 		<module>spring-cloud-cli-integration-tests</module>
 		<module>docs</module>
 	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 	<profiles>
 		<profile>
 			<id>spring</id>
