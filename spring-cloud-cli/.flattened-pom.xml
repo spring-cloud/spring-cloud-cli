@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-cli-parent</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <version>2.2.0.RC2</version>
   </parent>
   <groupId>org.springframework.cloud</groupId>
   <artifactId>spring-cloud-cli</artifactId>
-  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <version>2.2.0.RC2</version>
   <name>spring-cloud-cli</name>
   <description>Spring Patform Cli integration project</description>
   <url>https://projects.spring.io/spring-cloud/spring-cloud-cli/</url>
@@ -99,13 +99,13 @@
     <dependency>
       <groupId>org.springframework.cloud.launcher</groupId>
       <artifactId>spring-cloud-launcher-cli</artifactId>
-      <version>2.2.0.BUILD-SNAPSHOT</version>
+      <version>2.2.0.RC2</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-stream</artifactId>
-      <version>3.0.0.BUILD-SNAPSHOT</version>
+      <version>3.0.0.RC2</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
