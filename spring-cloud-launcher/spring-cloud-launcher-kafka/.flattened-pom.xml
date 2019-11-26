@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-launcher</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <version>2.2.0.RELEASE</version>
   </parent>
   <groupId>org.springframework.cloud.launcher</groupId>
   <artifactId>spring-cloud-launcher-kafka</artifactId>
-  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <version>2.2.0.RELEASE</version>
   <name>spring-cloud-launcher-kafka</name>
   <description>Spring Cloud Launcher Kafka</description>
   <url>https://projects.spring.io/spring-cloud/spring-cloud-launcher/spring-cloud-launcher-kafka/</url>
@@ -111,7 +111,7 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-config</artifactId>
-      <version>2.2.0.BUILD-SNAPSHOT</version>
+      <version>2.2.0.RELEASE</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
