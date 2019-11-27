@@ -5,11 +5,11 @@
   <parent>
     <groupId>org.springframework.cloud</groupId>
     <artifactId>spring-cloud-launcher</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <version>2.2.1.BUILD-SNAPSHOT</version>
   </parent>
   <groupId>org.springframework.cloud.launcher</groupId>
   <artifactId>spring-cloud-launcher-hystrixdashboard</artifactId>
-  <version>2.2.0.BUILD-SNAPSHOT</version>
+  <version>2.2.1.BUILD-SNAPSHOT</version>
   <name>spring-cloud-launcher-hystrixdashboard</name>
   <description>Spring Cloud Launcher Hystrix Dashboard</description>
   <url>https://projects.spring.io/spring-cloud/spring-cloud-launcher/spring-cloud-launcher-hystrixdashboard/</url>
