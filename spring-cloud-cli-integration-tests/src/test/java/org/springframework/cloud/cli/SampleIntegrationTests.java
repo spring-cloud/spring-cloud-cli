@@ -89,4 +89,11 @@ public class SampleIntegrationTests {
 				output.contains("No stubs to download have been passed"));
 	}
 
+	@Test
+	public void skipperServerSample() throws Exception {
+		String output = this.cli.run("skipperserver.groovy");
+		assertTrue("Wrong output: " + output,
+				output.contains("Added 'Local' platform account 'default' into deployer repository."));
+	}
+
 }
