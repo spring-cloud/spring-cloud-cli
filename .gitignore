@@ -8,9 +8,11 @@ _site
 sample-pages
 docs/
 spring-cloud-cli/
+spring-cloud-cli-integration-tests/
+spring-cloud-launcher/
 spring-cloud-versions/
 *.iml
-target
+target/
 *.class
 *.jar
 *.jar.original
