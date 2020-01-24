@@ -14,7 +14,7 @@
 $ spring cloud
 ```
 
-Currently starts configserver, dataflow, eureka, h2 (db server), hystrixdashboard and kafka. [Here](spring-cloud-launcher-deployer/src/main/resources/cloud.yml) is the full configuration.
+Currently starts configserver, dataflow, eureka, h2 (db server) and kafka. [Here](spring-cloud-launcher-deployer/src/main/resources/cloud.yml) is the full configuration.
 
 ### Configuring
 
@@ -60,7 +60,6 @@ spring:
 
 - [X] Eureka
 - [X] Configserver
-- [X] Hystrix Dashboard
 - [X] Kafka Broker
 - [X] Kafka Bus
 - [X] Easy inclusion of default deployables

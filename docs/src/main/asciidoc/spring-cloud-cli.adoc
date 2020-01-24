@@ -42,9 +42,6 @@ Summary of supported deployables:
 |kafka  | Kafka Broker | http://localhost:9091 (actuator endpoints), localhost:9092
 |
 
-|hystrixdashboard  | Hystrix Dashboard | http://localhost:7979
-|Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on `/hystrix.stream`. Type that address into the dashboard to visualize all the metrics,
-
 |dataflow  | Dataflow Server | http://localhost:9393
 | Spring Cloud Dataflow server with UI at /admin-ui. Connect the Dataflow shell to target at root path.
 
@@ -108,7 +105,7 @@ when you list the apps:
 [source]
 ----
 $ spring cloud --list
-source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin
+source sink configserver dataflow eureka h2 kafka stubrunner zipkin
 ----
 
 (notice the additional apps at the start of the list).

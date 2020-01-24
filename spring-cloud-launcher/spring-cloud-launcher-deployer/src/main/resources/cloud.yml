@@ -59,14 +59,6 @@ spring:
             spring.cloud.deployer.local.javaOpts: ${dt.opts}
           application-properties:
             management.security.enabled: false
-        hystrixdashboard:
-          coordinates: ${dt.pre}hystrixdashboard:${dt.ver}
-          port: 7979
-          properties:
-            spring.cloud.deployer.memory: ${dt.mem}
-            spring.cloud.deployer.local.javaOpts: ${dt.opts}
-          application-properties:
-            management.security.enabled: false
         kafka:
           coordinates: ${dt.pre}kafka:${dt.ver}
           port: 9091
@@ -122,11 +114,6 @@ spring:
           application-properties:
             spring.cloud.bus.enabled: true
         dataflow:
-          properties:
-            spring.cloud.deployer.thin.profile: rabbit
-          application-properties:
-            spring.cloud.bus.enabled: true
-        hystrixdashboard:
           properties:
             spring.cloud.deployer.thin.profile: rabbit
           application-properties:
