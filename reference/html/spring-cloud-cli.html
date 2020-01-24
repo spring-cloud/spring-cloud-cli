@@ -245,12 +245,6 @@ just list them on the command line, e.g.</p>
 <td class="tableblock halign-left valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">hystrixdashboard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Hystrix Dashboard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:7979" class="bare">http://localhost:7979</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Any Spring Cloud app that declares Hystrix circuit breakers publishes metrics on <code>/hystrix.stream</code>. Type that address into the dashboard to visualize all the metrics,</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">dataflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Dataflow Server</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="http://localhost:9393" class="bare">http://localhost:9393</a></p></td>
@@ -327,7 +321,7 @@ do something like this to locate a local git repository for the backend:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code>$ spring cloud --list
-source sink configserver dataflow eureka h2 hystrixdashboard kafka stubrunner zipkin</code></pre>
+source sink configserver dataflow eureka h2 kafka stubrunner zipkin</code></pre>
 </div>
 </div>
 <div class="paragraph">
