@@ -19,6 +19,8 @@ package org.springframework.cloud.launcher.cli;
 import org.junit.Rule;
 import org.junit.Test;
 
+import org.springframework.boot.test.system.OutputCaptureRule;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
@@ -29,7 +31,7 @@ import static org.junit.Assert.assertThat;
 public class LauncherCommandTests {
 
 	@Rule
-	public OutputCapture output = new OutputCapture();
+	public OutputCaptureRule output = new OutputCaptureRule();
 
 	@Test
 	public void testCreateClassLoaderAndListDeployables() throws Exception {

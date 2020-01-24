@@ -17,11 +17,12 @@ package org.springframework.cloud.cli.command.url;
 
 import org.junit.Rule;
 import org.junit.Test;
+
 import org.springframework.boot.cli.command.Command;
 import org.springframework.boot.cli.command.status.ExitStatus;
-import org.springframework.boot.test.rule.OutputCapture;
+import org.springframework.boot.test.system.OutputCaptureRule;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 /**
  * @author William Witt
@@ -30,7 +31,7 @@ public class UrlEncodeCommandTest {
 	Command command = new UrlEncodeCommand();
 
 	@Rule
-	public OutputCapture capture = new OutputCapture();
+	public OutputCaptureRule capture = new OutputCaptureRule();
 
 	@Test
 	public void urlEncodeNoSpecialChars() throws Exception {

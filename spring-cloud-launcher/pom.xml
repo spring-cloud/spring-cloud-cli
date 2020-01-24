@@ -5,7 +5,7 @@
 
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-launcher</artifactId>
-	<version>2.2.2.BUILD-SNAPSHOT</version>
+	<version>3.0.0.BUILD-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>spring-cloud-launcher</name>
@@ -14,7 +14,7 @@
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-cli-parent</artifactId>
-		<version>2.2.2.BUILD-SNAPSHOT</version>
+		<version>3.0.0.BUILD-SNAPSHOT</version>
 	</parent>
 
 	<properties>
@@ -29,8 +29,7 @@
 		<!--<module>spring-cloud-launcher-dataflow</module>-->
 		<module>spring-cloud-launcher-eureka</module>
 		<module>spring-cloud-launcher-h2</module>
-		<module>spring-cloud-launcher-hystrixdashboard</module>
-		<module>spring-cloud-launcher-kafka</module>
+		<!--<module>spring-cloud-launcher-kafka</module>-->
 		<module>spring-cloud-launcher-stubrunner</module>
 	</modules>
 

@@ -34,11 +34,13 @@ import org.junit.Assume;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
+
 import org.springframework.boot.cli.command.AbstractCommand;
 import org.springframework.boot.cli.command.OptionParsingCommand;
 import org.springframework.boot.cli.command.archive.JarCommand;
 import org.springframework.boot.cli.command.grab.GrabCommand;
 import org.springframework.boot.cli.command.run.RunCommand;
+import org.springframework.boot.test.system.OutputCaptureRule;
 import org.springframework.util.SocketUtils;
 
 /**
@@ -50,7 +52,7 @@ import org.springframework.util.SocketUtils;
  */
 public class CliTester implements TestRule {
 
-	private final OutputCapture outputCapture = new OutputCapture();
+	private final OutputCaptureRule outputCapture = new OutputCaptureRule();
 
 	private long timeout = TimeUnit.MINUTES.toMillis(6);
 

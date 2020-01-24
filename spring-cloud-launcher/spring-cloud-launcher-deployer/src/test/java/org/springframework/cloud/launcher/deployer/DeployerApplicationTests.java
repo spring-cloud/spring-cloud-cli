@@ -20,6 +20,8 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
+import org.springframework.boot.test.system.OutputCaptureRule;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.junit.Assert.assertThat;
 
@@ -29,7 +31,7 @@ import static org.junit.Assert.assertThat;
 public class DeployerApplicationTests {
 
 	@Rule
-	public OutputCapture output = new OutputCapture();
+	public OutputCaptureRule output = new OutputCaptureRule();
 
 	@Test
 	@Ignore("I don't know how to change the stored deployer version")
