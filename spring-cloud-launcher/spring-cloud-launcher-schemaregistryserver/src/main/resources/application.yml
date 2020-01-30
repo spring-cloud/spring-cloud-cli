@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: schemaregistryserver
+
+server:
+  port: 8990
+
+info:
+  artifactId: "@project.artifactId@"
+  description: "@project.description@"
+  version: "@project.version@"

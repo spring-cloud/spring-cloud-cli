@@ -3,6 +3,7 @@ org.springframework.cloud.cli.compiler.ConfigServerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.EurekaClientCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.EurekaServerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.OAuth2LoadBalancedCompilerAutoConfiguration
+org.springframework.cloud.cli.compiler.SchemaRegistryServerCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.StreamKafkaCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.StreamRabbitCompilerAutoConfiguration
 org.springframework.cloud.cli.compiler.StubRunnerCompilerAutoConfiguration

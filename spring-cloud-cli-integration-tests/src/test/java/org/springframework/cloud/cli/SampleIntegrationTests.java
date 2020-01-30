@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * @author Dave Syer
- *
+ * @author Eddú Meléndez
  */
 public class SampleIntegrationTests {
 
@@ -87,6 +87,13 @@ public class SampleIntegrationTests {
 		String output = this.cli.run("stubrunner.groovy");
 		assertTrue("Wrong output: " + output,
 				output.contains("No stubs to download have been passed"));
+	}
+
+	@Test
+	public void schemaRegistryServerSample() throws Exception {
+		String output = this.cli.run("schemaregistryserver.groovy");
+		assertTrue("Wrong output: " + output,
+				output.contains("Tomcat started on port(s): 8990 (http)"));
 	}
 
 }
