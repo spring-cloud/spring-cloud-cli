@@ -30,7 +30,7 @@
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
 		<spring-boot.version>2.3.0.BUILD-SNAPSHOT</spring-boot.version>
-		<spring-cloud.version>Ilford.BUILD-SNAPSHOT</spring-cloud.version>
+		<spring-cloud.version>2020-1.BUILD-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
