@@ -9,7 +9,7 @@
 		<artifactId>spring-cloud-cli-parent</artifactId>
 		<version>3.0.0-SNAPSHOT</version>
 	</parent>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 	<name>Spring Cloud Cli Docs</name>
 	<description>Spring Cloud Docs</description>
 	<properties>
