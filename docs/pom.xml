@@ -15,19 +15,10 @@
 	<properties>
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<docs.whitelisted.branches>1.4.x,2.0.x,2.1.x</docs.whitelisted.branches>
 		<upload-docs-zip.phase>deploy</upload-docs-zip.phase>
 	</properties>
 	<build>
-		<plugins>
-			<plugin>
-				<!--skip deploy (this is just a test module) -->
-				<artifactId>maven-deploy-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-				</configuration>
-			</plugin>
-		</plugins>
+		<sourceDirectory>src/main/asciidoc</sourceDirectory>
 	</build>
 	<profiles>
 		<profile>
