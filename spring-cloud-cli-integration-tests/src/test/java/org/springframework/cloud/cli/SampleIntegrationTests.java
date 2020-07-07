@@ -40,7 +40,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void appSample() throws Exception {
 		String output = this.cli.run("app.groovy");
 		URI scriptUri = new File("samples/app.groovy").toURI();
@@ -49,7 +49,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void eurekaSample() throws Exception {
 		String output = this.cli.run("eureka.groovy");
 		assertTrue("Wrong output: " + output,
@@ -57,7 +57,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void eurekaServerSample() throws Exception {
 		String output = this.cli.run("eurekaserver.groovy", "--", "--debug");
 		assertTrue("Wrong output: " + output,
@@ -65,7 +65,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void rabbitSample() throws Exception {
 		String output = this.cli.run("rabbit.groovy");
 		assertTrue("Wrong output: " + output,
@@ -73,7 +73,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void configServerSample() throws Exception {
 		String output = this.cli.run("configserver.groovy", "--",
 				"--spring.config.name=configserver", "--logging.level.org.springframework=DEBUG");
@@ -82,7 +82,7 @@ public class SampleIntegrationTests {
 	}
 
 	@Test
-	@Ignore // FIXME: 3.0.0
+	@Ignore 
 	public void stubRunnerSample() throws Exception {
 		String output = this.cli.run("stubrunner.groovy");
 		assertTrue("Wrong output: " + output,
