@@ -19,7 +19,7 @@
 
 	<properties>
 		<spring-cloud-deployer.version>2.0.6.RELEASE</spring-cloud-deployer.version>
-		<spring-cloud-deployer-resource-support.version>2.0.3.RELEASE</spring-cloud-deployer-resource-support.version>
+		<spring-cloud-deployer-resource-support.version>2.4.0</spring-cloud-deployer-resource-support.version>
 		<spring-cloud-deployer-thin.version>1.0.22.RELEASE</spring-cloud-deployer-thin.version>
 		<maven.version>3.3.9</maven.version>
 	</properties>
