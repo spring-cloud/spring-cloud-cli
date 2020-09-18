@@ -65,7 +65,7 @@
 			<!-- Workaround for ClassDefNotFound owning to change in behaviour in Spring Boot. When the  thin deployer reaches 1.0.24 we can pull in the change from there instead. -->
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-loader</artifactId>
-			<version>2.1.9.RELEASE</version>
+			<version>2.3.4.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
