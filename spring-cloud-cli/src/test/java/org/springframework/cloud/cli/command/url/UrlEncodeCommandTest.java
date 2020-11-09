@@ -19,7 +19,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.boot.cli.command.Command;
 import org.springframework.boot.cli.command.status.ExitStatus;
-import org.springframework.boot.test.rule.OutputCapture;
 
 import static org.junit.Assert.*;
 
