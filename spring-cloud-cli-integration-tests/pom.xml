@@ -56,7 +56,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.version>1.8</java.version>
 		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
-		<maven.version>3.5.4</maven.version>
+		<maven.version>3.6.3</maven.version>
 	</properties>
 
 	<build>
