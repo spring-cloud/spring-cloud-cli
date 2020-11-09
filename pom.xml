@@ -29,7 +29,7 @@
 		<bintray.package>cli</bintray.package>
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>2.2.9.RELEASE</spring-boot.version>
+		<spring-boot-do-not-replace-with-releaser.version>2.2.9.RELEASE</spring-boot-do-not-replace-with-releaser.version>
 		<spring-cloud.version>Hoxton.BUILD-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>
@@ -111,7 +111,7 @@
 			<dependency>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-dependencies</artifactId>
-				<version>${spring-boot.version}</version>
+				<version>${spring-boot-do-not-replace-with-releaser.version}</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
