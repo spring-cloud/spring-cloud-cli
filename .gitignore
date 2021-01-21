@@ -16,3 +16,4 @@ target/
 .factorypath
 *.versionsBackup
 .flattened-pom.xml
+.sdkmanrc
