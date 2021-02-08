@@ -17,7 +17,7 @@
 	</parent>
 
 	<properties>
-		<maven.version>3.5.4</maven.version>
+		<maven.version>3.6.3</maven.version>
 	</properties>
 
 	<dependencyManagement>
@@ -55,7 +55,8 @@
 		<dependency>
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-utils</artifactId>
-			<version>3.1.0</version>
+			<!-- Compatible with Maven -->
+			<version>3.2.1</version>
 		</dependency>
 		<!-- FIXME: 3.0.0 missing classes running tests -->
 		<!--<dependency>

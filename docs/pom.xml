@@ -19,6 +19,15 @@
 	</properties>
 	<build>
 		<sourceDirectory>src/main/asciidoc</sourceDirectory>
+		<plugins>
+			<plugin>
+				<!--skip deploy (this is just a test module) -->
+				<artifactId>maven-deploy-plugin</artifactId>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	<profiles>
 		<profile>
