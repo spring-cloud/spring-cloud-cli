@@ -16,6 +16,9 @@
 
 package org.springframework.cloud.launcher.deployer;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,7 +34,10 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.boot.logging.logback.LogbackLoggingSystem;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StreamUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -41,8 +47,6 @@ public class DeployerApplication {
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(DeployerApplication.class);
-
-	private static final String DEFAULT_VERSION = "2.2.0.RELEASE";
 
 	private String[] args;
 
@@ -103,8 +107,19 @@ public class DeployerApplication {
 
 	String getVersion() {
 		Package pkg = DeployerApplication.class.getPackage();
-		return (pkg != null ? pkg.getImplementationVersion() == null ? DEFAULT_VERSION
-				: pkg.getImplementationVersion() : DEFAULT_VERSION);
+		return (pkg != null ? pkg.getImplementationVersion() == null ? getDefaultVersion()
+				: pkg.getImplementationVersion() : getDefaultVersion());
+	}
+
+	String getDefaultVersion() {
+		try (InputStream in = new ClassPathResource("META-INF/cli-version.txt").getInputStream()) {
+			return StreamUtils.copyToString(in, StandardCharsets.UTF_8);
+		}
+		catch (IOException e) {
+			ReflectionUtils.rethrowRuntimeException(e);
+		}
+		// not reachable since exception rethrown at runtime
+		return null;
 	}
 
 	private void launch() {

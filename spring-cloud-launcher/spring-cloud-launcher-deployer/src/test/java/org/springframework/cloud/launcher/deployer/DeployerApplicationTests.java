@@ -20,8 +20,7 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 
-import static org.hamcrest.CoreMatchers.containsString;
-import static org.junit.Assert.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Spencer Gibb
@@ -36,28 +35,35 @@ public class DeployerApplicationTests {
 	public void testDefaultLibrary() throws Exception {
 		DeployerApplication wrapper = new DeployerApplication();
 		if (System.getProperty("project.version") != null) {
-			assertThat(wrapper.getVersion(),
-					containsString(System.getProperty("project.version")));
+			assertThat(wrapper.getVersion())
+					.contains(System.getProperty("project.version"));
 		}
 	}
 
 	@Test
 	public void testCreateClassLoaderAndListDeployables() throws Exception {
 		new DeployerApplication("--launcher.list=true").run();
-		assertThat(output.toString(), containsString("configserver"));
+		assertThat(output.toString()).contains("configserver");
 	}
 
 	@Test
 	public void testNonOptionArgsPassedDown() throws Exception {
 		new DeployerApplication("--launcher.list=true", "--spring.profiles.active=test")
 				.run();
-		assertThat(output.toString(), containsString("foo"));
+		assertThat(output.toString()).contains("foo");
 	}
 
 	@Test
 	public void testInvalidDeployableFails() throws Exception {
 		new DeployerApplication("--launcher.deploy=foo,bar").run();
-		assertThat(output.toString(),
-				containsString("The following are not valid: 'foo,bar'"));
+		assertThat(output.toString())
+				.contains("The following are not valid: 'foo,bar'");
+	}
+
+	@Test
+	public void defaultVersionReadFromFile() {
+		String defaultVersion = new DeployerApplication("--launcher.deploy=foo,bar").getDefaultVersion();
+		// starts with one or more digits then a .
+		assertThat(defaultVersion).isNotBlank().containsPattern("^\\d+\\..*");
 	}
 }
