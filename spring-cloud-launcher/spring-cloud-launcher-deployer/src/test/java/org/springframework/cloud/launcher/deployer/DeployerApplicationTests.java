@@ -64,6 +64,6 @@ public class DeployerApplicationTests {
 	public void defaultVersionReadFromFile() {
 		String defaultVersion = new DeployerApplication("--launcher.deploy=foo,bar").getDefaultVersion();
 		// starts with one or more digits then a .
-		assertThat(defaultVersion).isNotBlank().containsPattern("^\\d+\\..*");
+		assertThat(defaultVersion).isNotBlank().doesNotContainAnyWhitespaces().containsPattern("^\\d+\\..*");
 	}
 }
