@@ -113,7 +113,11 @@ public class DeployerApplication {
 
 	String getDefaultVersion() {
 		try (InputStream in = new ClassPathResource("META-INF/cli-version.txt").getInputStream()) {
-			return StreamUtils.copyToString(in, StandardCharsets.UTF_8);
+			String version = StreamUtils.copyToString(in, StandardCharsets.UTF_8);
+			if (StringUtils.hasText(version)) {
+				version = version.trim();
+			}
+			return version;
 		}
 		catch (IOException e) {
 			ReflectionUtils.rethrowRuntimeException(e);

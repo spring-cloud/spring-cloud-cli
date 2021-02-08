@@ -16,10 +16,18 @@
 
 package org.springframework.cloud.cli.compiler;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+
 import org.codehaus.groovy.control.CompilePhase;
 import org.codehaus.groovy.transform.GroovyASTTransformation;
 import org.springframework.boot.cli.compiler.DependencyManagementBomTransformation;
 import org.springframework.boot.cli.compiler.GenericBomAstTransformation;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.util.ReflectionUtils;
+import org.springframework.util.StreamUtils;
+import org.springframework.util.StringUtils;
 
 /**
  * @author Dave Syer
@@ -28,16 +36,29 @@ import org.springframework.boot.cli.compiler.GenericBomAstTransformation;
 @GroovyASTTransformation(phase = CompilePhase.CONVERSION)
 public class SpringCloudBomAstTransformation extends GenericBomAstTransformation {
 
-	private static final String SPRING_CLOUD_VERSION = "2020.0.1-SNAPSHOT";
-
 	@Override
 	protected String getBomModule() {
-		return "org.springframework.cloud:spring-cloud-starter-parent:" + SPRING_CLOUD_VERSION;
+		return "org.springframework.cloud:spring-cloud-starter-parent:" + getBomVersion();
 	}
 
 	@Override
 	public int getOrder() {
 		return DependencyManagementBomTransformation.ORDER - 50;
+	}
+
+	String getBomVersion() {
+		try (InputStream in = new ClassPathResource("META-INF/springcloudbom-version.txt").getInputStream()) {
+			String version = StreamUtils.copyToString(in, StandardCharsets.UTF_8);
+			if (StringUtils.hasText(version)) {
+				version = version.trim();
+			}
+			return version;
+		}
+		catch (IOException e) {
+			ReflectionUtils.rethrowRuntimeException(e);
+		}
+		// not reachable since exception rethrown at runtime
+		return null;
 	}
 
 }
