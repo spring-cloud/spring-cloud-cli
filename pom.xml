@@ -29,8 +29,8 @@
 		<bintray.package>cli</bintray.package>
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>2.4.3</spring-boot.version>
-		<spring-cloud.version>2020.0.2-SNAPSHOT</spring-cloud.version>
+		<spring-boot.version>2.4.4</spring-boot.version>
+		<spring-cloud.version>2020.0.3-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
