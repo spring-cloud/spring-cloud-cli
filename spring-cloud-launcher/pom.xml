@@ -30,6 +30,7 @@
 		<module>spring-cloud-launcher-eureka</module>
 		<module>spring-cloud-launcher-h2</module>
 		<!--<module>spring-cloud-launcher-kafka</module>-->
+		<module>spring-cloud-launcher-schemaregistryserver</module>
 		<module>spring-cloud-launcher-stubrunner</module>
 	</modules>
 
