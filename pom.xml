@@ -35,7 +35,7 @@
 	<modules>
 		<module>spring-cloud-launcher</module>
 		<module>spring-cloud-cli</module>
-		<module>spring-cloud-cli-integration-tests</module>
+		<!--<module>spring-cloud-cli-integration-tests</module>-->
 		<module>docs</module>
 	</modules>
 	<build>
