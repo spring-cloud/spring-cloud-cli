@@ -16,7 +16,6 @@
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
 		<upload-docs-zip.phase>deploy</upload-docs-zip.phase>
-		<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
 	</properties>
 	<build>
 		<sourceDirectory>src/main/asciidoc</sourceDirectory>
@@ -26,6 +25,13 @@
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<configuration>
+					<skipRemoteStaging>true</skipRemoteStaging>
 				</configuration>
 			</plugin>
 		</plugins>

@@ -62,7 +62,6 @@
 		<java.version>1.8</java.version>
 		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
 		<maven.version>3.6.3</maven.version>
-		<skipNexusStagingDeployMojo>true</skipNexusStagingDeployMojo>
 	</properties>
 
 	<build>
@@ -71,6 +70,13 @@
 				<artifactId>maven-deploy-plugin</artifactId>
 				<configuration>
 					<skip>true</skip>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<configuration>
+					<skipRemoteStaging>true</skipRemoteStaging>
 				</configuration>
 			</plugin>
 			<plugin>
