@@ -5,11 +5,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.springframework.cloud</groupId>
 	<artifactId>spring-cloud-cli-parent</artifactId>
-	<version>3.0.4</version>
+	<version>3.0.4-SNAPSHOT</version>
 	<parent>
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-build</artifactId>
-		<version>3.0.5</version>
+		<version>3.0.4-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 	<packaging>pom</packaging>
@@ -29,8 +29,8 @@
 		<bintray.package>cli</bintray.package>
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>2.4.13</spring-boot.version>
-		<spring-cloud.version>2020.0.5</spring-cloud.version>
+		<spring-boot.version>2.4.7</spring-boot.version>
+		<spring-cloud.version>2020.0.4-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>
 		<module>spring-cloud-launcher</module>
