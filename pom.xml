@@ -29,7 +29,7 @@
 		<bintray.package>cli</bintray.package>
 		<docs.main>spring-cloud-cli</docs.main>
 		<main.basedir>${basedir}/..</main.basedir>
-		<spring-boot.version>2.6.3</spring-boot.version>
+		<spring-boot.version>2.6.6</spring-boot.version>
 		<spring-cloud.version>2021.0.2-SNAPSHOT</spring-cloud.version>
 	</properties>
 	<modules>
