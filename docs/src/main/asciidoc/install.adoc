@@ -1,23 +1,23 @@
 To install, make
 sure you have
-https://github.com/spring-projects/spring-boot[Spring Boot CLI]
+https://github.com/spring-projects/spring-boot#spring-boot-cli[Spring Boot CLI]
 (2.0.0 or better):
 
     $ spring version
-    Spring CLI v2.2.3.RELEASE
+    Spring CLI v2.7.0
 
 E.g. for SDKMan users
 
 ```
-$ sdk install springboot 2.2.3.RELEASE
-$ sdk use springboot 2.2.3.RELEASE
+$ sdk install springboot 2.7.0
+$ sdk use springboot 2.7.0
 ```
 
 and install the Spring Cloud plugin
 
 ```
 $ mvn install
-$ spring install org.springframework.cloud:spring-cloud-cli:2.2.0.RELEASE
+$ spring install org.springframework.cloud:spring-cloud-cli:3.1.1
 ```
 
 IMPORTANT: **Prerequisites:** to use the encryption and decryption features
