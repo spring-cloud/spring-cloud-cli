@@ -50,7 +50,7 @@ in the JRE lib/security directory with the ones that you downloaded).
 
 == Building
 
-:jdkversion: 17
+:jdkversion: 1.8
 
 === Basic Compile and Test
 
