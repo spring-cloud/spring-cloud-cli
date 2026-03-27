@@ -56,7 +56,7 @@
 			<groupId>org.codehaus.plexus</groupId>
 			<artifactId>plexus-utils</artifactId>
 			<!-- Compatible with Maven -->
-			<version>3.2.1</version>
+			<version>4.0.3</version>
 		</dependency>
 		<!-- FIXME: 3.0.0 missing classes running tests -->
 		<!--<dependency>
