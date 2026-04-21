@@ -4,6 +4,10 @@ Manual changes to this file will be lost when it is generated again.
 Edit the files in the src/main/asciidoc/ directory instead.
 ////
 
+== Spring Cloud CLI project is no longer maintained 
+
+=== See https://spring.io/blog/2022/01/27/spring-cloud-2022-0-0-m1-codename-kilburn-has-been-released#notable-changes-in-the-202200-release-train[blog post] or https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2022.0-Release-Notes[release notes] for more information
+
 
 image:https://circleci.com/gh/spring-cloud/spring-cloud-cli.svg?style=svg["CircleCI", link="https://circleci.com/gh/spring-cloud/spring-cloud-cli"]
 
